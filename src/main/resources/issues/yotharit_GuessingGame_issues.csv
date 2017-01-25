@@ -1,0 +1,8 @@
+repo_name, username, Id, Title, Creator, Assignee, Label, Milestone, State, Body Text
+GuessingGame, yotharit, 1, Improve Javadoc, jbrucker, -, -, -, OPEN, The first line of the class Javadoc should be a complete sentence ending in period.
+
+It should describe generally what the purpose of the class is.
+
+Please write your name in proper case  e.g.  Tharit Pongsaneh
+
+Reminder: initial hint should tell user what upper bound is.

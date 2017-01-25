@@ -1,0 +1,4 @@
+repo_name, username, Id, Title, Creator, Assignee, Label, Milestone, State, Body Text
+GuessingGame, nottpty, 1, GameConsole should not call count(), taweesoft, -, -, -, OPEN, The GameConsole should not call game.count() because this should be a responsibility of GuessingGame and should not provide a mutator method (according to Lab1-3-Guessing-Game.pdf page 7) for setting the counter because only GuessingGame can update counter variable
+
+https://github.com/nottpty/GuessingGame/blob/master/src/GameConsole.java#L26
