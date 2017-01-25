@@ -37,6 +37,7 @@ public class GithubAccount {
 	
 	private static GithubAccount github_account;
 	private static User user;
+	private static int issueCount = 0;
 	
 	public static GithubAccount get(String username) {
 		if (github_account == null) github_account = new GithubAccount();
@@ -70,6 +71,7 @@ public class GithubAccount {
 			GHRepository repository = user.githubUser.getRepository(repo_name);
 			if (repository == null) return REPO_NOT_FOUND;
 			if (repository.getIssues(issueState).isEmpty()) return EMPTY;
+			issueCount = repository.getIssues(issueState).size();
 			
 			// start loading...
 			File file = new File(path + String.format(fileNameFormat, username, repo_name));
@@ -117,7 +119,8 @@ public class GithubAccount {
 					writer.append(String.valueOf(issue.getState())).append(", ");
 					
 					// body
-					if (!issue.getBody().equals("")) writer.append(issue.getBody().replace(",", " "));
+					if (!issue.getBody().equals(""))
+						writer.append(issue.getBody().trim().replaceAll(",", " ").replaceAll("\\r|\\n", " "));
 					else writer.append("-");
 					writer.append("\n");
 				}
@@ -170,23 +173,25 @@ public class GithubAccount {
 	
 	public static String getStatus(int code) {
 		System.out.println(user.toString());
+		
 		// list all repo if repo not found
-		if (code == -2) {
-			try {
+		try {
+			if (code == -2) {
+				System.out.print("(");
 				for (GHRepository repository : user.githubUser.getRepositories().values()) {
 					System.out.print(repository.getName() + ", ");
 				}
-				System.out.println();
-			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println(")");
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 		switch (code) {
 			case 0:
-				return String.format("%s (%s) Download complete! \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
+				return String.format("%s (%s) Download complete! (%d)\nLimit Information: %s", github_account.username, repo_name, issueCount, getRateLimit());
 			case 1:
-				return String.format("%s (%s) Empty issue. \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
+				return String.format("%s (%s) Empty issue. (0)\nLimit Information: %s", github_account.username, repo_name, getRateLimit());
 			case -2:
 				return String.format("%s (%s) Repository not found. \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
 			case -3:
