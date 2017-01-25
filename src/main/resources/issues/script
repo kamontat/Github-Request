@@ -1,0 +1,3 @@
+#!/bin/bash
+NAME=$(echo $1 | sed 's/.csv/.xlsx/g')
+pyexcel merge $1 $NAME
