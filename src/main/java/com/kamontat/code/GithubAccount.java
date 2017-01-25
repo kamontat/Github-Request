@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class GithubAccount {
 	// you can get token in this link `https://github.com/settings/tokens`
-	private static final String TOKEN = "5547a434d5fc74d1dd7f88ec95424f45e333f690"; // if have token rate_limit will be `5000`, otherwise rate_limit will be `60`
+	private static final String TOKEN = ""; // if have token rate_limit will be `5000`, otherwise rate_limit will be `60`
 	
 	public static final int COMPLETE = 0;
 	public static final int EMPTY = 1;

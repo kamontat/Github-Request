@@ -17,7 +17,7 @@ public class Main {
 		for (String name : File.getGithubName()) {
 			int status = GithubAccount.get(name).saveIssues(GHIssueState.OPEN);
 			if (status < 0) System.err.println(GithubAccount.getStatus(status) + "\n");
-//			else System.out.println(GithubAccount.getStatus(status) + "\n");
+			//			else System.out.println(GithubAccount.getStatus(status) + "\n");
 		}
 	}
 }
