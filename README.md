@@ -1,4 +1,4 @@
-# Github-Request [![Build Status](https://travis-ci.org/kamontat/Github-Request.svg?branch=master)](https://travis-ci.org/kamontat/Github-Request)
+# Github-Request
 request issue in github
 
 ## ScreenShot
