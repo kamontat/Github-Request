@@ -6,9 +6,11 @@ import org.kohsuke.github.*;
 import server.GithubLoader;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 import static constant.RequestStatus.EMPTY;
+import static constant.RequestStatus.INTERNET_ERROR;
 import static constant.RequestStatus.LIMIT_EXCEED;
 import static server.GithubLoader.getGithub;
 import static server.GithubLoader.getRateLimit;
@@ -18,11 +20,11 @@ import static server.GithubLoader.getRateLimit;
  * @version 1.0
  * @since 1/26/2017 AD - 3:27 PM
  */
-public class Repositorys {
+public class Repositories {
 	private User owner;
 	private Map<String, GHRepository> repositories;
 	
-	public Repositorys(User user) {
+	public Repositories(User user) {
 		this.owner = user;
 		
 		Thread run = new Thread(new Runnable() {
@@ -43,7 +45,6 @@ public class Repositorys {
 			e.printStackTrace();
 		}
 	}
-	
 	
 	/**
 	 * get all issue in repository <code>name</code> and state <code>issueState</code>
@@ -112,9 +113,8 @@ public class Repositorys {
 		}
 	}
 	
-	public GHRepository getRepository(String name) throws RequestException {
-		GHRepository repo = repositories.get(name);
-		if (repo == null) throw new RequestException(RequestStatus.REPO_NOT_FOUND);
+	public Repository getRepository(String name) throws RequestException {
+		Repository repo = new Repository(repositories.get(name));
 		return repo;
 	}
 	
@@ -122,13 +122,10 @@ public class Repositorys {
 		GitHub github = getGithub();
 		if (isOutLimit()) throw new RequestException(LIMIT_EXCEED);
 		
-		GHRepository repository = getRepository(repoName);
-		try {
-			if (repository.getIssues(issueState).isEmpty()) throw new RequestException(EMPTY);
-			return repository.getIssues(issueState);
-		} catch (IOException e) {
-			throw new RequestException(e);
-		}
+		Repository repository = getRepository(repoName);
+		if (repository.getIssues(issueState).isEmpty()) throw new RequestException(EMPTY);
+		
+		return repository.getIssues(issueState);
 	}
 	
 	private boolean isOutLimit() throws RequestException {
@@ -138,11 +135,66 @@ public class Repositorys {
 	@Override
 	public String toString() {
 		String output = "";
-		Iterator<GHRepository> it = repositories.values().iterator();
-		while (it.hasNext()) {
-			GHRepository repository = it.next();
+		for (GHRepository repository : repositories.values()) {
 			output += String.format("");
 		}
 		return output;
+	}
+	
+	class Repository {
+		private GHRepository repository;
+		
+		public int id;
+		public String name;
+		public String description;
+		public User owner;
+		public URL url;
+		public String readme;
+		public Date createAt;
+		public Date updateAt;
+		
+		Repository(GHRepository repository) throws RequestException {
+			if (repository == null) throw new RequestException(RequestStatus.REPO_NOT_FOUND);
+			
+			this.repository = repository;
+			
+			id = repository.getId();
+			name = repository.getName();
+			description = repository.getDescription();
+			url = repository.getUrl();
+			
+			try {
+				owner = new User(repository.getOwner());
+				GHContent ghc = repository.getReadme();
+				System.out.println(ghc.getName());
+				System.out.println(ghc.getOwner());
+				
+				System.out.println(ghc.getUrl());
+				System.out.println(ghc.getGitUrl());
+				System.out.println(ghc.getDownloadUrl());
+				System.out.println(ghc.getHtmlUrl());
+				System.out.println(ghc.getPath());
+				System.out.println(ghc.getSize());
+				System.out.println(ghc.getType());
+				
+			} catch (IOException e) {
+				throw new RequestException(INTERNET_ERROR);
+			}
+			
+			try {
+				createAt = repository.getCreatedAt();
+				updateAt = repository.getUpdatedAt();
+			} catch (IOException e) {
+				throw new RequestException(e);
+			}
+		}
+		
+		private List<GHIssue> getIssues(GHIssueState issueState) throws RequestException {
+			try {
+				return repository.getIssues(issueState);
+			} catch (IOException e) {
+				throw new RequestException(e);
+			}
+		}
 	}
 }

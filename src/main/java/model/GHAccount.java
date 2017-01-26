@@ -1,11 +1,11 @@
-package server;
+package model;
 
 import constant.RequestStatus;
-import exception.ConvertException;
-import model.User;
+import exception.RequestException;
 import org.kohsuke.github.GitHub;
+import server.GithubLoader;
 
-import java.io.IOException;
+import static server.GithubLoader.getGithub;
 
 /**
  * @author kamontat
@@ -13,49 +13,20 @@ import java.io.IOException;
  * @since 1/26/2017 AD - 2:59 PM
  */
 public class GHAccount {
-	// you can get token in this link `https://github.com/settings/tokens`
-	private static final String TOKEN = "925cc49f2798daae39b0e594896fdea9388e528f"; // if have token rate_limit will be `5000`, otherwise rate_limit will be `60`
-	
 	private GitHub gh;
+	
 	public User user;
+	public Repositories repository;
 	
 	public RequestStatus requestCode;
 	
-	public GHAccount(String user) {
+	public GHAccount(String username) {
 		try {
 			gh = getGithub();
-			this.user = getUser(user);
-		} catch (ConvertException e) {
+			user = new User(GithubLoader.getUser(username));
+			repository = new Repositories(user);
+		} catch (RequestException e) {
 			requestCode = e.getRequestCode();
-		}
-	}
-	
-	public GHAccount(User user) {
-		try {
-			gh = getGithub();
-			this.user = user;
-		} catch (ConvertException e) {
-			requestCode = e.getRequestCode();
-		}
-	}
-	
-	private static GitHub getGithub() throws ConvertException {
-		try {
-			if (TOKEN == null || TOKEN.equals("")) {
-				return GitHub.connectAnonymously();
-			} else {
-				return GitHub.connectUsingOAuth(TOKEN);
-			}
-		} catch (IOException e) {
-			throw new ConvertException(RequestStatus.GITHUB_ERROR);
-		}
-	}
-	
-	public static User getUser(String username) throws ConvertException {
-		try {
-			return new User(getGithub().getUser(username));
-		} catch (IOException e) {
-			throw new ConvertException(RequestStatus.USER_NOT_FOUND);
 		}
 	}
 }

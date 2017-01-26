@@ -23,7 +23,9 @@ public class Error {
 	}
 	
 	public RequestStatus getRequestCode() {
-		if (e instanceof FileNotFoundException) {
+		if (e instanceof RequestException) {
+			return ((RequestException) e).getRequestCode();
+		} else if (e instanceof FileNotFoundException) {
 			return USER_NOT_FOUND;
 		} else if (e instanceof HttpException) {
 			return INTERNET_ERROR;

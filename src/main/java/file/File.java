@@ -1,7 +1,8 @@
 package file;
 
+import exception.RequestException;
 import model.User;
-import server.GHAccount;
+import server.GithubLoader;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -38,9 +39,9 @@ public class File {
 		ArrayList<User> users = new ArrayList<>();
 		try {
 			for (String name : getGithubName()) {
-				users.add(GHAccount.getUser(name));
+				users.add(new User(GithubLoader.getUser(name)));
 			}
-		} catch (IOException e) {
+		} catch (RequestException e) {
 			e.printStackTrace();
 		}
 		return users;

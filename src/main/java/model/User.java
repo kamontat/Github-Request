@@ -1,7 +1,8 @@
 package model;
 
+import constant.RequestStatus;
+import exception.RequestException;
 import org.kohsuke.github.GHUser;
-import server.GHAccount;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,8 +15,10 @@ import java.util.*;
  */
 public class User {
 	public GHUser githubUser;
+	
 	public int id;
 	public String loginName;
+	public String fullname;
 	public String name;
 	public String surname;
 	public String company;
@@ -25,31 +28,28 @@ public class User {
 	public Date createAt;
 	public Date updateAt;
 	
-	public User(String ghUser) throws IOException {
-		this(GHAccount.getUser(ghUser).githubUser);
-	}
-	
-	public User(GHUser ghUser) {
-		this.githubUser = ghUser;
+	public User(GHUser user) throws RequestException {
+		this.githubUser = user;
 		
 		try {
-			id = ghUser.getId();
-			loginName = ghUser.getLogin();
+			id = githubUser.getId();
+			loginName = githubUser.getLogin();
 			
-			if (ghUser.getName() != null) {
-				String[] n = ghUser.getName().split(" ");
+			fullname = githubUser.getName();
+			if (fullname != null) {
+				String[] n = fullname.split(" ");
 				name = n[0];
 				if (n.length == 2) surname = n[1];
-			} else name = ghUser.getName();
+			} else name = loginName;
 			
-			company = ghUser.getCompany();
-			email = ghUser.getEmail();
-			location = ghUser.getLocation();
-			url = ghUser.getHtmlUrl();
-			createAt = ghUser.getCreatedAt();
-			updateAt = ghUser.getUpdatedAt();
+			company = githubUser.getCompany();
+			email = githubUser.getEmail();
+			location = githubUser.getLocation();
+			url = githubUser.getHtmlUrl();
+			createAt = githubUser.getCreatedAt();
+			updateAt = githubUser.getUpdatedAt();
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RequestException(RequestStatus.USER_ERROR);
 		}
 	}
 	
@@ -64,6 +64,6 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "model.User{" + "id=" + id + ", loginName='" + loginName + '\'' + ", name='" + name + '\'' + ", company='" + company + '\'' + ", email='" + email + '\'' + ", location='" + location + '\'' + ", url=" + url + ", createAt=" + createAt + ", updateAt=" + updateAt + '}';
+		return String.format("id=%s loginName=%s, Name: %s, email: %s\ncompany=%s \'%s\'\nlink: %s\ncreate=\'%s\' update=\'%s\'", id, loginName, fullname, email, company, location, url, createAt, updateAt);
 	}
 }

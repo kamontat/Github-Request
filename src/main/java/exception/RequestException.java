@@ -7,14 +7,14 @@ import constant.RequestStatus;
  * @version 1.0
  * @since 1/26/2017 AD - 3:49 PM
  */
-public class ConvertException extends Exception {
+public class RequestException extends Exception {
 	private RequestStatus status;
 	
-	public ConvertException(Exception e) {
+	public RequestException(Exception e) {
 		this(Error.get(e).getRequestCode());
 	}
 	
-	public ConvertException(RequestStatus status) {
+	public RequestException(RequestStatus status) {
 		super(status.description);
 		this.status = status;
 	}
@@ -25,5 +25,11 @@ public class ConvertException extends Exception {
 	
 	public String getRequestString() {
 		return status.description;
+	}
+	
+	@Override
+	public void printStackTrace() {
+		System.err.println(status);
+		super.printStackTrace();
 	}
 }

@@ -1,9 +1,7 @@
 package main;
 
-import constant.RequestStatus;
-import file.File;
-import org.kohsuke.github.GHIssueState;
-import server.GithubAccount;
+import exception.RequestException;
+import model.GHAccount;
 
 import java.io.IOException;
 
@@ -14,11 +12,18 @@ import java.io.IOException;
  */
 public class Main {
 	public static void main(String[] args) throws IOException {
-		GithubAccount.setRepositoryName("GuessingGame");
-		for (String name : File.getGithubName()) {
-			RequestStatus status = GithubAccount.get(name).saveIssues(GHIssueState.OPEN);
-			if (status.isError()) System.err.println(GithubAccount.getStatus(status) + "\n");
-			else System.out.println(GithubAccount.getStatus(status) + "\n");
+		//		GithubAccount.setRepositoryName("GuessingGame");
+		//		for (String name : File.getGithubName()) {
+		//			RequestStatus status = GithubAccount.get(name).saveIssues(GHIssueState.OPEN);
+		//			if (status.isError()) System.err.println(GithubAccount.getStatus(status) + "\n");
+		//			else System.out.println(GithubAccount.getStatus(status) + "\n");
+		//		}
+		
+		GHAccount kamontat = new GHAccount("kamontat");
+		try {
+			System.out.println(kamontat.repository.getRepository("CheckIDNumber"));
+		} catch (RequestException e) {
+			e.printStackTrace();
 		}
 	}
 }

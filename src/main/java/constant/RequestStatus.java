@@ -10,11 +10,14 @@ public enum RequestStatus {
 	EMPTY("Empty issue."),
 	
 	FILE_ERROR("Cannot create csv file!"),
-	REPO_NOT_FOUND("Repository not found."),
+	REPO_NOT_FOUND("Repositories not found."),
+	USER_ERROR("Cannot get information from User"),
 	
 	INTERNET_ERROR("4xx/5xx http-status-code"),
-	RATE_EXCEED("Rate limit exceed."),
-	USER_NOT_FOUND("Username not found."), ERROR("An Exception has occurred!");
+	LIMIT_EXCEED("Rate limit exceed."),
+	USER_NOT_FOUND("Username not found."),
+	GITHUB_ERROR("Cannot connect git"),
+	ERROR("An Exception has occurred!");
 	
 	public String description;
 	
@@ -27,10 +30,15 @@ public enum RequestStatus {
 	}
 	
 	public boolean haveUser() {
-		return !isError() && this != INTERNET_ERROR && this != RATE_EXCEED && this != USER_NOT_FOUND && this != ERROR;
+		return !isError() && this != USER_NOT_FOUND;
 	}
 	
 	public boolean haveRepo() {
-		return !isError() && haveUser() && this != REPO_NOT_FOUND;
+		return haveUser() && this != REPO_NOT_FOUND;
+	}
+	
+	@Override
+	public String toString() {
+		return description;
 	}
 }
