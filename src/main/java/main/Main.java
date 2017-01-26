@@ -1,9 +1,10 @@
 package main;
 
+import constant.RequestStatus;
 import exception.RequestException;
+import file.File;
 import model.GHAccount;
-
-import java.io.IOException;
+import org.kohsuke.github.GHIssueState;
 
 /**
  * @author kamontat
@@ -11,19 +12,18 @@ import java.io.IOException;
  * @since 1/25/2017 AD - 8:25 PM
  */
 public class Main {
-	public static void main(String[] args) throws IOException {
-		//		GithubAccount.setRepositoryName("GuessingGame");
-		//		for (String name : File.getGithubName()) {
-		//			RequestStatus status = GithubAccount.get(name).saveIssues(GHIssueState.OPEN);
-		//			if (status.isError()) System.err.println(GithubAccount.getStatus(status) + "\n");
-		//			else System.out.println(GithubAccount.getStatus(status) + "\n");
-		//		}
+	public static void main(String[] args) {
+		String repository_name = "GuessingGame";
 		
-		GHAccount kamontat = new GHAccount("kamontat");
-		try {
-			System.out.println(kamontat.repository.getRepository("CheckIDNumber"));
-		} catch (RequestException e) {
-			e.printStackTrace();
+		for (String name : File.getGithubName()) {
+			final GHAccount account = new GHAccount(name);
+			try {
+				System.out.println(account.repositories.getIssuesCSV(repository_name, GHIssueState.OPEN));
+				System.out.println(account.requestCode.getFullDescription(account.user.fullname, repository_name));
+			} catch (final RequestException e) {
+				e.printStackTrace();
+				if (e.getRequestCode() == RequestStatus.REPO_NOT_FOUND) System.out.println(account.repoList());
+			}
 		}
 	}
 }

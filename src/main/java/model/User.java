@@ -40,7 +40,7 @@ public class User {
 				String[] n = fullname.split(" ");
 				name = n[0];
 				if (n.length == 2) surname = n[1];
-			} else name = loginName;
+			} else fullname = loginName;
 			
 			company = githubUser.getCompany();
 			email = githubUser.getEmail();

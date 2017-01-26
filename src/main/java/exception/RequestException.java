@@ -9,13 +9,36 @@ import constant.RequestStatus;
  */
 public class RequestException extends Exception {
 	private RequestStatus status;
+	private String username;
+	private String repoName;
+	
+	public RequestException(Exception e, String user, String repository) {
+		this(Error.get(e).getRequestCode(), user, repository);
+	}
+	
+	public RequestException(RequestStatus status, String user, String repoName) {
+		super(status.toString());
+		this.status = status;
+		this.username = user;
+		this.repoName = repoName;
+	}
+	
+	public RequestException(Exception e, String user) {
+		this(Error.get(e).getRequestCode(), user);
+	}
+	
+	public RequestException(RequestStatus status, String user) {
+		super(status.toString());
+		this.status = status;
+		this.username = user;
+	}
 	
 	public RequestException(Exception e) {
 		this(Error.get(e).getRequestCode());
 	}
 	
 	public RequestException(RequestStatus status) {
-		super(status.description);
+		super(status.toString());
 		this.status = status;
 	}
 	
@@ -23,13 +46,12 @@ public class RequestException extends Exception {
 		return status;
 	}
 	
-	public String getRequestString() {
-		return status.description;
+	public String getDescription() {
+		return status.toString();
 	}
 	
-	@Override
 	public void printStackTrace() {
-		System.err.println(status);
-		super.printStackTrace();
+		System.err.println(status.getFullDescription(username, repoName));
+//		super.printStackTrace();
 	}
 }

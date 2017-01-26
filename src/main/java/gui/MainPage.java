@@ -6,6 +6,7 @@ import model.User;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * @author kamontat
@@ -24,7 +25,9 @@ public class MainPage extends JFrame {
 	}
 	
 	private void setComboBox(ArrayList<User> users) {
-		users.forEach(user -> comboBox.addItem(user));
+		for (User user : users) {
+			comboBox.addItem(user);
+		}
 	}
 	
 	public void run(Point point) {

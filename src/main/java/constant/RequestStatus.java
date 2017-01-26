@@ -1,5 +1,8 @@
 package constant;
 
+import model.Repositories;
+import model.User;
+
 /**
  * @author kamontat
  * @version 1.0
@@ -8,10 +11,11 @@ package constant;
 public enum RequestStatus {
 	COMPLETE("Download complete!"),
 	EMPTY("Empty issue."),
+	README_NOT_FOUND("Readme not found."),
 	
 	FILE_ERROR("Cannot create csv file!"),
 	REPO_NOT_FOUND("Repositories not found."),
-	USER_ERROR("Cannot get information from User"),
+	USER_ERROR("Cannot getRepository information from User"),
 	
 	INTERNET_ERROR("4xx/5xx http-status-code"),
 	LIMIT_EXCEED("Rate limit exceed."),
@@ -19,22 +23,24 @@ public enum RequestStatus {
 	GITHUB_ERROR("Cannot connect git"),
 	ERROR("An Exception has occurred!");
 	
-	public String description;
+	private String description;
 	
-	private RequestStatus(String description) {
+	RequestStatus(String description) {
 		this.description = description;
 	}
 	
-	public boolean isError() {
-		return this != COMPLETE && this != EMPTY;
+	public String getFullDescription(User user, Repositories.Repository repository) {
+		if (repository == null) return getFullDescription(user, "-");
+		return String.format("%s (%s) %s", user.fullname, repository.name, description);
 	}
 	
-	public boolean haveUser() {
-		return !isError() && this != USER_NOT_FOUND;
+	public String getFullDescription(User user, String repoName) {
+		if (user == null) return getFullDescription("-", repoName);
+		return getFullDescription(user.fullname, repoName);
 	}
 	
-	public boolean haveRepo() {
-		return haveUser() && this != REPO_NOT_FOUND;
+	public String getFullDescription(String username, String repoName) {
+		return String.format("%s (%s) %s", username, repoName, description);
 	}
 	
 	@Override

@@ -17,7 +17,7 @@ import java.util.*;
  * @since 1/26/2017 AD - 6:11 PM
  */
 public class GithubLoader {
-	// you can get token in this link `https://github.com/settings/tokens`
+	// you can getRepository token in this link `https://github.com/settings/tokens`
 	private static final String TOKEN = "925cc49f2798daae39b0e594896fdea9388e528f"; // if have token rate_limit will be `5000`, otherwise rate_limit will be `60`
 	
 	public static GitHub getGithub() throws RequestException {
@@ -33,7 +33,7 @@ public class GithubLoader {
 	}
 	
 	public static GHRateLimit getRateLimit() throws RequestException {
-		GHRateLimit rateLimit = null;
+		GHRateLimit rateLimit;
 		try {
 			rateLimit = getGithub().rateLimit();
 		} catch (IOException e) {
@@ -54,7 +54,7 @@ public class GithubLoader {
 		try {
 			return user.githubUser.getRepositories();
 		} catch (IOException e) {
-			throw new RequestException(e);
+			throw new RequestException(e, user.fullname);
 		}
 	}
 }
