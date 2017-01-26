@@ -1,5 +1,6 @@
 package server;
 
+import constant.RequestStatus;
 import model.User;
 import org.kohsuke.github.*;
 
@@ -7,6 +8,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import static constant.RequestStatus.*;
+import static server.GHAccount.getGithub;
+import static server.GHAccount.getUser;
 
 /**
  * some of code from <a href="http://stackoverflow.com/questions/21827958/downloading-github-issues-to-csv-file">link</a> <br>
@@ -17,17 +22,6 @@ import java.io.IOException;
  * @since 1/25/2017 AD - 8:09 PM
  */
 public class GithubAccount {
-	// you can get token in this link `https://github.com/settings/tokens`
-	private static final String TOKEN = "5547a434d5fc74d1dd7f88ec95424f45e333f690"; // if have token rate_limit will be `5000`, otherwise rate_limit will be `60`
-	
-	public static final int COMPLETE = 0;
-	public static final int EMPTY = 1;
-	public static final int RATE_EXCEED = -100;
-	public static final int ERROR = -99;
-	public static final int FILE_ERROR = -98;
-	public static final int INTERNET_LOST = -97;
-	public static final int REPO_NOT_FOUND = -2;
-	public static final int USER_NOT_FOUND = -3;
 	
 	private static String repo_name;
 	private String username;
@@ -59,7 +53,7 @@ public class GithubAccount {
 		GithubAccount.repo_name = repo_name;
 	}
 	
-	public int saveIssues(GHIssueState issueState) {
+	public RequestStatus saveIssues(GHIssueState issueState) {
 		try {
 			GitHub github = getGithub();
 			
@@ -144,18 +138,11 @@ public class GithubAccount {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return ERROR;
-	}
-	
-	private static GitHub getGithub() throws IOException {
-		if (TOKEN == null || TOKEN.equals("")) {
-			return GitHub.connectAnonymously();
-		} else {
-			return GitHub.connectUsingOAuth(TOKEN);
-		}
 	}
 	
 	private static GHRateLimit getRateLimit() {
@@ -172,16 +159,12 @@ public class GithubAccount {
 		return getRateLimit().remaining == 0;
 	}
 	
-	private static User getUser(String username) throws IOException {
-		return new User(getGithub().getUser(username));
-	}
-	
-	public static String getStatus(int code) {
-		if (code < 50) System.out.println(user.toString());
+	public static String getStatus(RequestStatus code) {
+		if (code.haveUser()) System.out.println(user.toString());
 		
 		// list all repo if repo not found
 		try {
-			if (code == -2) {
+			if (!code.haveRepo()) {
 				System.out.print("(");
 				for (GHRepository repository : user.githubUser.getRepositories().values()) {
 					System.out.print(repository.getName() + ", ");
@@ -192,25 +175,6 @@ public class GithubAccount {
 			e.printStackTrace();
 		}
 		
-		switch (code) {
-			case 0:
-				return String.format("%s (%s) Download complete! (%d)\nLimit Information: %s", github_account.username, repo_name, issueCount, getRateLimit());
-			case 1:
-				return String.format("%s (%s) Empty issue. (0)\nLimit Information: %s", github_account.username, repo_name, getRateLimit());
-			case -2:
-				return String.format("%s (%s) Repository not found. \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
-			case -3:
-				return String.format("%s (%s) Username not found. \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
-			case -100:
-				return String.format("%s (%s) Rate limit exceed \nInformation: %s", github_account.username, repo_name, getRateLimit());
-			case -99:
-				return String.format("%s (%s) An Exception has occurred! \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
-			case -98:
-				return String.format("%s (%s) can't create .csv file \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
-			case -97:
-				return String.format("%s (%s) Internet lost \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
-			default:
-				return "Something";
-		}
+		return String.format("%s (%s) %s (%d)\nLimit Information: %s", github_account.username, repo_name, code.description, issueCount, getRateLimit());
 	}
 }

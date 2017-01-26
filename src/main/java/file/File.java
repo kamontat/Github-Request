@@ -1,5 +1,8 @@
 package file;
 
+import model.User;
+import server.GHAccount;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -29,5 +32,17 @@ public class File {
 		}
 		
 		return allName;
+	}
+	
+	public static ArrayList<User> getGHUser() {
+		ArrayList<User> users = new ArrayList<>();
+		try {
+			for (String name : getGithubName()) {
+				users.add(GHAccount.getUser(name));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 }
