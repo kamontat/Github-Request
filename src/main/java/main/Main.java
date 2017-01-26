@@ -1,5 +1,6 @@
 package main;
 
+import constant.RequestStatus;
 import file.File;
 import org.kohsuke.github.GHIssueState;
 import server.GithubAccount;
@@ -15,8 +16,8 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		GithubAccount.setRepositoryName("GuessingGame");
 		for (String name : File.getGithubName()) {
-			int status = GithubAccount.get(name).saveIssues(GHIssueState.OPEN);
-			if (status < 0) System.err.println(GithubAccount.getStatus(status) + "\n");
+			RequestStatus status = GithubAccount.get(name).saveIssues(GHIssueState.OPEN);
+			if (status.isError()) System.err.println(GithubAccount.getStatus(status) + "\n");
 			else System.out.println(GithubAccount.getStatus(status) + "\n");
 		}
 	}

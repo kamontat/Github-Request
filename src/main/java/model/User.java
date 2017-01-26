@@ -1,6 +1,7 @@
 package model;
 
 import org.kohsuke.github.GHUser;
+import server.GHAccount;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,8 +25,13 @@ public class User {
 	public Date createAt;
 	public Date updateAt;
 	
+	public User(String ghUser) throws IOException {
+		this(GHAccount.getUser(ghUser).githubUser);
+	}
+	
 	public User(GHUser ghUser) {
 		this.githubUser = ghUser;
+		
 		try {
 			id = ghUser.getId();
 			loginName = ghUser.getLogin();
@@ -34,8 +40,7 @@ public class User {
 				String[] n = ghUser.getName().split(" ");
 				name = n[0];
 				if (n.length == 2) surname = n[1];
-			}
-			// else name = ghUser.getName();
+			} else name = ghUser.getName();
 			
 			company = ghUser.getCompany();
 			email = ghUser.getEmail();
@@ -43,10 +48,18 @@ public class User {
 			url = ghUser.getHtmlUrl();
 			createAt = ghUser.getCreatedAt();
 			updateAt = ghUser.getUpdatedAt();
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * should have both name&surname
+	 *
+	 * @return true if full name
+	 */
+	public boolean isFullName() {
+		return name != null && surname != null;
 	}
 	
 	@Override
