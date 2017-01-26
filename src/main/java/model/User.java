@@ -1,4 +1,4 @@
-package com.kamontat.code;
+package model;
 
 import org.kohsuke.github.GHUser;
 
@@ -42,6 +42,6 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "User{" + "id=" + id + ", loginName='" + loginName + '\'' + ", name='" + name + '\'' + ", company='" + company + '\'' + ", email='" + email + '\'' + ", location='" + location + '\'' + ", url=" + url + ", createAt=" + createAt + ", updateAt=" + updateAt + '}';
+		return "model.User{" + "id=" + id + ", loginName='" + loginName + '\'' + ", name='" + name + '\'' + ", company='" + company + '\'' + ", email='" + email + '\'' + ", location='" + location + '\'' + ", url=" + url + ", createAt=" + createAt + ", updateAt=" + updateAt + '}';
 	}
 }

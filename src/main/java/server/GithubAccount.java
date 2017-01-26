@@ -1,5 +1,6 @@
-package com.kamontat.code;
+package server;
 
+import model.User;
 import org.kohsuke.github.*;
 
 import java.io.File;
@@ -24,9 +25,9 @@ public class GithubAccount {
 	public static final int RATE_EXCEED = -100;
 	public static final int ERROR = -99;
 	public static final int FILE_ERROR = -98;
+	public static final int INTERNET_LOST = -97;
 	public static final int REPO_NOT_FOUND = -2;
 	public static final int USER_NOT_FOUND = -3;
-	public static final int INTERNET_LOST = -4;
 	
 	private static String repo_name;
 	private String username;
@@ -172,7 +173,7 @@ public class GithubAccount {
 	}
 	
 	public static String getStatus(int code) {
-		System.out.println(user.toString());
+		if (code < 50) System.out.println(user.toString());
 		
 		// list all repo if repo not found
 		try {
@@ -196,14 +197,14 @@ public class GithubAccount {
 				return String.format("%s (%s) Repository not found. \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
 			case -3:
 				return String.format("%s (%s) Username not found. \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
-			case -4:
-				return String.format("%s (%s) Internet lost \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
 			case -100:
 				return String.format("%s (%s) Rate limit exceed \nInformation: %s", github_account.username, repo_name, getRateLimit());
 			case -99:
 				return String.format("%s (%s) An Exception has occurred! \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
 			case -98:
 				return String.format("%s (%s) can't create .csv file \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
+			case -97:
+				return String.format("%s (%s) Internet lost \nLimit Information: %s", github_account.username, repo_name, getRateLimit());
 			default:
 				return "Something";
 		}

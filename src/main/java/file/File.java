@@ -1,4 +1,4 @@
-package com.kamontat.code;
+package file;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

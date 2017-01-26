@@ -1,8 +1,8 @@
-package com.kamontat.main;
+package main;
 
-import com.kamontat.code.File;
-import com.kamontat.code.GithubAccount;
+import file.File;
 import org.kohsuke.github.GHIssueState;
+import server.GithubAccount;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ public class Main {
 		for (String name : File.getGithubName()) {
 			int status = GithubAccount.get(name).saveIssues(GHIssueState.OPEN);
 			if (status < 0) System.err.println(GithubAccount.getStatus(status) + "\n");
-			//			else System.out.println(GithubAccount.getStatus(status) + "\n");
+			else System.out.println(GithubAccount.getStatus(status) + "\n");
 		}
 	}
 }
