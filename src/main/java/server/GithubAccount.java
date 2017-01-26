@@ -32,11 +32,12 @@ public class GithubAccount {
 	private static String repo_name;
 	private String username;
 	
-	private String fileNameFormat = "%s_%s_issues.csv";
+	private String fileNameFormat = "%s_%s.csv";
 	
 	private static final String path = "src/main/resources/issues/";
 	
 	private static GithubAccount github_account;
+	
 	private static User user;
 	private static int issueCount = 0;
 	
@@ -62,11 +63,10 @@ public class GithubAccount {
 		try {
 			GitHub github = getGithub();
 			
-			// check limit
-			if (github.rateLimit().remaining == 0) return RATE_EXCEED;
+			if (isOutLimit()) return RATE_EXCEED;
 			
 			// get user
-			user = getUser();
+			user = getUser(github_account.username);
 			
 			// get repository
 			GHRepository repository = user.githubUser.getRepository(repo_name);
@@ -75,7 +75,7 @@ public class GithubAccount {
 			issueCount = repository.getIssues(issueState).size();
 			
 			// start loading...
-			File file = new File(path + String.format(fileNameFormat, username, repo_name));
+			File file = new File(path + String.format(fileNameFormat, user.name, user.surname));
 			
 			if (file.exists() || file.createNewFile()) {
 				FileWriter writer = new FileWriter(file);
@@ -168,8 +168,12 @@ public class GithubAccount {
 		return rateLimit;
 	}
 	
-	private static User getUser() throws IOException {
-		return new User(getGithub().getUser(github_account.username));
+	private static boolean isOutLimit() {
+		return getRateLimit().remaining == 0;
+	}
+	
+	private static User getUser(String username) throws IOException {
+		return new User(getGithub().getUser(username));
 	}
 	
 	public static String getStatus(int code) {

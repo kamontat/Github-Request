@@ -16,6 +16,7 @@ public class User {
 	public int id;
 	public String loginName;
 	public String name;
+	public String surname;
 	public String company;
 	public String email;
 	public String location;
@@ -28,13 +29,21 @@ public class User {
 		try {
 			id = ghUser.getId();
 			loginName = ghUser.getLogin();
-			name = ghUser.getName();
+			
+			if (ghUser.getName() != null) {
+				String[] n = ghUser.getName().split(" ");
+				name = n[0];
+				if (n.length == 2) surname = n[1];
+			}
+			// else name = ghUser.getName();
+			
 			company = ghUser.getCompany();
 			email = ghUser.getEmail();
 			location = ghUser.getLocation();
 			url = ghUser.getHtmlUrl();
 			createAt = ghUser.getCreatedAt();
 			updateAt = ghUser.getUpdatedAt();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
