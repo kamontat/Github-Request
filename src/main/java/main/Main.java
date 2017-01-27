@@ -1,10 +1,6 @@
 package main;
 
-import constant.RequestStatus;
-import exception.RequestException;
-import file.File;
-import model.GHAccount;
-import org.kohsuke.github.GHIssueState;
+import model.Encryption;
 
 /**
  * @author kamontat
@@ -13,17 +9,26 @@ import org.kohsuke.github.GHIssueState;
  */
 public class Main {
 	public static void main(String[] args) {
-		String repository_name = "GuessingGame";
+		//		String repository_name = "GuessingGame";
+		//
+		//		for (String name : File.getGithubName()) {
+		//			final GHAccount account = new GHAccount(name);
+		//			System.out.println(account.user.url);
+		//			System.out.println(account.getIssueCSV(repository_name, GHIssueState.OPEN));
+		//		}
 		
-		for (String name : File.getGithubName()) {
-			final GHAccount account = new GHAccount(name);
-			try {
-				System.out.println(account.repositories.getIssuesCSV(repository_name, GHIssueState.OPEN));
-				System.out.println(account.requestCode.getFullDescription(account.user.fullname, repository_name));
-			} catch (final RequestException e) {
-				e.printStackTrace();
-				if (e.getRequestCode() == RequestStatus.REPO_NOT_FOUND) System.out.println(account.repoList());
-			}
-		}
+		//		Cache.loadCache().setFileName("hello-world").saveToFile(GithubToken.getGitToken("asdffdsa"));
+		//		GithubToken x = Cache.loadCache().setFileName("hello-world").loadFromFile(GithubToken.class);
+		//		System.out.println(x);
+		
+		String pass = "kamontat";
+		String text = "I fuck you";
+		Encryption encryption = Encryption.get(pass);
+		
+		String code = encryption.encode(pass, text);
+		System.out.println(text.equals(code));
+		
+		String text2 = encryption.decode(pass, code);
+		System.out.println(text.equals(text2));
 	}
 }
