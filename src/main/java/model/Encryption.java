@@ -15,11 +15,8 @@ public class Encryption implements Serializable {
 	
 	private StandardPBEStringEncryptor stringEncryptor;
 	
-	private static Encryption encryption;
-	
 	public static Encryption get(String pass) {
-		if (encryption == null) encryption = new Encryption(pass);
-		return encryption;
+		return new Encryption(pass);
 	}
 	
 	private Encryption(String password) {
@@ -40,9 +37,9 @@ public class Encryption implements Serializable {
 	private String getPassword(String pass) {
 		StandardStringDigester p = new StandardStringDigester();
 		p.setSaltGenerator(NoSaltGenerator.get());
-//		p.setAlgorithm("SHA-512");
+		//		p.setAlgorithm("SHA-512");
 		return pass;
-//		return p.digest(pass);
+		//		return p.digest(pass);
 	}
 	
 	private void configEncryption(String pass) {

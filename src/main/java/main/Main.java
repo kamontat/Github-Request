@@ -1,6 +1,8 @@
 package main;
 
-import model.Encryption;
+import file.File;
+import model.GHAccount;
+import org.kohsuke.github.GHIssueState;
 
 /**
  * @author kamontat
@@ -9,26 +11,28 @@ import model.Encryption;
  */
 public class Main {
 	public static void main(String[] args) {
-		//		String repository_name = "GuessingGame";
-		//
-		//		for (String name : File.getGithubName()) {
-		//			final GHAccount account = new GHAccount(name);
-		//			System.out.println(account.user.url);
-		//			System.out.println(account.getIssueCSV(repository_name, GHIssueState.OPEN));
-		//		}
+		String repository_name = "GuessingGame";
 		
-		//		Cache.loadCache().setFileName("hello-world").saveToFile(GithubToken.getGitToken("asdffdsa"));
-		//		GithubToken x = Cache.loadCache().setFileName("hello-world").loadFromFile(GithubToken.class);
-		//		System.out.println(x);
+		for (String name : File.getGithubName()) {
+			final GHAccount account = new GHAccount(name);
+			System.out.println(account.user.url);
+			System.out.println(account.getIssueCSV(repository_name, GHIssueState.OPEN));
+		}
 		
-		String pass = "kamontat";
-		String text = "I fuck you";
-		Encryption encryption = Encryption.get(pass);
+		// cache test
+//		Cache.loadCache().setFileName("hello-world").saveToFile(GithubToken.getGitToken("a", "asdffdsa"));
+//		GithubToken x = Cache.loadCache().setFileName("hello-world").loadFromFile(GithubToken.class);
+//		System.out.println(x);
 		
-		String code = encryption.encode(pass, text);
-		System.out.println(text.equals(code));
-		
-		String text2 = encryption.decode(pass, code);
-		System.out.println(text.equals(text2));
+		// encryption test
+//		String pass = "kamontat";
+//		String text = "I fuck you";
+//		Encryption encryption = Encryption.get(pass);
+//
+//		String code = encryption.encode(pass, text);
+//		System.out.println(text.equals(code));
+//
+//		String text2 = encryption.decode(pass, code);
+//		System.out.println(text.equals(text2));
 	}
 }
