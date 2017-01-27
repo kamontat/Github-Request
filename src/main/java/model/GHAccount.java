@@ -2,6 +2,7 @@ package model;
 
 import constant.RequestStatus;
 import exception.RequestException;
+import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import server.GithubLoader;
@@ -16,8 +17,7 @@ import static server.GithubLoader.getGithub;
 public class GHAccount {
 	public User user;
 	public Repositories repositories;
-	
-	public RequestStatus requestCode = RequestStatus.COMPLETE;
+	public boolean error = false;
 	
 	public GHAccount(String username) {
 		try {
@@ -25,21 +25,28 @@ public class GHAccount {
 			user = new User(GithubLoader.getUser(username));
 			repositories = new Repositories(user);
 		} catch (RequestException e) {
-			requestCode = e.getRequestCode();
+			error = true;
+			e.printStackTrace();
 		}
 	}
 	
-	public Repositories.Repository getRepository(String repoName) {
-		if (isError()) return null;
+	public StringBuilder getIssueCSV(String repoName, GHIssueState state) {
+		if (isError()) return new StringBuilder();
 		try {
-			return repositories.getRepository(repoName);
+			StringBuilder sb = repositories.getIssuesCSV(repoName, state);
+			System.out.println(RequestStatus.COMPLETE.getFullDescription(user, repoName));
+			return sb;
 		} catch (RequestException e) {
-			requestCode = e.getRequestCode();
+			error = true;
+			if (e.getRequestCode() == RequestStatus.REPO_NOT_FOUND) {
+				System.out.println(repoList());
+			}
+			e.printStackTrace();
 		}
-		return null;
+		return new StringBuilder();
 	}
 	
-	public synchronized String repoList() {
+	private String repoList() {
 		String output = "(";
 		for (GHRepository re : repositories.getAll()) {
 			output += re.getName() + ", ";
@@ -49,6 +56,6 @@ public class GHAccount {
 	}
 	
 	public boolean isError() {
-		return requestCode != RequestStatus.COMPLETE;
+		return error;
 	}
 }
