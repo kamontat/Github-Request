@@ -25,12 +25,16 @@ public class GithubToken implements Serializable {
 		this.token = token;
 	}
 	
+	public static GithubToken getEmptyToken() {
+		return new GithubToken(null);
+	}
+	
 	public void resetToken() {
 		token = null;
 	}
 	
-	String getToken() {
-		return token;
+	public String getToken() {
+		return token == null ? "": token;
 	}
 	
 	public boolean isTokenValid() {
@@ -42,21 +46,30 @@ public class GithubToken implements Serializable {
 		}
 	}
 	
-	private GithubToken encryptGT(String password) {
+	private GithubToken encryptGT(String password) throws Exception {
 		return new GithubToken(Encryption.encode(password, token));
 	}
 	
-	private GithubToken decryptGT(String password) {
+	private GithubToken decryptGT(String password) throws Exception {
 		this.token = Encryption.decode(password, token);
 		return this;
 	}
 	
-	public void saveCache(String password) {
-		Cache.loadCache(FILE_NAME).saveToFile(this.encryptGT(password));
+	public boolean saveCache(String password) {
+		try {
+			Cache.loadCache(FILE_NAME).saveToFile(this.encryptGT(password));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
 	public static GithubToken loadCache(String password) {
-		return Cache.loadCache(FILE_NAME).loadFromFile(GithubToken.class).decryptGT(password);
+		try {
+			return Cache.loadCache(FILE_NAME).loadFromFile(GithubToken.class).decryptGT(password);
+		} catch (Exception e) {
+			return GithubToken.getEmptyToken();
+		}
 	}
 	
 	public void removeCache() {

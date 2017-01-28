@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 
 /**
  * Created by bubblebitoey on 1/28/2017 AD.
@@ -15,7 +14,7 @@ import java.awt.event.MouseAdapter;
 public class LoginPage extends JFrame {
 	private JPanel pane;
 	private JButton loginBtn;
-	private JTextField textField1;
+	private JTextField textField;
 	private JLabel tLb;
 	
 	public LoginPage() {
@@ -27,7 +26,7 @@ public class LoginPage extends JFrame {
 		loginBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GithubToken token = new GithubToken(textField1.getText());
+				GithubToken token = new GithubToken(textField.getText());
 				int ans = -99;
 				
 				loginBtn.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));

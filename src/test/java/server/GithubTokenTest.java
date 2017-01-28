@@ -28,11 +28,21 @@ public class GithubTokenTest {
 	}
 	
 	@Test
-	public void checkTokenLoading() {
+	public void checkTokenLoadComplete() {
 		GithubToken.loadCache(password);
 		
 		assertEquals(token, gt.getToken());
 	}
+	
+	@Test
+	public void checkTokenLoadFail() {
+		String otherPass = "haha";
+		
+		GithubToken.loadCache(otherPass);
+		
+		assertEquals("", gt.getToken());
+	}
+	
 	
 	@AfterClass
 	public static void remove() {

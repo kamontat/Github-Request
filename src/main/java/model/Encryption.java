@@ -18,11 +18,11 @@ public class Encryption implements Serializable {
 	
 	private StandardPBEStringEncryptor stringEncryptor;
 	
-	public static String decode(String rawPass, String code) {
+	public static String decode(String rawPass, String code) throws Exception {
 		return new Encryption(getPassword(rawPass)).decode(code);
 	}
 	
-	public static String encode(String rawPass, String code) {
+	public static String encode(String rawPass, String code) throws Exception {
 		return new Encryption(getPassword(rawPass)).encode(code);
 	}
 	
