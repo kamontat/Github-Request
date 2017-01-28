@@ -1,7 +1,9 @@
 package model;
 
 import org.jasypt.digest.StandardStringDigester;
+import org.jasypt.encryption.pbe.PBEStringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.jasypt.salt.FixedSaltGenerator;
 
 import java.io.Serializable;
 
@@ -11,30 +13,36 @@ import java.io.Serializable;
  * @since 1/28/2017 AD - 2:34 AM
  */
 public class Encryption implements Serializable {
+	private static final String DEFAULT_PASSWORD = "Hello-World";
 	static final long serialVersionUID = 1L;
 	
 	private StandardPBEStringEncryptor stringEncryptor;
 	
-	public static Encryption get(String pass) {
-		return new Encryption(pass);
+	public static String decode(String rawPass, String code) {
+		return new Encryption(getPassword(rawPass)).decode(code);
+	}
+	
+	public static String encode(String rawPass, String code) {
+		return new Encryption(getPassword(rawPass)).encode(code);
+	}
+	
+	private static Encryption get(String rawPass) {
+		return new Encryption(getPassword(rawPass));
 	}
 	
 	private Encryption(String password) {
-		String pass = getPassword(password);
-		configEncryption(pass);
+		configEncryption(password);
 	}
 	
-	public String decode(String password, String code) {
-		stringEncryptor.setPassword(getPassword(password));
+	private String decode(String code) {
 		return stringEncryptor.decrypt(code);
 	}
 	
-	public String encode(String password, String text) {
-		stringEncryptor.setPassword(getPassword(password));
+	private String encode(String text) {
 		return stringEncryptor.encrypt(text);
 	}
 	
-	private String getPassword(String pass) {
+	private static String getPassword(String pass) {
 		StandardStringDigester p = new StandardStringDigester();
 		p.setSaltGenerator(NoSaltGenerator.get());
 		//		p.setAlgorithm("SHA-512");
@@ -44,7 +52,6 @@ public class Encryption implements Serializable {
 	
 	private void configEncryption(String pass) {
 		stringEncryptor = new StandardPBEStringEncryptor();
-		stringEncryptor.setSaltGenerator(NoSaltGenerator.get());
 		stringEncryptor.setStringOutputType("HEX");
 		stringEncryptor.setPassword(pass);
 	}
