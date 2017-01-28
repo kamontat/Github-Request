@@ -135,3 +135,6 @@ fabric.properties
 # csv xlsx file
 *.csv
 *.xlsx
+
+# ignore cache file
+caches/*

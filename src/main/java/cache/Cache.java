@@ -9,7 +9,7 @@ import java.io.*;
  */
 public class Cache {
 	// setting file
-	private String path = "";
+	private String path = "caches/";
 	private String name = "Caches";
 	
 	private File file = new File(path + name);
