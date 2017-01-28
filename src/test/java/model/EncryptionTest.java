@@ -1,13 +1,13 @@
-import model.Encryption;
+package model;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 /**
  * Created by bubblebitoey on 1/28/2017 AD.
  */
-class EncryptionTest {
+public class EncryptionTest {
 	private String pass;
 	private String text;
 	
@@ -67,4 +67,5 @@ class EncryptionTest {
 		assertEquals(text, text2);
 		assertEquals(text, text3);
 	}
+	
 }
