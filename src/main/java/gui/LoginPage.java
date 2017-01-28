@@ -39,7 +39,9 @@ public class LoginPage extends JFrame {
 					ans = JOptionPane.showConfirmDialog(loginBtn, "do you want to continues login?", "Token Invalid", JOptionPane.YES_NO_OPTION);
 					if (ans == JOptionPane.OK_OPTION) GithubLoader.setAnonymous();
 				} else {
+					String password = JOptionPane.showInputDialog(loginBtn, "For use next time without enter token again", "Set Password", JOptionPane.QUESTION_MESSAGE);
 					GithubLoader.setAuth(token);
+					token.saveCache(password);
 				}
 				
 				if (ans == JOptionPane.OK_OPTION || ans == -99) {

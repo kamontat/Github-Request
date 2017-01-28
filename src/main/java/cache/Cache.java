@@ -13,24 +13,22 @@ public class Cache {
 	private String name = "Caches";
 	
 	private File file = new File(path + name);
-	// singleton
-	private static Cache cache;
 	
-	public static Cache loadCache() {
-		if (cache == null) cache = new Cache();
-		return cache;
+	public static Cache loadCache(String name) {
+		return new Cache(name);
 	}
 	
-	public Cache setFilePath(String path) {
-		cache.path = path;
-		updateLocation();
-		return cache;
+	public static Cache loadCache(String path, String name) {
+		return new Cache(path, name);
 	}
 	
-	public Cache setFileName(String name) {
-		cache.name = name;
-		updateLocation();
-		return cache;
+	private Cache(String path, String name) {
+		this.path = path;
+		this.name = name;
+	}
+	
+	private Cache(String name) {
+		this.name = name;
 	}
 	
 	public <E> void saveToFile(E obj) {
@@ -51,6 +49,10 @@ public class Cache {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public boolean delete() {
+		return file.delete();
 	}
 	
 	private void updateLocation() {

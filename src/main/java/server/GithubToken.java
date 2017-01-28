@@ -43,8 +43,7 @@ public class GithubToken implements Serializable {
 	}
 	
 	private GithubToken encryptGT(String password) {
-		this.token = Encryption.encode(password, token);
-		return this;
+		return new GithubToken(Encryption.encode(password, token));
 	}
 	
 	private GithubToken decryptGT(String password) {
@@ -53,11 +52,15 @@ public class GithubToken implements Serializable {
 	}
 	
 	public void saveCache(String password) {
-		Cache.loadCache().setFileName(FILE_NAME).saveToFile(this.encryptGT(password));
+		Cache.loadCache(FILE_NAME).saveToFile(this.encryptGT(password));
 	}
 	
 	public static GithubToken loadCache(String password) {
-		return Cache.loadCache().setFileName(FILE_NAME).loadFromFile(GithubToken.class).decryptGT(password);
+		return Cache.loadCache(FILE_NAME).loadFromFile(GithubToken.class).decryptGT(password);
+	}
+	
+	public void removeCache() {
+		Cache.loadCache(FILE_NAME).delete();
 	}
 	
 	public static String getHelp() {
