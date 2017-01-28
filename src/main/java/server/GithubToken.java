@@ -15,9 +15,12 @@ public class GithubToken implements Serializable {
 	static final long serialVersionUID = 1L;
 	private String token;
 	
+	// if have token rate_limit will be `5000`, otherwise rate_limit will be `60`
+	// final String TOKEN = "925cc49f2798daae39b0e594896fdea9388e528f";
+	
 	private static GithubToken githubToken;
 	
-	static GithubToken getGT() {
+	public static GithubToken getGT() {
 		if (githubToken == null) githubToken = new GithubToken();
 		return githubToken;
 	}
@@ -34,12 +37,11 @@ public class GithubToken implements Serializable {
 		return token;
 	}
 	
-	boolean isTokenValid() {
+	public boolean isTokenValid() {
 		try {
 			GitHub.connectUsingOAuth(token);
 			return true;
 		} catch (IOException e) {
-			e.printStackTrace();
 			return false;
 		}
 	}

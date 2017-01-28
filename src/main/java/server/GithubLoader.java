@@ -13,9 +13,17 @@ import java.util.*;
  * @version 1.0
  * @since 1/26/2017 AD - 6:11 PM
  */
-public class GithubLoader extends GitHubBuilder {
-	//
-	//	private static final String TOKEN = "925cc49f2798daae39b0e594896fdea9388e528f"; // if have token rate_limit will be `5000`, otherwise rate_limit will be `60`
+public class GithubLoader {
+	public enum Type {
+		ANONYMOUS, AUTH;
+	}
+	
+	private static Type type;
+	
+	
+	public static void setGHType(Type type) {
+		GithubLoader.type = type;
+	}
 	
 	public static GitHub getGithub() throws RequestException {
 		try {
@@ -50,5 +58,11 @@ public class GithubLoader extends GitHubBuilder {
 		} catch (IOException e) {
 			throw new RequestException(e, user.fullname);
 		}
+	}
+	
+	public static int getMaximumRateLimit() {
+		if (type == Type.ANONYMOUS) return 60;
+		else if (type == Type.AUTH) return 5000;
+		else return 0;
 	}
 }
