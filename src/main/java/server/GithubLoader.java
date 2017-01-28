@@ -19,15 +19,21 @@ public class GithubLoader {
 	}
 	
 	private static Type type;
+	private static GithubToken token;
 	
 	
-	public static void setGHType(Type type) {
-		GithubLoader.type = type;
+	public static void setAuth(GithubToken token) {
+		GithubLoader.type = Type.AUTH;
+		GithubLoader.token = token;
+	}
+	
+	public static void setAnonymous() {
+		GithubLoader.type = Type.ANONYMOUS;
 	}
 	
 	public static GitHub getGithub() throws RequestException {
 		try {
-			if (GithubToken.getGT().isTokenValid()) return GitHub.connectUsingOAuth(GithubToken.getGT().getToken());
+			if (type == Type.AUTH) return GitHub.connectUsingOAuth(token.getToken());
 			else return GitHub.connectAnonymously();
 		} catch (IOException e) {
 			throw new RequestException(RequestStatus.GITHUB_ERROR);

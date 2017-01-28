@@ -27,19 +27,19 @@ public class LoginPage extends JFrame {
 		loginBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GithubToken.getGT().setToken(textField1.getText());
+				GithubToken token = new GithubToken(textField1.getText());
 				int ans = -99;
 				
 				loginBtn.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-				boolean isValid = GithubToken.getGT().isTokenValid();
+				boolean isValid = token.isTokenValid();
 				loginBtn.setCursor(Cursor.getDefaultCursor());
 				
 				
 				if (!isValid) {
 					ans = JOptionPane.showConfirmDialog(loginBtn, "do you want to continues login?", "Token Invalid", JOptionPane.YES_NO_OPTION);
-					if (ans == JOptionPane.OK_OPTION) GithubLoader.setGHType(GithubLoader.Type.ANONYMOUS);
+					if (ans == JOptionPane.OK_OPTION) GithubLoader.setAnonymous();
 				} else {
-					GithubLoader.setGHType(GithubLoader.Type.AUTH);
+					GithubLoader.setAuth(token);
 				}
 				
 				if (ans == JOptionPane.OK_OPTION || ans == -99) {
