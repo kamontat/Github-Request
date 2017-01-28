@@ -5,7 +5,7 @@ import model.User;
 
 /**
  * @author kamontat
- * @version 1.0
+ * @version 5
  * @since 1/26/2017 AD - 2:11 PM
  */
 public enum RequestStatus {

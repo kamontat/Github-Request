@@ -4,7 +4,7 @@ import constant.RequestStatus;
 
 /**
  * @author kamontat
- * @version 1.0
+ * @version 2.1
  * @since 1/26/2017 AD - 3:49 PM
  */
 public class RequestException extends Exception {
@@ -52,6 +52,6 @@ public class RequestException extends Exception {
 	
 	public void printStackTrace() {
 		System.err.println(status.getFullDescription(username, repoName));
-//		super.printStackTrace();
+		//		super.printStackTrace();
 	}
 }

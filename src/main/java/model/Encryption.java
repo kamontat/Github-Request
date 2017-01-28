@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * @author kamontat
- * @version 1.0
+ * @version 1.2
  * @since 1/28/2017 AD - 2:34 AM
  */
 public class Encryption implements Serializable {

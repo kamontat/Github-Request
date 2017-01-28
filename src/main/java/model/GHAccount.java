@@ -11,7 +11,7 @@ import static server.GithubLoader.getGithub;
 
 /**
  * @author kamontat
- * @version 1.0
+ * @version 5.1
  * @since 1/26/2017 AD - 2:59 PM
  */
 public class GHAccount {

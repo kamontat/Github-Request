@@ -10,7 +10,7 @@ import java.util.*;
 
 /**
  * @author kamontat
- * @version 1.0
+ * @version 2.1
  * @since 1/26/2017 AD - 6:11 PM
  */
 public class GithubLoader {

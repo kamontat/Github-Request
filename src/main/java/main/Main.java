@@ -6,7 +6,7 @@ import org.kohsuke.github.GHIssueState;
 
 /**
  * @author kamontat
- * @version 1.0
+ * @version 2.0
  * @since 1/25/2017 AD - 8:25 PM
  */
 public class Main {

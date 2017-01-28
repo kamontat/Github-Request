@@ -10,7 +10,7 @@ import java.util.*;
 
 /**
  * @author kamontat
- * @version 1.0
+ * @version 2.4
  * @since 1/25/2017 AD - 10:42 PM
  */
 public class User {

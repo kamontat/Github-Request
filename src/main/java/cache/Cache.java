@@ -4,7 +4,7 @@ import java.io.*;
 
 /**
  * @author kamontat
- * @version 1.0
+ * @version 2.0
  * @since 1/28/2017 AD - 1:04 AM
  */
 public class Cache {
@@ -25,10 +25,12 @@ public class Cache {
 	private Cache(String path, String name) {
 		this.path = path;
 		this.name = name;
+		updateLocation();
 	}
 	
 	private Cache(String name) {
 		this.name = name;
+		updateLocation();
 	}
 	
 	public <E> void saveToFile(E obj) {
@@ -49,6 +51,10 @@ public class Cache {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public boolean isExist() {
+		return file.exists();
 	}
 	
 	public boolean delete() {

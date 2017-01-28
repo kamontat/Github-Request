@@ -13,7 +13,7 @@ import static server.GithubLoader.getRateLimit;
 
 /**
  * @author kamontat
- * @version 1.0
+ * @version 3.2
  * @since 1/26/2017 AD - 3:27 PM
  */
 public class Repositories {
