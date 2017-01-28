@@ -19,9 +19,9 @@ public class CacheTest {
 	public void testString() {
 		String text = "Some String";
 		
-		Cache.loadCache().setFileName(FILE_NAME).saveToFile(text);
+		Cache.loadCache(FILE_NAME).saveToFile(text);
 		
-		String loadString = Cache.loadCache().setFileName(FILE_NAME).loadFromFile(text.getClass());
+		String loadString = Cache.loadCache(FILE_NAME).loadFromFile(text.getClass());
 		
 		assertEquals(text, loadString);
 	}
@@ -30,9 +30,9 @@ public class CacheTest {
 	public void testXString() {
 		String text = "S&P";
 		
-		Cache.loadCache().setFileName(FILE_NAME).saveToFile(text);
+		Cache.loadCache(FILE_NAME).saveToFile(text);
 		
-		String loadString = Cache.loadCache().setFileName(FILE_NAME).loadFromFile(text.getClass());
+		String loadString = Cache.loadCache(FILE_NAME).loadFromFile(text.getClass());
 		
 		assertEquals(text, loadString);
 	}
@@ -40,9 +40,9 @@ public class CacheTest {
 	@Test
 	public void testChar() {
 		Character c = 'y';
-		Cache.loadCache().setFileName(FILE_NAME).saveToFile(c);
+		Cache.loadCache(FILE_NAME).saveToFile(c);
 		
-		Character loadChar = Cache.loadCache().setFileName(FILE_NAME).loadFromFile(c.getClass());
+		Character loadChar = Cache.loadCache(FILE_NAME).loadFromFile(c.getClass());
 		
 		assertEquals(c, loadChar);
 	}
@@ -51,9 +51,9 @@ public class CacheTest {
 	public void testInteger() {
 		Integer integer = 120000;
 		
-		Cache.loadCache().setFileName(FILE_NAME).saveToFile(integer);
+		Cache.loadCache(FILE_NAME).saveToFile(integer);
 		
-		Integer loadInt = Cache.loadCache().setFileName(FILE_NAME).loadFromFile(integer.getClass());
+		Integer loadInt = Cache.loadCache(FILE_NAME).loadFromFile(integer.getClass());
 		
 		assertEquals(integer, loadInt);
 	}
@@ -62,16 +62,16 @@ public class CacheTest {
 	public void testArray() {
 		String[] arr = new String[]{"I", "Hate", "This", "App"};
 		
-		Cache.loadCache().setFileName(FILE_NAME).saveToFile(arr);
+		Cache.loadCache(FILE_NAME).saveToFile(arr);
 		
-		String[] loadArr = Cache.loadCache().setFileName(FILE_NAME).loadFromFile(arr.getClass());
+		String[] loadArr = Cache.loadCache(FILE_NAME).loadFromFile(arr.getClass());
 		
 		assertArrayEquals(arr, loadArr);
 	}
 	
 	@AfterClass
 	public static void removeTestFile() {
-		 File f = new File(FILE_NAME);
+		File f = new File(FILE_NAME);
 		assertTrue(f.delete());
 	}
 }
