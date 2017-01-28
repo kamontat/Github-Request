@@ -1,5 +1,9 @@
 package server;
 
+import exception.RequestException;
+import org.kohsuke.github.GitHub;
+
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -13,36 +17,34 @@ public class GithubToken implements Serializable {
 	
 	private static GithubToken githubToken;
 	
-	public static GithubToken getGitToken(String password, String token) {
-		if (githubToken == null) githubToken = new GithubToken(token);
+	static GithubToken getGT() {
+		if (githubToken == null) githubToken = new GithubToken();
 		return githubToken;
 	}
 	
-	private GithubToken(String token) {
-		this.token = token;
+	public void setToken(String token) {
+		if (this.token == null) this.token = token;
 	}
 	
-	public String getToken() {
-		
+	public void resetToken() {
+		token = null;
+	}
+	
+	String getToken() {
 		return token;
 	}
 	
-	/**
-	 * beware to use this method
-	 *
-	 * @param token
-	 * 		the token
-	 */
-	public void forceSetToken(String token) {
-		this.token = token;
+	boolean isTokenValid() {
+		try {
+			GitHub.connectUsingOAuth(token);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
-	public boolean have() {
-		return token != null;
-	}
-	
-	@Override
-	public String toString() {
-		return "GithubToken{" + "token='" + token + '\'' + '}';
+	public static String getHelp() {
+		return "you can create your account token in link: https://github.com/settings/tokens/new/";
 	}
 }
