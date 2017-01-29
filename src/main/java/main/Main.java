@@ -16,8 +16,7 @@ public class Main {
 		for (String name : File.getGithubName()) {
 			final GHAccount account = new GHAccount(name);
 			System.out.println(account.user.url);
-			System.out.println(account.getIssueCSV(repository_name, GHIssueState.OPEN));
+			System.out.println(account.getIssueCSV(repository_name, GHIssueState.ALL));
 		}
 	}
 }
-
