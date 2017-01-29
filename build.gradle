@@ -1,10 +1,9 @@
 group 'kamontat.me'
 
 apply plugin: 'java'
-
-// run jar file (NOT implement yet)
-//apply plugin: 'application'
-//mainClassName = "com.kamontat.main.Main"
+// run main
+apply plugin: 'application'
+mainClassName = "com.kamontat.main.Main"
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -13,7 +12,19 @@ version = '2.0'
 description = 'Github Request By Java'
 
 task info {
-    println "$name - $description ($version)"
+    doLast {
+        println "name: $project.name ($version)"
+        println "description: $project.description"
+
+        println "project-location: \"$projectDir\""
+        println "reports-location: \"$reportsDir\""
+    }
+}
+
+task execute(type: JavaExec) {
+    main = getProperty("mainClass")
+//    args = getProperty("args")
+    classpath = sourceSets.main.runtimeClasspath
 }
 
 repositories {
@@ -22,10 +33,12 @@ repositories {
 }
 
 dependencies {
+    // unit test4
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M3'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.0-M3'
+    // unit test5
+    //    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M3'
+    //    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.0-M3'
 
     compile group: 'org.kohsuke', name: 'github-api', version: '1.84'
     compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
