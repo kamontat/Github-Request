@@ -18,16 +18,6 @@ public class Cache {
 		return new Cache(name);
 	}
 	
-	public static Cache loadCache(String path, String name) {
-		return new Cache(path, name);
-	}
-	
-	private Cache(String path, String name) {
-		this.path = path;
-		this.name = name;
-		updateLocation();
-	}
-	
 	private Cache(String name) {
 		this.name = name;
 		updateLocation();
@@ -63,5 +53,21 @@ public class Cache {
 	
 	private void updateLocation() {
 		file = new File(path + name);
+		pathSetup();
+	}
+	
+	private void pathSetup() {
+		File f = new File(path);
+		
+		// if don't have folder
+		if (!f.exists()) {
+			f.mkdir();
+		}
+		// if not folder
+		if (!f.isDirectory()) {
+			if (f.delete()) {
+				f.mkdir();
+			}
+		}
 	}
 }

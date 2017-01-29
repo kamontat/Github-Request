@@ -2,11 +2,8 @@ package cache;
 
 import org.junit.AfterClass;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterAll;
 
-import java.io.File;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -71,7 +68,6 @@ public class CacheTest {
 	
 	@AfterClass
 	public static void removeTestFile() {
-		File f = new File(FILE_NAME);
-		assertTrue(f.delete());
+		System.out.println(Cache.loadCache(FILE_NAME).delete() ? "remove file complete": "fail");
 	}
 }
