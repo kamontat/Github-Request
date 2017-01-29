@@ -4,9 +4,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by bubblebitoey on 1/28/2017 AD.
@@ -15,7 +13,7 @@ public class GithubTokenTest {
 	private static String password = "pass";
 	private static String token = "token";
 	
-	private static GithubToken gt;
+	private static GithubToken gt = new GithubToken(token);
 	
 	@BeforeClass
 	public static void initGT() {
@@ -31,23 +29,22 @@ public class GithubTokenTest {
 	
 	@Test
 	public void checkTokenLoadComplete() {
-		GithubToken.loadCache(password);
+		GithubToken newOne = GithubToken.loadCache(password);
 		
-		assertEquals(token, gt.getToken());
+		assertEquals(token, newOne.getToken());
 	}
 	
 	@Test
 	public void checkTokenLoadFail() {
 		String otherPass = "haha";
 		
-		GithubToken.loadCache(otherPass);
+		GithubToken newOne = GithubToken.loadCache(otherPass);
 		
-		assertEquals("", gt.getToken());
+		assertEquals("", newOne.getToken());
 	}
-	
 	
 	@AfterClass
 	public static void remove() {
-		gt.removeCache();
+		GithubToken.removeCache();
 	}
 }

@@ -1,9 +1,7 @@
 package model;
 
 import org.jasypt.digest.StandardStringDigester;
-import org.jasypt.encryption.pbe.PBEStringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
-import org.jasypt.salt.FixedSaltGenerator;
 
 import java.io.Serializable;
 
@@ -45,9 +43,9 @@ public class Encryption implements Serializable {
 	private static String getPassword(String pass) {
 		StandardStringDigester p = new StandardStringDigester();
 		p.setSaltGenerator(NoSaltGenerator.get());
-		//		p.setAlgorithm("SHA-512");
-		return pass;
-		//		return p.digest(pass);
+		p.setAlgorithm("SHA-512");
+		p.setStringOutputType("HEX");
+		return p.digest(pass);
 	}
 	
 	private void configEncryption(String pass) {

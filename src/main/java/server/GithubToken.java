@@ -1,12 +1,9 @@
 package server;
 
 import cache.Cache;
-import exception.RequestException;
 import model.Encryption;
 import org.kohsuke.github.GitHub;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -90,5 +87,10 @@ public class GithubToken implements Serializable {
 	
 	public static String getHelp() {
 		return "you can create your account token in link: https://github.com/settings/tokens/new/";
+	}
+	
+	@Override
+	public String toString() {
+		return "GithubToken{" + "token='" + token + '\'' + '}';
 	}
 }

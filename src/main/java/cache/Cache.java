@@ -37,7 +37,9 @@ public class Cache {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
 			return (E) ois.readObject();
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;

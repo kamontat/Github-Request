@@ -118,7 +118,7 @@ public class Repositories {
 	}
 	
 	public List<GHRepository> getAll() {
-		return new ArrayList<>(repositories.values());
+		return new ArrayList<GHRepository>(repositories.values());
 	}
 	
 	private List<GHIssue> getIssue(Repository repository, GHIssueState issueState) throws RequestException {

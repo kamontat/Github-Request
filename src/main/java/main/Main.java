@@ -9,10 +9,11 @@ public class Main {
 	public static void main(String[] args) {
 		String repository_name = "GuessingGame";
 		
-//		for (String name : FileUtil.getGithubName()) {
-//			final GHAccount account = new GHAccount(name);
-//			System.out.println(account.user.url);
-//			System.out.println(account.getIssueCSV(repository_name, GHIssueState.ALL));
-//		}
+		//		for (String name : FileUtil.getGithubName()) {
+		//			final GHAccount account = new GHAccount(name);
+		//			System.out.println(account.user.url);
+		//			System.out.println(account.getIssueCSV(repository_name, GHIssueState.ALL));
+		//		}
+		System.out.println("Hello World");
 	}
 }
