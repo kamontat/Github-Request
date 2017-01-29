@@ -11,7 +11,7 @@ request issue in github
   - [Help](#help)
   - [More](#more)
 - [Path](#path)
-  - [JavaDoc](#javdoc)
+  - [JavaDoc](#javadoc)
   - [Unit Test](#unit-test)
 
 # Command
