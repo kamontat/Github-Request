@@ -2,24 +2,25 @@ group 'kamontat.me'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.5
-targetCompatibility = 1.5
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 version = '2.0'
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
-}
+description = 'Github Request By Java'
 
 repositories {
+    maven { url "https://repo.jenkins-ci.org/releases/" }
     mavenCentral()
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M3'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.0-M3'
+
     compile group: 'org.kohsuke', name: 'github-api', version: '1.84'
     compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
-
     compile 'com.google.api-client:google-api-client:1.22.0'
     compile 'com.google.oauth-client:google-oauth-client-jetty:1.22.0'
     compile 'com.google.apis:google-api-services-drive:v3-rev56-1.22.0'
