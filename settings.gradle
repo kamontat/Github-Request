@@ -1,1 +1,5 @@
 rootProject.name = 'Github-Request'
+include 'showid'
+include 'src:show'
+findProject(':src:show')?.name = 'show'
+
