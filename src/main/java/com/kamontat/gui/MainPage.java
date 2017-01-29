@@ -1,6 +1,6 @@
-package gui;
+package com.kamontat.gui;
 
-import model.User;
+import com.kamontat.model.User;
 
 import javax.swing.*;
 import java.awt.*;

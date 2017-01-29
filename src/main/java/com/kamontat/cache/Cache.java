@@ -1,4 +1,4 @@
-package cache;
+package com.kamontat.cache;
 
 import java.io.*;
 

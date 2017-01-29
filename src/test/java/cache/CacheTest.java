@@ -1,5 +1,6 @@
 package cache;
 
+import com.kamontat.cache.Cache;
 import org.junit.AfterClass;
 import org.junit.Test;
 

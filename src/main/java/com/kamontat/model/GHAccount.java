@@ -1,13 +1,13 @@
-package model;
+package com.kamontat.model;
 
-import constant.RequestStatus;
-import exception.RequestException;
+import com.kamontat.constant.RequestStatus;
+import com.kamontat.exception.RequestException;
 import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
-import server.GithubLoader;
+import com.kamontat.server.GithubLoader;
 
-import static server.GithubLoader.getGithub;
+import static com.kamontat.server.GithubLoader.getGithub;
 
 /**
  * @author kamontat

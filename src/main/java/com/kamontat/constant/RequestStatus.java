@@ -1,7 +1,7 @@
-package constant;
+package com.kamontat.constant;
 
-import model.Repositories;
-import model.User;
+import com.kamontat.model.Repositories;
+import com.kamontat.model.User;
 
 /**
  * @author kamontat

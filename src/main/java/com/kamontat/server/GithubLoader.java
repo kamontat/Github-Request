@@ -1,8 +1,8 @@
-package server;
+package com.kamontat.server;
 
-import constant.RequestStatus;
-import exception.RequestException;
-import model.User;
+import com.kamontat.constant.RequestStatus;
+import com.kamontat.exception.RequestException;
+import com.kamontat.model.User;
 import org.kohsuke.github.*;
 
 import java.io.IOException;

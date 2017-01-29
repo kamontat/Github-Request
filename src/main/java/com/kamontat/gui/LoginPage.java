@@ -1,7 +1,7 @@
-package gui;
+package com.kamontat.gui;
 
-import server.GithubLoader;
-import server.GithubToken;
+import com.kamontat.server.GithubLoader;
+import com.kamontat.server.GithubToken;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package file;
+package com.kamontat.file;
 
 import java.io.File;
 

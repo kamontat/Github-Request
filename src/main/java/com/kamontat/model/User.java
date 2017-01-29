@@ -1,7 +1,7 @@
-package model;
+package com.kamontat.model;
 
-import constant.RequestStatus;
-import exception.RequestException;
+import com.kamontat.constant.RequestStatus;
+import com.kamontat.exception.RequestException;
 import org.kohsuke.github.GHUser;
 
 import java.io.IOException;
@@ -54,7 +54,7 @@ public class User {
 	}
 	
 	/**
-	 * should have both name&surname
+	 * should have both name and surname
 	 *
 	 * @return true if full name
 	 */

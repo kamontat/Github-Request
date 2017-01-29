@@ -1,11 +1,11 @@
-package exception;
+package com.kamontat.exception;
 
-import constant.RequestStatus;
+import com.kamontat.constant.RequestStatus;
 import org.kohsuke.github.HttpException;
 
 import java.io.FileNotFoundException;
 
-import static constant.RequestStatus.*;
+import static com.kamontat.constant.RequestStatus.*;
 
 /**
  * @author kamontat

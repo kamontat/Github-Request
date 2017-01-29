@@ -1,6 +1,6 @@
-package exception;
+package com.kamontat.exception;
 
-import constant.RequestStatus;
+import com.kamontat.constant.RequestStatus;
 
 /**
  * @author kamontat

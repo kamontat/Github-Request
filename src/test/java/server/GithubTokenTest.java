@@ -1,6 +1,6 @@
 package server;
 
-import org.junit.AfterClass;
+import com.kamontat.server.GithubToken;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -41,10 +41,5 @@ public class GithubTokenTest {
 		GithubToken newOne = GithubToken.loadCache(otherPass);
 		
 		assertEquals("", newOne.getToken());
-	}
-	
-	@AfterClass
-	public static void remove() {
-		GithubToken.removeCache();
 	}
 }

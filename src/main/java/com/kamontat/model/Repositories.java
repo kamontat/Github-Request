@@ -1,15 +1,15 @@
-package model;
+package com.kamontat.model;
 
-import exception.RequestException;
+import com.kamontat.exception.RequestException;
 import org.kohsuke.github.*;
-import server.GithubLoader;
+import com.kamontat.server.GithubLoader;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-import static constant.RequestStatus.*;
-import static server.GithubLoader.getRateLimit;
+import static com.kamontat.constant.RequestStatus.*;
+import static com.kamontat.server.GithubLoader.getRateLimit;
 
 /**
  * @author kamontat

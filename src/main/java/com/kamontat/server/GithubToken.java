@@ -1,7 +1,7 @@
-package server;
+package com.kamontat.server;
 
-import cache.Cache;
-import model.Encryption;
+import com.kamontat.cache.Cache;
+import com.kamontat.model.Encryption;
 import org.kohsuke.github.GitHub;
 
 import java.io.IOException;
