@@ -1,9 +1,24 @@
 # Github-Request
 request issue in github
 
+# Content
+- [Command](#command)
+  - [Build Setup](#build-setup)
+  - [Build](#build)
+  - [Run](#run)
+  - [Documentation](#documentation)
+  - [Test](#test)
+  - [Help](#help)
+  - [More](#more)
+- [Path](#path)
+  - [JavaDoc](#javdoc)
+  - [Unit Test](#unit-test)
+
 # Command
 - `./gradlew <command>` (in linux or macOS)
+    - you can add `-q` to remove unnecessary output
 - `gradlew <command>` (in window)
+    - you can add `-q` to remove unnecessary output  
 
 ## Build Setup
 - `init` - Initializes a new Gradle build. (NO NEED)
@@ -12,12 +27,24 @@ request issue in github
 ## Build
 - `assemble` - Assembles the outputs of this project.
 - `build` - Assembles and tests this project.
+- `distZip` - Bundles the project as a distribution.
 - `buildDependents` - Assembles and tests this project and all projects that depend on it.
 - `buildNeeded` - Assembles and tests this project and all projects it depends on.
 - `classes` - Assembles main classes.
 - `clean` - Deletes the build directory.
 - `jar` - Assembles a jar archive containing the main classes.
 - `testClasses` - Assembles test classes.
+
+## Run
+current you can't run gui unless you open the project by using `Intellij IDEA`
+- `run` - Run default main which locate at `src/main/java/com/kamontat/main/Main.java`
+- `execute -P mainClass=<Name>` - to run main class by `<Name>` 
+  - but you need to path main correctly 
+    - root directory is `src/main/java` so you can path by start with com.kamontat~
+    - you **DON'T** need to write any **extension** of the file 
+      - example `Main` **NOT** `Main.java`
+    - you have to use `.` instead of `/` 
+      - example `com.kamontat.main.Main`
 
 ## Documentation
 - `javadoc` - Generates Javadoc API documentation for the main source code.
@@ -49,7 +76,7 @@ if you run command, here is path that you will get the result
 /build/docs/javadoc/index/html 
 ```
 
-### Unit-test
+### Unit Test
 
 ```
 /build/reports/tests/test/index.html
