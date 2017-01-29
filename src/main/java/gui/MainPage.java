@@ -1,12 +1,10 @@
 package gui;
 
-import file.File;
 import model.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
-import java.util.function.Consumer;
 
 /**
  * @author kamontat
@@ -39,7 +37,7 @@ public class MainPage extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		MainPage main = new MainPage(File.getGHUser());
-		main.run(new Point(0, 0));
+//		MainPage main = new MainPage(FileUtil.getGHUser());
+//		main.run(new Point(0, 0));
 	}
 }
