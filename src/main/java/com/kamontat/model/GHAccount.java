@@ -2,16 +2,14 @@ package com.kamontat.model;
 
 import com.kamontat.constant.RequestStatus;
 import com.kamontat.exception.RequestException;
+import com.kamontat.server.GithubLoader;
 import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
-import com.kamontat.server.GithubLoader;
-
-import static com.kamontat.server.GithubLoader.getGithub;
 
 /**
  * @author kamontat
- * @version 5.1
+ * @version 5.2
  * @since 1/26/2017 AD - 2:59 PM
  */
 public class GHAccount {
@@ -19,10 +17,16 @@ public class GHAccount {
 	public Repositories repositories;
 	public boolean error = false;
 	
+	/**
+	 * before call this method you need to <b>set</b> <code>GithubLoader</code>
+	 *
+	 * @param username
+	 * 		name of user
+	 */
 	public GHAccount(String username) {
 		try {
-			GitHub gh = getGithub();
-			user = new User(GithubLoader.getUser(username));
+			GitHub gh = GithubLoader.getGithubLoader().getGithub();
+			user = GithubLoader.getGithubLoader().getUser(username);
 			repositories = new Repositories(user);
 		} catch (RequestException e) {
 			error = true;

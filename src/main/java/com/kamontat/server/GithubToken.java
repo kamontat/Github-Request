@@ -18,7 +18,16 @@ public class GithubToken implements Serializable {
 	private String token;
 	
 	// if have token rate_limit will be `5000`, otherwise rate_limit will be `60`
-	// final String TOKEN = "925cc49f2798daae39b0e594896fdea9388e528f";
+	
+	/**
+	 * this method must destroy before put to public
+	 *
+	 * @return null
+	 */
+	@Deprecated
+	public static GithubToken getDefaultToken() {
+		return new GithubToken("925cc49f2798daae39b0e594896fdea9388e528f");
+	}
 	
 	public GithubToken(String token) {
 		this.token = token;

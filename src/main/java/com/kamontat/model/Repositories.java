@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.*;
 
 import static com.kamontat.constant.RequestStatus.*;
-import static com.kamontat.server.GithubLoader.getRateLimit;
 
 /**
  * @author kamontat
@@ -27,7 +26,7 @@ public class Repositories {
 			@Override
 			public void run() {
 				try {
-					repositories = GithubLoader.getRepositories(owner);
+					repositories = GithubLoader.getGithubLoader().getRepositories(owner);
 				} catch (RequestException e) {
 					e.printStackTrace();
 				}
@@ -131,7 +130,7 @@ public class Repositories {
 	}
 	
 	private boolean isOutLimit() throws RequestException {
-		return getRateLimit().remaining == 0;
+		return GithubLoader.getGithubLoader().getRateLimit().remaining == 0;
 	}
 	
 	@Override

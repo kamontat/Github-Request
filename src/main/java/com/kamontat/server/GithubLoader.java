@@ -5,12 +5,13 @@ import com.kamontat.exception.RequestException;
 import com.kamontat.model.User;
 import org.kohsuke.github.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.*;
 
 /**
  * @author kamontat
- * @version 2.1
+ * @version 2.2
  * @since 1/26/2017 AD - 6:11 PM
  */
 public class GithubLoader {
@@ -18,20 +19,43 @@ public class GithubLoader {
 		ANONYMOUS, AUTH;
 	}
 	
-	private static Type type;
-	private static GithubToken token;
+	private Type type;
+	private GithubToken token;
 	
+	private static GithubLoader githubLoader;
 	
-	public static void setAuth(GithubToken token) {
-		GithubLoader.type = Type.AUTH;
-		GithubLoader.token = token;
+	public static GithubLoader setAuth(GithubToken token) {
+		if (githubLoader == null) githubLoader = new GithubLoader();
+		githubLoader.type = Type.AUTH;
+		githubLoader.token = token;
+		return githubLoader;
 	}
 	
-	public static void setAnonymous() {
-		GithubLoader.type = Type.ANONYMOUS;
+	public static GithubLoader setAnonymous() {
+		if (githubLoader == null) githubLoader = new GithubLoader();
+		githubLoader.type = Type.ANONYMOUS;
+		return githubLoader;
 	}
 	
-	public static GitHub getGithub() throws RequestException {
+	public static void wait(Component c) {
+		c.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+	}
+	
+	public static void done(Component c) {
+		c.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+	}
+	
+	/**
+	 * get github loader by type that you set but if don't call method <code>set</code> before, github loader will load as anonymous
+	 *
+	 * @return github loader
+	 */
+	public static GithubLoader getGithubLoader() {
+		if (githubLoader == null) setAnonymous();
+		return githubLoader;
+	}
+	
+	public GitHub getGithub() throws RequestException {
 		try {
 			if (type == Type.AUTH) return GitHub.connectUsingOAuth(token.getToken());
 			else return GitHub.connectAnonymously();
@@ -40,7 +64,18 @@ public class GithubLoader {
 		}
 	}
 	
-	public static GHRateLimit getRateLimit() throws RequestException {
+	public User getMyself() throws RequestException {
+		if (type == Type.AUTH) {
+			try {
+				return new User(getGithub().getMyself());
+			} catch (IOException e) {
+				throw new RequestException(e);
+			}
+		}
+		return null;
+	}
+	
+	public GHRateLimit getRateLimit() throws RequestException {
 		GHRateLimit rateLimit;
 		try {
 			rateLimit = getGithub().rateLimit();
@@ -50,15 +85,15 @@ public class GithubLoader {
 		return rateLimit;
 	}
 	
-	public static GHUser getUser(String name) throws RequestException {
+	public User getUser(String name) throws RequestException {
 		try {
-			return getGithub().getUser(name);
+			return new User(getGithub().getUser(name));
 		} catch (IOException e) {
 			throw new RequestException(RequestStatus.USER_NOT_FOUND);
 		}
 	}
 	
-	public static Map<String, GHRepository> getRepositories(User user) throws RequestException {
+	public Map<String, GHRepository> getRepositories(User user) throws RequestException {
 		try {
 			return user.githubUser.getRepositories();
 		} catch (IOException e) {
@@ -66,9 +101,13 @@ public class GithubLoader {
 		}
 	}
 	
-	public static int getMaximumRateLimit() {
+	public int getMaximumRateLimit() {
 		if (type == Type.ANONYMOUS) return 60;
 		else if (type == Type.AUTH) return 5000;
 		else return 0;
+	}
+	
+	public Type getType() {
+		return type;
 	}
 }
