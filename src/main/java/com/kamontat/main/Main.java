@@ -14,6 +14,6 @@ public class Main {
 		//			System.out.println(account.user.url);
 		//			System.out.println(account.getIssueCSV(repository_name, GHIssueState.ALL));
 		//		}
-		System.out.println("Hello World");
+		
 	}
 }

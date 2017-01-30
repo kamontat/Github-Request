@@ -1,5 +1,7 @@
 package com.kamontat.file;
 
+import com.kamontat.constant.FileExtension;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
@@ -18,7 +20,7 @@ public class LoadingFile {
 		fileChooser.setFileFilter(new FileFilter() {
 			@Override
 			public boolean accept(File f) {
-				return f.isDirectory() || FileUtil.getExtension(f) == FileUtil.FileExtension.TXT;
+				return f.isDirectory() || FileUtil.getExtension(f) == FileExtension.TXT;
 			}
 			
 			@Override

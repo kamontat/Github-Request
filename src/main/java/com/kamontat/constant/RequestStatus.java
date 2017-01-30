@@ -15,7 +15,8 @@ public enum RequestStatus {
 	
 	FILE_ERROR("Cannot create csv file!"),
 	REPO_NOT_FOUND("Repositories not found."),
-	USER_ERROR("Cannot getRepository information from User"),
+	USER_ERROR("Cannot get information from User"),
+	USER_EMAIL_NOT_FOUND("your token cannot access to email"),
 	
 	INTERNET_ERROR("4xx/5xx http-status-code"),
 	LIMIT_EXCEED("Rate limit exceed."),
@@ -40,6 +41,11 @@ public enum RequestStatus {
 	}
 	
 	public String getFullDescription(String username, String repoName) {
+		if (username == null) {
+			return String.format("%s", description);
+		} else if (repoName == null) {
+			return String.format("%s %s", username, description);
+		}
 		return String.format("%s (%s) %s", username, repoName, description);
 	}
 	
