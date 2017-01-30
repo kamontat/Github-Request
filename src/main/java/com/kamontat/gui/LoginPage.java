@@ -1,19 +1,19 @@
 package com.kamontat.gui;
 
 import com.kamontat.controller.Location;
+import com.kamontat.controller.PopupLog;
 import com.kamontat.controller.Size;
 import com.kamontat.server.GithubLoader;
 import com.kamontat.server.GithubToken;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * Created by bubblebitoey
  *
- * @version 1.4
+ * @version 2.0
  * @since 1/28/2017 AD
  */
 public class LoginPage extends JFrame {
@@ -37,9 +37,9 @@ public class LoginPage extends JFrame {
 				GithubToken token = new GithubToken(textField.getText());
 				int ans = -99;
 				
-				loginBtn.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				GithubLoader.wait(loginBtn);
 				boolean isValid = token.isTokenValid();
-				loginBtn.setCursor(Cursor.getDefaultCursor());
+				GithubLoader.done(loginBtn);
 				
 				
 				if (!isValid) {
@@ -61,12 +61,19 @@ public class LoginPage extends JFrame {
 	private String password(Pass pt) {
 		String title, output;
 		
-		if (pt == Pass.SET) {
-			title = "Set Password";
-			output = "For use next time without enter token again";
-		} else {
-			title = "Enter Password";
-			output = "Enter your password for access token";
+		switch (pt) {
+			case SET:
+				title = "Set Password";
+				output = "For use next time without enter token again";
+				break;
+			case GET:
+				title = "Enter Password";
+				output = "Enter your password for access token";
+				break;
+			default:
+				title = "Password";
+				output = "";
+				break;
 		}
 		
 		return JOptionPane.showInputDialog(loginBtn, output, title, JOptionPane.QUESTION_MESSAGE);
@@ -74,8 +81,9 @@ public class LoginPage extends JFrame {
 	
 	private void loginSuccess() {
 		// login success
-		JOptionPane.showMessageDialog(loginBtn, "login can use " + GithubLoader.getMaximumRateLimit(), "Token valid", JOptionPane.INFORMATION_MESSAGE);
+		new UserPage().run(this);
 		dispose();
+		GithubLoader.done(this);
 	}
 	
 	public void run() {
@@ -84,6 +92,7 @@ public class LoginPage extends JFrame {
 		setVisible(true);
 		
 		if (GithubToken.haveCache()) {
+			GithubLoader.wait(this);
 			GithubToken t = GithubToken.loadCache(password(Pass.GET));
 			// success
 			if (!t.isEmptyToken()) {
@@ -92,6 +101,9 @@ public class LoginPage extends JFrame {
 				// remove cache
 			} else {
 				GithubToken.removeCache();
+				
+				GithubLoader.done(this);
+				PopupLog.getLog(this).errorMessage("Wrong password", "The saved token will be lost!");
 			}
 		}
 	}

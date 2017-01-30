@@ -16,21 +16,21 @@ public class RequestException extends Exception {
 		this(Error.get(e).getRequestCode(), user, repository);
 	}
 	
-	public RequestException(RequestStatus status, String user, String repoName) {
+	public RequestException(RequestStatus status, String fullName, String repoName) {
 		super(status.toString());
 		this.status = status;
-		this.username = user;
+		this.username = fullName;
 		this.repoName = repoName;
 	}
 	
-	public RequestException(Exception e, String user) {
-		this(Error.get(e).getRequestCode(), user);
+	public RequestException(Exception e, String fullName) {
+		this(Error.get(e).getRequestCode(), fullName);
 	}
 	
-	public RequestException(RequestStatus status, String user) {
+	public RequestException(RequestStatus status, String fullName) {
 		super(status.toString());
 		this.status = status;
-		this.username = user;
+		this.username = fullName;
 	}
 	
 	public RequestException(Exception e) {
