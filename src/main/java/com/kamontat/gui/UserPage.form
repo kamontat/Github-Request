@@ -16,7 +16,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="c7582" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+          <component id="c7582" class="javax.swing.JTextField" binding="searchingField">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -24,7 +24,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="f7b2" class="javax.swing.JButton" binding="selectButton" default-binding="true">
+          <component id="f7b2" class="javax.swing.JButton" binding="selectBtn">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -32,7 +32,7 @@
               <text value="Select"/>
             </properties>
           </component>
-          <component id="cdf8a" class="javax.swing.JButton" binding="multiSelectButton" default-binding="true">
+          <component id="cdf8a" class="javax.swing.JButton" binding="multiSBtn">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -40,7 +40,7 @@
               <text value="Multi-Select"/>
             </properties>
           </component>
-          <component id="a287d" class="javax.swing.JButton" binding="myselfButton" default-binding="true">
+          <component id="a287d" class="javax.swing.JButton" binding="myselfBtn">
             <constraints>
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -65,9 +65,18 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="be8e9" class="javax.swing.JTable" binding="table1" default-binding="true">
+              <component id="be8e9" class="javax.swing.JTable" binding="table">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <cellSelectionEnabled value="false"/>
+                  <columnSelectionAllowed value="false"/>
+                  <inheritsPopupMenu value="false"/>
+                  <rowSelectionAllowed value="true"/>
+                </properties>
+                <clientProperties>
+                  <html.disable class="java.lang.Boolean" value="false"/>
+                  <terminateEditOnFocusLost class="java.lang.Boolean" value="false"/>
+                </clientProperties>
               </component>
             </children>
           </scrollpane>
@@ -81,7 +90,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="f0a63" class="javax.swing.JButton" binding="nextButton" default-binding="true">
+          <component id="f0a63" class="javax.swing.JButton" binding="nextBtn">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
