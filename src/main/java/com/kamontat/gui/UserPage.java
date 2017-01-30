@@ -1,6 +1,6 @@
 package com.kamontat.gui;
 
-import com.kamontat.gui.code.Location;
+import com.kamontat.controller.Location;
 
 import javax.swing.*;
 import java.awt.*;

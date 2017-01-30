@@ -1,7 +1,7 @@
 package com.kamontat.gui;
 
-import com.kamontat.gui.code.Location;
-import com.kamontat.gui.code.Size;
+import com.kamontat.controller.Location;
+import com.kamontat.controller.Size;
 import com.kamontat.server.GithubLoader;
 import com.kamontat.server.GithubToken;
 
@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
  */
 public class LoginPage extends JFrame {
 	enum Pass {
-		SET, GET;
+		SET, GET
 	}
 	
 	private JPanel pane;
@@ -59,8 +59,7 @@ public class LoginPage extends JFrame {
 	}
 	
 	private String password(Pass pt) {
-		String title = "";
-		String output = "";
+		String title, output;
 		
 		if (pt == Pass.SET) {
 			title = "Set Password";
