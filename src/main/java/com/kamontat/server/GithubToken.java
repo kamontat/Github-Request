@@ -86,7 +86,7 @@ public class GithubToken implements Serializable {
 	}
 	
 	public static String getHelp() {
-		return "you can create your account token in link: https://github.com/settings/tokens/new/";
+		return "create new one at https://github.com/settings/tokens/new/";
 	}
 	
 	@Override
