@@ -24,6 +24,15 @@ public class Size {
 	}
 	
 	/**
+	 * get default/normally page size, (871, 557)
+	 *
+	 * @return default size
+	 */
+	public static Dimension getDefaultPageSize() {
+		return new Dimension(871, 557);
+	}
+	
+	/**
 	 * test than pageSize is bigger than screen (computer monitor) or not
 	 *
 	 * @param pageSize

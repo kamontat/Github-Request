@@ -1,6 +1,7 @@
 package com.kamontat.gui;
 
 import com.kamontat.gui.code.Location;
+import com.kamontat.gui.code.Size;
 import com.kamontat.server.GithubLoader;
 import com.kamontat.server.GithubToken;
 
@@ -23,10 +24,12 @@ public class LoginPage extends JFrame {
 	private JPanel pane;
 	private JButton loginBtn;
 	private JTextField textField;
-	private JLabel tLb;
 	
 	public LoginPage() {
+		super("Login Page");
 		setContentPane(pane);
+		
+		textField.setToolTipText(GithubToken.getHelp());
 		
 		loginBtn.addActionListener(new ActionListener() {
 			@Override
@@ -77,7 +80,7 @@ public class LoginPage extends JFrame {
 	}
 	
 	public void run() {
-		setSize(871, 557);
+		setSize(Size.getDefaultPageSize());
 		setLocation(Location.getCenterLocation(this.getSize()));
 		setVisible(true);
 		
