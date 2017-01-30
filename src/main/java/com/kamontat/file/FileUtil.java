@@ -1,5 +1,7 @@
 package com.kamontat.file;
 
+import com.kamontat.constant.FileExtension;
+
 import java.io.File;
 
 /**
@@ -8,33 +10,6 @@ import java.io.File;
  * @since 1/25/2017 AD - 8:44 PM
  */
 public class FileUtil {
-	enum FileExtension {
-		TXT("txt"), PDF("pdf"), XLS("xls"), XLSX("xlsx"), OTHER("");
-		
-		String text;
-		
-		private FileExtension(String s) {
-			text = s;
-		}
-		
-		private static FileExtension getExtension(String t) {
-			for (FileExtension fe : FileExtension.values()) {
-				if (t.equals(fe.text)) return fe;
-			}
-			OTHER.setText(t);
-			return OTHER;
-		}
-		
-		private void setText(String t) {
-			text = t;
-		}
-		
-		@Override
-		public String toString() {
-			return text;
-		}
-	}
-	
 	static FileExtension getExtension(File f) {
 		return FileExtension.getExtension(getStringExtension(f));
 	}
