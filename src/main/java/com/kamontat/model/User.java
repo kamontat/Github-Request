@@ -56,7 +56,7 @@ public class User implements TableInformation<User> {
 			createAt = githubUser.getCreatedAt();
 			updateAt = githubUser.getUpdatedAt();
 		} catch (IOException e) {
-			throw new RequestException(RequestStatus.USER_ERROR);
+			throw new RequestException(RequestStatus.USER_GET_ERROR);
 		}
 	}
 	
@@ -70,7 +70,7 @@ public class User implements TableInformation<User> {
 			}
 			if (email == null) email = my.getEmails2().get(0).getEmail();
 		} catch (Exception e) {
-			new RequestException(RequestStatus.USER_EMAIL_NOT_FOUND, fullname).printStackTrace();
+			new RequestException(RequestStatus.USER_EMAIL_ERROR, fullname).printStackTrace();
 			email = null;
 		}
 	}

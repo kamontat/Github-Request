@@ -12,8 +12,8 @@ public class RequestException extends Exception {
 	private String username;
 	private String repoName;
 	
-	public RequestException(Exception e, String user, String repository) {
-		this(Error.get(e).getRequestCode(), user, repository);
+	public RequestException(String user, String repository) {
+		this(RequestStatus.ERROR, user, repository);
 	}
 	
 	public RequestException(RequestStatus status, String fullName, String repoName) {
@@ -23,8 +23,8 @@ public class RequestException extends Exception {
 		this.repoName = repoName;
 	}
 	
-	public RequestException(Exception e, String fullName) {
-		this(Error.get(e).getRequestCode(), fullName);
+	public RequestException(String fullName) {
+		this(RequestStatus.ERROR, fullName);
 	}
 	
 	public RequestException(RequestStatus status, String fullName) {
@@ -33,8 +33,8 @@ public class RequestException extends Exception {
 		this.username = fullName;
 	}
 	
-	public RequestException(Exception e) {
-		this(Error.get(e).getRequestCode());
+	public RequestException() {
+		this(RequestStatus.ERROR);
 	}
 	
 	public RequestException(RequestStatus status) {
@@ -48,6 +48,11 @@ public class RequestException extends Exception {
 	
 	public String getDescription() {
 		return status.toString();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof RequestException && ((RequestException) obj).status == status;
 	}
 	
 	public void printStackTrace() {

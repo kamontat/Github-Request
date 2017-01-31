@@ -69,7 +69,7 @@ public class GithubLoader {
 			try {
 				return new User(getGithub().getMyself());
 			} catch (IOException e) {
-				throw new RequestException(e);
+				throw new RequestException(RequestStatus.MYSELF_ERROR);
 			}
 		}
 		return null;
@@ -97,7 +97,7 @@ public class GithubLoader {
 		try {
 			return user.githubUser.getRepositories();
 		} catch (IOException e) {
-			throw new RequestException(e, user.fullname);
+			throw new RequestException(user.fullname);
 		}
 	}
 	

@@ -105,8 +105,8 @@ public class Repositories {
 				sb.append("\n");
 			}
 			return sb;
-		} catch (Exception e) {
-			throw new RequestException(e, owner.fullname, repoName);
+		} catch (IOException e) {
+			throw new RequestException(ISSUE_ERROR, owner.fullname, repoName);
 		}
 	}
 	
@@ -185,7 +185,7 @@ public class Repositories {
 				createAt = repository.getCreatedAt();
 				updateAt = repository.getUpdatedAt();
 			} catch (IOException e) {
-				throw new RequestException(e);
+				throw new RequestException(INTERNET_ERROR);
 			}
 		}
 		
@@ -193,7 +193,7 @@ public class Repositories {
 			try {
 				return repository.getIssues(issueState);
 			} catch (IOException e) {
-				throw new RequestException(e, owner.fullname, name);
+				throw new RequestException(ISSUE_ERROR, owner.fullname, name);
 			}
 		}
 		
