@@ -1,11 +1,18 @@
 package com.kamontat.gui;
 
 import com.kamontat.constant.FileExtension;
-import com.kamontat.controller.*;
+import com.kamontat.controller.loader.LoadProgress;
+import com.kamontat.controller.loader.Task;
+import com.kamontat.controller.management.Device;
+import com.kamontat.controller.management.Location;
+import com.kamontat.controller.management.Size;
+import com.kamontat.controller.popup.PopupController;
+import com.kamontat.controller.popup.PopupLog;
+import com.kamontat.controller.popup.TablePopupAction;
+import com.kamontat.controller.table.TableInformationModel;
 import com.kamontat.exception.RequestException;
 import com.kamontat.file.FileUtil;
 import com.kamontat.file.LoadingFile;
-import com.kamontat.model.TableInformation;
 import com.kamontat.model.User;
 import com.kamontat.server.GithubLoader;
 
@@ -23,6 +30,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
+import static javax.swing.SwingUtilities.invokeLater;
+
 /**
  * @author kamontat
  * @version 1.0
@@ -39,7 +48,7 @@ public class UserPage extends JFrame {
 	
 	private TableInformationModel<User> model = new TableInformationModel<User>(User.getStringTitleVectorStatic());
 	
-	public UserPage() {
+	private UserPage() {
 		super("User Page");
 		setContentPane(pane);
 		
@@ -51,7 +60,7 @@ public class UserPage extends JFrame {
 	}
 	
 	private void buttonEvent() {
-		final Component self = this;
+		final Window self = this;
 		selectBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -67,20 +76,37 @@ public class UserPage extends JFrame {
 				if (user == null) {
 					PopupLog.getLog(myselfBtn).errorMessage("Myself Not Found", "please check sign-in token or internet connecting clearly");
 				} else {
-					save(user);
+					model.addRow(user);
 				}
 				GithubLoader.done(myselfBtn);
 			}
 		});
 		multiSBtn.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				File file = LoadingFile.type(FileExtension.TXT).getFile(self);
+			public void actionPerformed(final ActionEvent e) {
+				final File file = LoadingFile.type(FileExtension.TXT).getFile(self);
 				if (file != null) {
-					ArrayList<String> arr = FileUtil.getContentByLine(file);
-					for (String name : arr) {
-						addUser(name);
-					}
+					final ArrayList<String> arr = FileUtil.getContentByLine(file);
+					
+					final LoadProgress loadPage = new LoadProgress(self, "Loading... username", arr.size());
+					loadPage.setTask(new Task() {
+						@Override
+						public void whenUpdate(Object oldValue, Object newValue) {
+							int maximum = loadPage.getMax();
+							int progress = (Integer) newValue;
+							String message = String.format("loading: %s (%d%%).\n", getLabel(), (progress * 100) / maximum);
+							loadPage.set(message, progress);
+						}
+						
+						@Override
+						public void progress() {
+							for (String name : arr) {
+								update(name, 1);
+								addUser(name);
+								if (loadPage.isCancel()) break;
+							}
+						}
+					});
 				}
 			}
 		});
@@ -106,29 +132,14 @@ public class UserPage extends JFrame {
 	
 	private void addUser(String name) {
 		GithubLoader.wait(this);
-		User user = isUserFound(name);
-		if (user == null) {
+		User user = null;
+		try {
+			user = GithubLoader.getGithubLoader().getUser(name);
+			model.addRow(user);
+		} catch (RequestException e) {
 			PopupLog.getLog(selectBtn).errorMessage("User Not Found", "please check user name clearly");
-		} else {
-			save(user);
 		}
 		GithubLoader.done(this);
-	}
-	
-	private User isUserFound(String username) {
-		try {
-			return GithubLoader.getGithubLoader().getUser(username);
-		} catch (RequestException e) {
-			return null;
-		}
-	}
-	
-	private void save(TableInformation<User> u) {
-		model.addRow(u);
-	}
-	
-	private void delete(int row) {
-		model.deleteRow(row);
 	}
 	
 	private void settingTable() {
@@ -174,6 +185,8 @@ public class UserPage extends JFrame {
 		TablePopupAction.getInstance().addAction(new PopupController.CopyAction(table));
 		// delete action
 		TablePopupAction.getInstance().addAction(new PopupController.DeleteAction(table));
+		// delete all action
+		TablePopupAction.getInstance().addAction(new PopupController.DeleteAllAction(table));
 	}
 	
 	private void autoFit() {
@@ -208,10 +221,20 @@ public class UserPage extends JFrame {
 		return null;
 	}
 	
-	public void run(Window oldPage) {
+	private void compile(Window oldPage) {
 		setSize(Size.getDefaultPageSize());
 		setLocation(Location.getCenterPage(oldPage, this));
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
+	
+	public static void run(final Window old) {
+		invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				new UserPage().compile(old);
+			}
+		});
+	}
+	
 }
