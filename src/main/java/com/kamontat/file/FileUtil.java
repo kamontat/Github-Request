@@ -31,6 +31,10 @@ public class FileUtil {
 		return output;
 	}
 	
+	public static int countLine(File f) {
+		return getContentByLine(f).size();
+	}
+	
 	private static String getStringExtension(File f) {
 		return f.getName().substring(f.getName().indexOf(".") + 1, f.getName().length()).toLowerCase();
 	}

@@ -16,6 +16,7 @@ public interface TableInformation<T> {
 	
 //	@Deprecated
 //	abstract Vector<T> getTitleVector();
+	public T getRawData();
 	
 	public Vector<Object> getStringInformationVector();
 	
