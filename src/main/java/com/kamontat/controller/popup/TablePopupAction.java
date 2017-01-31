@@ -1,4 +1,4 @@
-package com.kamontat.controller;
+package com.kamontat.controller.popup;
 
 import javax.swing.*;
 import java.awt.*;

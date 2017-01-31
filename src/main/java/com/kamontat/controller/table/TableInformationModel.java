@@ -1,5 +1,6 @@
-package com.kamontat.controller;
+package com.kamontat.controller.table;
 
+import com.kamontat.controller.popup.PopupLog;
 import com.kamontat.model.TableInformation;
 
 import javax.swing.table.DefaultTableModel;
@@ -33,13 +34,18 @@ public class TableInformationModel<T> extends DefaultTableModel {
 			super.addRow(info.getStringInformationVector());
 			rawData.add(info.getRawData());
 		} else {
-			PopupLog.getLog(null).warningMessage("Duplicate User", "This user already add to table");
+			PopupLog.getLog(null).warningMessage("Duplicate Data", info.getName() + " already add to table");
 		}
 	}
 	
 	public void deleteRow(int row) {
 		super.removeRow(row);
 		rawData.remove(row);
+	}
+	
+	public void deleteAll() {
+		setRowCount(0);
+		rawData.removeAll(rawData);
 	}
 	
 	@Override

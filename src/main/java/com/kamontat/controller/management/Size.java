@@ -1,4 +1,4 @@
-package com.kamontat.controller;
+package com.kamontat.controller.management;
 
 import java.awt.*;
 

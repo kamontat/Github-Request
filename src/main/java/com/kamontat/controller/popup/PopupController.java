@@ -1,4 +1,6 @@
-package com.kamontat.controller;
+package com.kamontat.controller.popup;
+
+import com.kamontat.controller.table.TableInformationModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,6 +54,18 @@ public abstract class PopupController extends AbstractAction {
 		public void actionPerformed(ActionEvent e) {
 			TableInformationModel model = (TableInformationModel) table.getModel();
 			model.deleteRow(getSelectR());
+		}
+	}
+	
+	public static class DeleteAllAction extends PopupController {
+		public DeleteAllAction(JTable table) {
+			super("Delete All", table);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			TableInformationModel model = (TableInformationModel) table.getModel();
+			model.deleteAll();
 		}
 	}
 	
