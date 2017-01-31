@@ -6,6 +6,8 @@ request issue in github
   - [Build Setup](#build-setup)
   - [Build](#build)
   - [Run](#run)
+    - [Run main](#run-main)
+    - [Run gui](#run-gui)
   - [Documentation](#documentation)
   - [Test](#test)
   - [Help](#help)
@@ -36,13 +38,15 @@ request issue in github
 - `testClasses` - Assembles test classes.
 
 ## Run
-current you can't run gui unless you open the project by using `Intellij IDEA`
+
+#### Run main
+This command NOT support **gui page** (go to [run gui](#run-gui) topic)
 - `run` - Run default main which locate at `src/main/java/com/kamontat/main/Main.java`
 - `execute` - run custom main class
   - you need to **path** main class correctly.
     - root directory is `src/main/java`.
     - you **DON'T** need to write any **extension** of the file 
-      - example `Main` **NOT** `Main.java`
+      - example `Main` instead of `Main.java`
     - you have to use `.` instead of `/` 
       - example `com.kamontat.main.Main`
   - **normal run** 
@@ -51,6 +55,12 @@ current you can't run gui unless you open the project by using `Intellij IDEA`
   - **run with argument** 
     - `execute -P mainClass=<Name> -P arguments=<arguments>` - run main class by `<Name>` and input arguments separate each of argument by **,**
       - example `execute -P mainClass=com.kamontat.main.Main -P arguments=i,you,we,they`
+      
+#### Run gui
+1. run [gradle command](#command) `build`
+2. in command-line go to path `Github-Request/build/classes/main/`
+3. run command `java` with your class path (**WITHOUT** extension)
+  - example `java com.kamontat.main.Main` instead of `java com.kamontat.main.Main.class`
 
 
 ## Documentation
