@@ -29,9 +29,24 @@ public class GithubTokenTest {
 	
 	@Test
 	public void checkTokenLoadComplete() {
-		GithubToken newOne = GithubToken.loadCache(password);
+		final GithubToken[] newOne = new GithubToken[1];
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				newOne[0] = GithubToken.loadCache(password);
+			}
+		});
+		t.start();
 		
-		assertEquals(token, newOne.getToken());
+		while (t.isAlive()) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		assertEquals(token, newOne[0].getToken());
 	}
 	
 	@Test
