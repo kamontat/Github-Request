@@ -30,32 +30,42 @@ public class LoginPage extends JFrame {
 		setContentPane(pane);
 		
 		textField.setToolTipText(GithubToken.getHelp());
+		textField.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				login();
+			}
+		});
 		
 		loginBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GithubToken token = new GithubToken(textField.getText());
-				int ans = -99;
-				
-				GithubLoader.wait(loginBtn);
-				boolean isValid = token.isTokenValid();
-				GithubLoader.done(loginBtn);
-				
-				
-				if (!isValid) {
-					ans = JOptionPane.showConfirmDialog(loginBtn, "do you want to continues login?", "Token Invalid", JOptionPane.YES_NO_OPTION);
-					if (ans == JOptionPane.OK_OPTION) GithubLoader.setAnonymous();
-				} else {
-					String password = password(Pass.SET);
-					GithubLoader.setAuth(token);
-					token.saveCache(password);
-				}
-				
-				if (ans == JOptionPane.OK_OPTION || ans == -99) {
-					loginSuccess();
-				}
+				login();
 			}
 		});
+	}
+	
+	private void login() {
+		GithubToken token = new GithubToken(textField.getText());
+		int ans = -99;
+		
+		GithubLoader.wait(loginBtn);
+		boolean isValid = token.isTokenValid();
+		GithubLoader.done(loginBtn);
+		
+		
+		if (!isValid) {
+			ans = JOptionPane.showConfirmDialog(loginBtn, "do you want to continues login?", "Token Invalid", JOptionPane.YES_NO_OPTION);
+			if (ans == JOptionPane.OK_OPTION) GithubLoader.setAnonymous();
+		} else {
+			String password = password(Pass.SET);
+			GithubLoader.setAuth(token);
+			token.saveCache(password);
+		}
+		
+		if (ans == JOptionPane.OK_OPTION || ans == -99) {
+			loginSuccess();
+		}
 	}
 	
 	private String password(Pass pt) {
@@ -93,7 +103,8 @@ public class LoginPage extends JFrame {
 		
 		if (GithubToken.haveCache()) {
 			GithubLoader.wait(this);
-			GithubToken t = GithubToken.loadCache(password(Pass.GET));
+			String password = password(Pass.GET);
+			GithubToken t = GithubToken.loadCache(password);
 			// success
 			if (!t.isEmptyToken()) {
 				GithubLoader.setAuth(t);

@@ -1,7 +1,11 @@
 package com.kamontat.gui;
 
+import com.kamontat.constant.FileExtension;
 import com.kamontat.controller.*;
 import com.kamontat.exception.RequestException;
+import com.kamontat.file.FileUtil;
+import com.kamontat.file.LoadingFile;
+import com.kamontat.model.TableInformation;
 import com.kamontat.model.User;
 import com.kamontat.server.GithubLoader;
 
@@ -15,7 +19,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.net.URL;
+import java.util.*;
 
 /**
  * @author kamontat
@@ -31,21 +37,25 @@ public class UserPage extends JFrame {
 	private JTable table;
 	private JPanel pane;
 	
+	private TableInformationModel<User> model = new TableInformationModel<User>(User.getStringTitleVectorStatic());
+	
 	public UserPage() {
 		super("User Page");
 		setContentPane(pane);
 		
 		settingTable();
+		settingPopup();
 		
 		textFieldEvent();
 		buttonEvent();
 	}
 	
 	private void buttonEvent() {
+		final Component self = this;
 		selectBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				getAndAddUser();
+				addUser(searchingField.getText());
 			}
 		});
 		
@@ -62,6 +72,19 @@ public class UserPage extends JFrame {
 				GithubLoader.done(myselfBtn);
 			}
 		});
+		multiSBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				File file = LoadingFile.type(FileExtension.TXT).getFile(self);
+				if (file != null) {
+					ArrayList<String> arr = FileUtil.getContentByLine(file);
+					for (String name : arr) {
+						addUser(name);
+					}
+				}
+			}
+		});
+		
 		nextBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -75,15 +98,15 @@ public class UserPage extends JFrame {
 		searchingField.addActionListener(new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				getAndAddUser();
+				addUser(searchingField.getText());
 				searchingField.setText("");
 			}
 		});
 	}
 	
-	private void getAndAddUser() {
+	private void addUser(String name) {
 		GithubLoader.wait(this);
-		User user = isUserFound(searchingField.getText());
+		User user = isUserFound(name);
 		if (user == null) {
 			PopupLog.getLog(selectBtn).errorMessage("User Not Found", "please check user name clearly");
 		} else {
@@ -100,31 +123,37 @@ public class UserPage extends JFrame {
 		}
 	}
 	
-	private void save(User u) {
-		UserTableModel model = (UserTableModel) table.getModel();
+	private void save(TableInformation<User> u) {
 		model.addRow(u);
+	}
+	
+	private void delete(int row) {
+		model.deleteRow(row);
 	}
 	
 	private void settingTable() {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setModel(new UserTableModel(User.getStringTitleVectorStatic()));
+		table.setModel(model);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				int row = table.getSelectedRow();
 				int column = table.getSelectedColumn();
-				if (e.getClickCount() == 2) {
-					// double click event
+				if (e.getClickCount() == 3) {
+					// triple click event
 					for (int i = 0; i < table.getColumnCount(); i++) {
 						try {
 							URL url = (URL) table.getValueAt(row, i);
 							Device.openWeb(url);
 						} catch (ClassCastException ignore) {
+							
 						}
 					}
 				} else if (e.getButton() == MouseEvent.BUTTON3) {
-					// right click event
+					if (e.isPopupTrigger()) {
+						TablePopupAction.getInstance().show(e);
+					}
 				}
 			}
 		});
@@ -138,6 +167,13 @@ public class UserPage extends JFrame {
 		
 		// auto fit the content
 		autoFit();
+	}
+	
+	private void settingPopup() {
+		// copy action
+		TablePopupAction.getInstance().addAction(new PopupController.CopyAction(table));
+		// delete action
+		TablePopupAction.getInstance().addAction(new PopupController.DeleteAction(table));
 	}
 	
 	private void autoFit() {
@@ -159,7 +195,7 @@ public class UserPage extends JFrame {
 				}
 			}
 			
-			tableColumn.setPreferredWidth(preferredWidth);
+			tableColumn.setPreferredWidth(preferredWidth + 50);
 		}
 	}
 	
