@@ -13,15 +13,19 @@ public enum RequestStatus {
 	EMPTY("Empty issue."),
 	README_NOT_FOUND("Readme not found."),
 	
-	FILE_ERROR("Cannot create csv file!"),
-	REPO_NOT_FOUND("Repositories not found."),
-	USER_ERROR("Cannot get information from User"),
-	USER_EMAIL_NOT_FOUND("your token cannot access to email"),
-	
-	INTERNET_ERROR("4xx/5xx http-status-code"),
-	LIMIT_EXCEED("Rate limit exceed."),
 	USER_NOT_FOUND("Username not found."),
+	REPO_NOT_FOUND("Repositories not found."),
+	
+	FILE_ERROR("Cannot create csv file!"),
+	USER_GET_ERROR("Cannot get information from User"),
+	USER_EMAIL_ERROR("Cannot access to email by your token"),
+	REPO_ERROR("Cannot get Repository"),
+	ISSUE_ERROR("Cannot get issue information"),
+	MYSELF_ERROR("Cannot get information from Myself"),
+	INTERNET_ERROR("4xx/5xx http-status-code"),
 	GITHUB_ERROR("Cannot connect git"),
+	
+	LIMIT_EXCEED("Rate limit exceed."),
 	ERROR("An Exception has occurred!");
 	
 	private String description;
