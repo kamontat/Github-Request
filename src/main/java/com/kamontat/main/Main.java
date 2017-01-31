@@ -1,5 +1,7 @@
 package com.kamontat.main;
 
+import com.kamontat.gui.LoginPage;
+
 /**
  * @author kamontat
  * @version 2.0
@@ -14,6 +16,7 @@ public class Main {
 		//			System.out.println(account.user.url);
 		//			System.out.println(account.getIssueCSV(repository_name, GHIssueState.ALL));
 		//		}
-		
+		LoginPage page = new LoginPage();
+		page.run();
 	}
 }
