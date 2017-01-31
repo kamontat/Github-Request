@@ -22,9 +22,15 @@ task info {
 }
 
 task execute(type: JavaExec) {
-    main = getProperty("mainClass")
-//    args = getProperty("args")
-    classpath = sourceSets.main.runtimeClasspath
+    if (project.hasProperty('arguments')) {
+        args(getProperty('arguments').split(','))
+    }
+
+    if (project.hasProperty('mainClass')) {
+        main = getProperty('mainClass')
+//      args = getProperty("args")
+        classpath = sourceSets.main.runtimeClasspath
+    }
 }
 
 repositories {

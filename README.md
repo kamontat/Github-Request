@@ -38,13 +38,20 @@ request issue in github
 ## Run
 current you can't run gui unless you open the project by using `Intellij IDEA`
 - `run` - Run default main which locate at `src/main/java/com/kamontat/main/Main.java`
-- `execute -P mainClass=<Name>` - to run main class by `<Name>` 
-  - but you need to path main correctly 
-    - root directory is `src/main/java` so you can path by start with com.kamontat~
+- `execute` - run custom main class
+  - you need to **path** main class correctly.
+    - root directory is `src/main/java`.
     - you **DON'T** need to write any **extension** of the file 
       - example `Main` **NOT** `Main.java`
     - you have to use `.` instead of `/` 
       - example `com.kamontat.main.Main`
+  - **normal run** 
+    - `execute -P mainClass=<Name>` - to run main class by `<Name>`
+      - example `execute -P mainClass=com.kamontat.main.Main`
+  - **run with argument** 
+    - `execute -P mainClass=<Name> -P arguments=<arguments>` - run main class by `<Name>` and input arguments separate each of argument by **,**
+      - example `execute -P mainClass=com.kamontat.main.Main -P arguments=i,you,we,they`
+
 
 ## Documentation
 - `javadoc` - Generates Javadoc API documentation for the main source code.
