@@ -13,37 +13,32 @@ import java.io.File;
  * @since 1/29/2017 AD - 2:36 PM
  */
 public class LoadingFile {
-	private static JFileChooser fileChooser = new JFileChooser();
+	private JFileChooser fileChooser = new JFileChooser();
 	
-	private static void setFileChooser() {
-		fileChooser.setAcceptAllFileFilterUsed(false);
-		fileChooser.setFileFilter(new FileFilter() {
+	public static LoadingFile type(final FileExtension extension) {
+		return new LoadingFile(new FileFilter() {
 			@Override
 			public boolean accept(File f) {
-				return f.isDirectory() || FileUtil.getExtension(f) == FileExtension.TXT;
+				return f.isDirectory() || FileUtil.getExtension(f) == extension;
 			}
 			
 			@Override
 			public String getDescription() {
-				return "Text File Only (.txt)";
+				return extension.description;
 			}
 		});
 	}
 	
-	public static File getFile(Component parent) {
-		setFileChooser();
-		
+	private LoadingFile(FileFilter fileFilter) {
+		fileChooser.setAcceptAllFileFilterUsed(false);
+		fileChooser.setFileFilter(fileFilter);
+	}
+	
+	public File getFile(Component parent) {
 		int result = fileChooser.showOpenDialog(parent);
 		if (result == JFileChooser.APPROVE_OPTION) {
 			return fileChooser.getSelectedFile();
 		}
 		return null;
-	}
-	
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setVisible(true);
-		File f = LoadingFile.getFile(frame);
-		System.out.println(f);
 	}
 }

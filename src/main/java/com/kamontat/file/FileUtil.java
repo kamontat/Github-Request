@@ -2,7 +2,8 @@ package com.kamontat.file;
 
 import com.kamontat.constant.FileExtension;
 
-import java.io.File;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author kamontat
@@ -10,8 +11,24 @@ import java.io.File;
  * @since 1/25/2017 AD - 8:44 PM
  */
 public class FileUtil {
-	static FileExtension getExtension(File f) {
+	public static FileExtension getExtension(File f) {
 		return FileExtension.getExtension(getStringExtension(f));
+	}
+	
+	public static ArrayList<String> getContentByLine(File f) {
+		ArrayList<String> output = new ArrayList<>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			String line = "";
+			while ((line = br.readLine()) != null) {
+				output.add(line);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return output;
 	}
 	
 	private static String getStringExtension(File f) {
