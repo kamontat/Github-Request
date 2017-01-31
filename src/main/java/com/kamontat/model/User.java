@@ -6,7 +6,11 @@ import org.kohsuke.github.GHEmail;
 import org.kohsuke.github.GHMyself;
 import org.kohsuke.github.GHUser;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -79,6 +83,19 @@ public class User implements TableInformation<User> {
 		return githubMy;
 	}
 	
+	public ImageIcon getImage() {
+		try {
+			URL url = new URL(image_url);
+			BufferedImage image = ImageIO.read(url);
+			return new ImageIcon(image);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	/**
 	 * should have both name and surname
 	 *
@@ -110,6 +127,11 @@ public class User implements TableInformation<User> {
 	@Override
 	public User getRawData() {
 		return this;
+	}
+	
+	@Override
+	public String getName() {
+		return fullname;
 	}
 	
 	@Override

@@ -1,14 +1,16 @@
 package com.kamontat.gui;
 
-import com.kamontat.controller.Location;
-import com.kamontat.controller.PopupLog;
-import com.kamontat.controller.Size;
+import com.kamontat.controller.management.Location;
+import com.kamontat.controller.popup.PopupLog;
+import com.kamontat.controller.management.Size;
 import com.kamontat.server.GithubLoader;
 import com.kamontat.server.GithubToken;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static javax.swing.SwingUtilities.invokeLater;
 
 /**
  * Created by bubblebitoey
@@ -25,7 +27,7 @@ public class LoginPage extends JFrame {
 	private JButton loginBtn;
 	private JTextField textField;
 	
-	public LoginPage() {
+	private LoginPage() {
 		super("Login Page");
 		setContentPane(pane);
 		
@@ -91,15 +93,16 @@ public class LoginPage extends JFrame {
 	
 	private void loginSuccess() {
 		// login success
-		new UserPage().run(this);
+		UserPage.run(this);
 		dispose();
 		GithubLoader.done(this);
 	}
 	
-	public void run() {
+	private void compile() {
 		setSize(Size.getDefaultPageSize());
 		setLocation(Location.getCenterLocation(this.getSize()));
 		setVisible(true);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		if (GithubToken.haveCache()) {
 			GithubLoader.wait(this);
@@ -119,7 +122,12 @@ public class LoginPage extends JFrame {
 		}
 	}
 	
-	public static void main(String[] args) {
-		new LoginPage().run();
+	public static void run() {
+		invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				new LoginPage().compile();
+			}
+		});
 	}
 }

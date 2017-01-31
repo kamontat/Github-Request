@@ -18,6 +18,8 @@ public interface TableInformation<T> {
 //	abstract Vector<T> getTitleVector();
 	public T getRawData();
 	
+	public String getName();
+	
 	public Vector<Object> getStringInformationVector();
 	
 	public Vector<String> getStringTitleVector();
