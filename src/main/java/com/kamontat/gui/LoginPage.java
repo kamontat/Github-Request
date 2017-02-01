@@ -57,7 +57,7 @@ public class LoginPage extends JFrame {
 		
 		
 		if (!isValid) {
-			ans = JOptionPane.showConfirmDialog(loginBtn, "do you want to continues login?", "Token Invalid", JOptionPane.YES_NO_OPTION);
+			ans = JOptionPane.showConfirmDialog(loginBtn, "do you want to sign in as anonymous?", "Token Invalid", JOptionPane.YES_NO_OPTION);
 			if (ans == JOptionPane.OK_OPTION) GithubLoader.setAnonymous();
 		} else {
 			String password = password(Pass.SET);
