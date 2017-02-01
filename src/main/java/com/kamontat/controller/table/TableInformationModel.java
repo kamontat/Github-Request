@@ -12,7 +12,7 @@ import java.util.*;
  * @since 1/31/2017 AD - 1:21 AM
  */
 public class TableInformationModel<T> extends DefaultTableModel {
-	public ArrayList<T> rawData = new ArrayList<>();
+	public ArrayList<T> rawData = new ArrayList<T>();
 	
 	public TableInformationModel(Vector columnNames) {
 		super(columnNames, 0);
@@ -24,7 +24,7 @@ public class TableInformationModel<T> extends DefaultTableModel {
 	}
 	
 	private static Vector<Vector<Object>> getVVString(Vector<Object> vs) {
-		Vector<Vector<Object>> v = new Vector<>(1);
+		Vector<Vector<Object>> v = new Vector<Vector<Object>>(1);
 		v.add(vs);
 		return v;
 	}

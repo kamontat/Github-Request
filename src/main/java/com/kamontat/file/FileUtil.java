@@ -16,7 +16,7 @@ public class FileUtil {
 	}
 	
 	public static ArrayList<String> getContentByLine(File f) {
-		ArrayList<String> output = new ArrayList<>();
+		ArrayList<String> output = new ArrayList<String>();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(f));
 			String line = "";

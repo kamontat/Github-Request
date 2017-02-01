@@ -136,7 +136,7 @@ public class User implements TableInformation<User> {
 	
 	@Override
 	public Vector<Object> getStringInformationVector() {
-		Vector<Object> vector = new Vector<>(4, 1);
+		Vector<Object> vector = new Vector<Object>(4, 1);
 		vector.add(id);
 		vector.add(loginName);
 		vector.add(fullname);
@@ -151,7 +151,7 @@ public class User implements TableInformation<User> {
 	}
 	
 	public static Vector<String> getStringTitleVectorStatic() {
-		Vector<String> vector = new Vector<>(4, 1);
+		Vector<String> vector = new Vector<String>(4, 1);
 		vector.add("ID");
 		vector.add("Login Name");
 		vector.add("Full Name");

@@ -1,13 +1,14 @@
 group 'kamontat.me'
 
 apply plugin: 'java'
+
 // run main
 apply plugin: 'application'
 mainClassName = "com.kamontat.main.Main"
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
-version = '2.0'
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+version = '2.2'
 
 description = 'Github Request By Java'
 
@@ -28,7 +29,6 @@ task execute(type: JavaExec) {
 
     if (project.hasProperty('mainClass')) {
         main = getProperty('mainClass')
-//      args = getProperty("args")
         classpath = sourceSets.main.runtimeClasspath
     }
 }
