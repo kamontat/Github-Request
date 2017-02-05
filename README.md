@@ -94,6 +94,7 @@ if you run command, here is path that you will get the result
 
 ### JavaDoc
 
+@Deprecated
 ``` 
 /build/docs/javadoc/index/html 
 ```
