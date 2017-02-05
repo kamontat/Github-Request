@@ -2,6 +2,7 @@
 request issue in github
 
 # Content
+- [Document](#document)
 - [Command](#command)
   - [Build Setup](#build-setup)
   - [Build](#build)
@@ -15,6 +16,10 @@ request issue in github
 - [Path](#path)
   - [JavaDoc](#javadoc)
   - [Unit Test](#unit-test)
+  
+  
+# Document
+you can see all java document at this link: https://kamontat.github.io/Github-Request/
 
 # Command
 - `./gradlew <command>` (in linux or macOS)
