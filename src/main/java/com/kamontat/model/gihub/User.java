@@ -1,16 +1,15 @@
-package com.kamontat.model;
+package com.kamontat.model.gihub;
 
 import com.kamontat.constant.RequestStatus;
 import com.kamontat.exception.RequestException;
+import com.kamontat.server.Downloader;
 import org.kohsuke.github.GHEmail;
 import org.kohsuke.github.GHMyself;
 import org.kohsuke.github.GHUser;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.image.BufferedImage;
+import java.awt.*;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -23,17 +22,18 @@ public class User implements TableInformation<User> {
 	public GHUser githubUser;
 	private GHMyself githubMy;
 	
-	public final int id;
+	private final int id;
 	public final String loginName;
 	public String fullname;
 	public String name; // can be null
 	public String surname; // can be null
-	public String email;
-	public final String company;
+	private String email;
+	private final String company;
 	public final String location;
 	public final URL api_url;
 	public final URL url;
-	public final String image_url;
+	public final URL image_url;
+	private final ImageIcon image;
 	public final Date createAt;
 	public final Date updateAt;
 	
@@ -56,7 +56,8 @@ public class User implements TableInformation<User> {
 			location = githubUser.getLocation();
 			url = githubUser.getHtmlUrl();
 			api_url = githubUser.getUrl();
-			image_url = githubUser.getAvatarUrl();
+			image_url = new URL(githubUser.getAvatarUrl());
+			image = Downloader.from(image_url).downloadImage();
 			createAt = githubUser.getCreatedAt();
 			updateAt = githubUser.getUpdatedAt();
 		} catch (IOException e) {
@@ -77,23 +78,6 @@ public class User implements TableInformation<User> {
 			new RequestException(RequestStatus.USER_EMAIL_ERROR, fullname).printStackTrace();
 			email = null;
 		}
-	}
-	
-	public GHMyself getGithubMyself() {
-		return githubMy;
-	}
-	
-	public ImageIcon getImage() {
-		try {
-			URL url = new URL(image_url);
-			BufferedImage image = ImageIO.read(url);
-			return new ImageIcon(image);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
 	/**
@@ -122,6 +106,30 @@ public class User implements TableInformation<User> {
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof User && ((User) obj).id == id && ((User) obj).loginName.equals(loginName);
+	}
+	
+	public GHMyself getGithubMyself() {
+		return githubMy;
+	}
+	
+	public String getID() {
+		return String.valueOf(id);
+	}
+	
+	public ImageIcon getImage() {
+		return image;
+	}
+	
+	public String getCompany() {
+		return company == null ? "": company;
+	}
+	
+	public String getEmail() {
+		return email == null ? "": email;
+	}
+	
+	public ImageIcon getImage(int w, int h) {
+		return new ImageIcon(image.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
 	}
 	
 	@Override

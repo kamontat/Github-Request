@@ -1,4 +1,4 @@
-package com.kamontat.model;
+package com.kamontat.model.gihub;
 
 import com.kamontat.constant.RequestStatus;
 import com.kamontat.exception.RequestException;

@@ -1,7 +1,7 @@
 package com.kamontat.constant;
 
-import com.kamontat.model.Repositories;
-import com.kamontat.model.User;
+import com.kamontat.model.gihub.Repositories;
+import com.kamontat.model.gihub.User;
 
 /**
  * @author kamontat

@@ -1,4 +1,4 @@
-package com.kamontat.file;
+package com.kamontat.model.management;
 
 import com.kamontat.constant.FileExtension;
 

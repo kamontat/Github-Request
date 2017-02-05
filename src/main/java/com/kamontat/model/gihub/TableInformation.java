@@ -1,4 +1,4 @@
-package com.kamontat.model;
+package com.kamontat.model.gihub;
 
 import java.util.*;
 
@@ -11,11 +11,11 @@ import java.util.*;
  */
 public interface TableInformation<T> {
 	
-//	@Deprecated
-//	abstract Vector<T> getInformationVector();
+	//	@Deprecated
+	//	abstract Vector<T> getInformationVector();
 	
-//	@Deprecated
-//	abstract Vector<T> getTitleVector();
+	//	@Deprecated
+	//	abstract Vector<T> getTitleVector();
 	public T getRawData();
 	
 	public String getName();

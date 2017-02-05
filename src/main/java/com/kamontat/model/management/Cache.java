@@ -1,4 +1,4 @@
-package com.kamontat.cache;
+package com.kamontat.model.management;
 
 import com.kamontat.controller.popup.PopupLog;
 

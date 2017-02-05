@@ -1,4 +1,4 @@
-package com.kamontat.model;
+package com.kamontat.model.encryption;
 
 import org.jasypt.digest.StandardStringDigester;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;

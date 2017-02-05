@@ -2,7 +2,7 @@ package com.kamontat.server;
 
 import com.kamontat.constant.RequestStatus;
 import com.kamontat.exception.RequestException;
-import com.kamontat.model.User;
+import com.kamontat.model.gihub.User;
 import org.kohsuke.github.*;
 
 import java.awt.*;

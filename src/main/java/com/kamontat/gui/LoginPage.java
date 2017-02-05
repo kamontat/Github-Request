@@ -1,8 +1,8 @@
 package com.kamontat.gui;
 
-import com.kamontat.controller.management.Location;
+import com.kamontat.model.management.Location;
 import com.kamontat.controller.popup.PopupLog;
-import com.kamontat.controller.management.Size;
+import com.kamontat.model.management.Size;
 import com.kamontat.server.GithubLoader;
 import com.kamontat.server.GithubToken;
 
@@ -106,8 +106,8 @@ public class LoginPage extends JFrame {
 		
 		if (GithubToken.haveCache()) {
 			GithubLoader.wait(this);
-			String password = password(Pass.GET);
-			GithubToken t = GithubToken.loadCache(password);
+//			String password = password(Pass.GET);
+			GithubToken t = GithubToken.loadCache("Net"); // password);
 			// success
 			if (!t.isEmptyToken()) {
 				GithubLoader.setAuth(t);

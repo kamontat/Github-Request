@@ -1,4 +1,4 @@
-package com.kamontat.model;
+package com.kamontat.model.gihub;
 
 import com.kamontat.exception.RequestException;
 import org.kohsuke.github.*;

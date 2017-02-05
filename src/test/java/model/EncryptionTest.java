@@ -1,6 +1,6 @@
 package model;
 
-import com.kamontat.model.Encryption;
+import com.kamontat.model.encryption.Encryption;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

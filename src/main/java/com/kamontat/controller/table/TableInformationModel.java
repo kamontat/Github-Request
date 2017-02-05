@@ -1,7 +1,7 @@
 package com.kamontat.controller.table;
 
 import com.kamontat.controller.popup.PopupLog;
-import com.kamontat.model.TableInformation;
+import com.kamontat.model.gihub.TableInformation;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.*;
