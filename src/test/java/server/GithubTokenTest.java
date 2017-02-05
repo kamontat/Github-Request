@@ -38,15 +38,14 @@ public class GithubTokenTest {
 		});
 		t.start();
 		
-		while (t.isAlive()) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 		
 		assertEquals(token, newOne[0].getToken());
+		
 	}
 	
 	@Test

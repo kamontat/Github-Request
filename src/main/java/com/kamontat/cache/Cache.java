@@ -1,5 +1,7 @@
 package com.kamontat.cache;
 
+import com.kamontat.controller.popup.PopupLog;
+
 import java.io.*;
 
 /**
@@ -100,6 +102,8 @@ public class Cache {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
 			return (E) ois.readObject();
+		} catch (InvalidClassException e) {
+			PopupLog.getLog(null).errorMessage("Invalid Cache Version", "Your saving Cache version is too old");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (ClassCastException e) {

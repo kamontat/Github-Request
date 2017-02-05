@@ -35,7 +35,6 @@ public class PopupController {
 	}
 	
 	public void show(MouseEvent e) {
-		System.out.println("run");
 		popup.show(e.getComponent(), e.getX(), e.getY());
 	}
 }

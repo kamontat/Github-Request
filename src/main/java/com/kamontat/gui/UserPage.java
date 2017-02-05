@@ -154,7 +154,6 @@ public class UserPage extends JFrame {
 						URL url = (URL) table.getValueAt(row(), i);
 						Device.openWeb(url);
 					} catch (ClassCastException ignore) {
-						
 					}
 				}
 			}
@@ -162,7 +161,7 @@ public class UserPage extends JFrame {
 			@Override
 			public void rightClick(MouseEvent e) {
 				if (e.isPopupTrigger()) {
-					PopupController.getInstance().show(e);
+					table.showPopup(e);
 				}
 			}
 			
