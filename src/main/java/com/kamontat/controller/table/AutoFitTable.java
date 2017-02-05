@@ -5,6 +5,7 @@ import com.kamontat.controller.popup.PopupController;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
@@ -15,10 +16,16 @@ import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
  * @version 1.0
  * @since 2/5/2017 AD - 7:38 PM
  */
-public class AutoFitTable extends JTable {
+public class AutoFitTable<T> extends JTable {
 	private PopupController popup;
+	public TableInformationModel<T> model;
 	
 	public AutoFitTable() {
+		
+	}
+	
+	public AutoFitTable(TableInformationModel<T> model) {
+		super(model);
 	}
 	
 	public void addPopup(PopupController p) {
@@ -31,6 +38,23 @@ public class AutoFitTable extends JTable {
 	
 	public void showPopup(MouseEvent e) {
 		popup.show(e);
+	}
+	
+	public T getSelectedObject() {
+		try {
+			return model.getData(getSelectedRow());
+		} catch (ClassCastException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public void setModel(TableModel dataModel) {
+		if (dataModel instanceof TableInformationModel) model = (TableInformationModel<T>) dataModel;
+		
+		super.setModel(dataModel);
 	}
 	
 	@Override

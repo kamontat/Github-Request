@@ -57,6 +57,6 @@ public class RequestException extends Exception {
 	
 	public void printStackTrace() {
 		System.err.println(status.getFullDescription(username, repoName));
-		//		super.printStackTrace();
+		super.printStackTrace();
 	}
 }

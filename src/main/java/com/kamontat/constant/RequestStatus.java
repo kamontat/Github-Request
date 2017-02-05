@@ -23,6 +23,7 @@ public enum RequestStatus {
 	ISSUE_ERROR("Cannot get issue information"),
 	MYSELF_ERROR("Cannot get information from Myself"),
 	INTERNET_ERROR("4xx/5xx http-status-code"),
+	TOKEN_ERROR("Invalid token"),
 	GITHUB_ERROR("Cannot connect git"),
 	
 	LIMIT_EXCEED("Rate limit exceed."),

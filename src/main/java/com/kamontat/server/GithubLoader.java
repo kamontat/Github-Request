@@ -60,7 +60,7 @@ public class GithubLoader {
 			if (type == Type.AUTH) return GitHub.connectUsingOAuth(token.getToken());
 			else return GitHub.connectAnonymously();
 		} catch (IOException e) {
-			throw new RequestException(RequestStatus.GITHUB_ERROR);
+			throw new RequestException(RequestStatus.TOKEN_ERROR);
 		}
 	}
 	

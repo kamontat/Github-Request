@@ -1,7 +1,7 @@
 package com.kamontat.gui;
 
-import com.kamontat.model.management.Location;
 import com.kamontat.controller.popup.PopupLog;
+import com.kamontat.model.management.Location;
 import com.kamontat.model.management.Size;
 import com.kamontat.server.GithubLoader;
 import com.kamontat.server.GithubToken;
@@ -91,6 +91,24 @@ public class LoginPage extends JFrame {
 		return JOptionPane.showInputDialog(loginBtn, output, title, JOptionPane.QUESTION_MESSAGE);
 	}
 	
+	private void loadCache() {
+		GithubLoader.wait(this);
+		//			String password = password(Pass.GET);
+		GithubToken t = GithubToken.loadCache("Net"); // password);
+		
+		// success
+		if (!t.isEmptyToken()) {
+			GithubLoader.setAuth(t);
+			loginSuccess();
+			// remove cache
+		} else {
+			GithubToken.removeCache();
+			
+			GithubLoader.done(this);
+			PopupLog.getLog(this).errorMessage("Have Problem", "The saved token will be lost!");
+		}
+	}
+	
 	private void loginSuccess() {
 		// login success
 		UserPage.run(this);
@@ -104,21 +122,9 @@ public class LoginPage extends JFrame {
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
+		// load cache
 		if (GithubToken.haveCache()) {
-			GithubLoader.wait(this);
-//			String password = password(Pass.GET);
-			GithubToken t = GithubToken.loadCache("Net"); // password);
-			// success
-			if (!t.isEmptyToken()) {
-				GithubLoader.setAuth(t);
-				loginSuccess();
-				// remove cache
-			} else {
-				GithubToken.removeCache();
-				
-				GithubLoader.done(this);
-				PopupLog.getLog(this).errorMessage("Wrong password", "The saved token will be lost!");
-			}
+			loadCache();
 		}
 	}
 	

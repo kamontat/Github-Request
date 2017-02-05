@@ -1,12 +1,9 @@
 package com.kamontat.gui;
 
-import com.kamontat.exception.RequestException;
 import com.kamontat.model.gihub.User;
 import com.kamontat.model.management.Device;
 import com.kamontat.model.management.Location;
 import com.kamontat.model.management.Size;
-import com.kamontat.server.GithubLoader;
-import com.kamontat.server.GithubToken;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,8 +17,10 @@ import static javax.swing.SwingUtilities.invokeLater;
  * @version 1.0
  * @since 2/5/2017 AD - 6:34 PM
  */
-public class InformationPage extends JDialog {
+public class UserInfoPage extends JDialog {
 	private static final Dimension imageSize = new Dimension(200, 200);
+	
+	private Window oldWindow;
 	
 	private JLabel image;
 	private JPanel pane;
@@ -42,7 +41,9 @@ public class InformationPage extends JDialog {
 	
 	private User user;
 	
-	private InformationPage(User user) {
+	private UserInfoPage(Window oldPage, User user) {
+		super(oldPage, "Information User Page");
+		oldWindow = oldPage;
 		setContentPane(pane);
 		setModal(true);
 		
@@ -51,6 +52,17 @@ public class InformationPage extends JDialog {
 		setUsername();
 		setPersonalInformation();
 		setLink();
+		
+		addBtnEvent();
+	}
+	
+	private void addBtnEvent() {
+		backBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 	}
 	
 	private void setImage() {
@@ -97,9 +109,9 @@ public class InformationPage extends JDialog {
 		});
 	}
 	
-	private void compile(Window old) {
+	private void compile() {
 		setSize(Size.getDefaultPageSize());
-		setLocation(Location.getCenterPage(old, this));
+		setLocation(Location.getCenterPage(oldWindow, this));
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
@@ -108,18 +120,8 @@ public class InformationPage extends JDialog {
 		invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new InformationPage(user).compile(oldPage);
+				new UserInfoPage(oldPage, user).compile();
 			}
 		});
-	}
-	
-	public static void main(String[] args) {
-		GithubLoader.setAuth(new GithubToken("29d2a5ca7076a354c364dd0943e95f9da17aee4c"));
-		
-		try {
-			InformationPage.run(GithubLoader.getGithubLoader().getMyself(), null);
-		} catch (RequestException e) {
-			e.printStackTrace();
-		}
 	}
 }

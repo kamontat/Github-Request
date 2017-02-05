@@ -1,6 +1,8 @@
 package com.kamontat.controller.popup;
 
-import com.kamontat.controller.table.TableInformationModel;
+import com.kamontat.controller.table.AutoFitTable;
+import com.kamontat.gui.UserInfoPage;
+import com.kamontat.model.gihub.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,9 +16,9 @@ import java.awt.event.ActionEvent;
  * @since 1/31/2017 AD - 1:35 PM
  */
 public abstract class PopupAction extends AbstractAction {
-	private static JTable table;
+	private static AutoFitTable table;
 	
-	PopupAction(String name, JTable table) {
+	PopupAction(String name, AutoFitTable table) {
 		PopupAction.table = table;
 		putValue(NAME, name);
 	}
@@ -33,8 +35,23 @@ public abstract class PopupAction extends AbstractAction {
 		return table.getValueAt(getSelectR(), getSelectC());
 	}
 	
+	public static class InfoAction extends PopupAction {
+		private Window owner;
+		
+		public InfoAction(Window owner, AutoFitTable table) {
+			super("Information", table);
+			this.owner = owner;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Object obj = table.getSelectedObject();
+			UserInfoPage.run(User.class.cast(obj), owner);
+		}
+	}
+	
 	public static class CopyAction extends PopupAction {
-		public CopyAction(JTable table) {
+		public CopyAction(AutoFitTable table) {
 			super("Copy", table);
 		}
 		
@@ -46,31 +63,29 @@ public abstract class PopupAction extends AbstractAction {
 	}
 	
 	public static class DeleteAction extends PopupAction {
-		public DeleteAction(JTable table) {
+		public DeleteAction(AutoFitTable table) {
 			super("Delete", table);
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			TableInformationModel model = (TableInformationModel) table.getModel();
-			model.deleteRow(getSelectR());
+			table.model.deleteRow(getSelectR());
 		}
 	}
 	
 	public static class DeleteAllAction extends PopupAction {
-		public DeleteAllAction(JTable table) {
+		public DeleteAllAction(AutoFitTable table) {
 			super("Delete All", table);
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			TableInformationModel model = (TableInformationModel) table.getModel();
-			model.deleteAll();
+			table.model.deleteAll();
 		}
 	}
 	
 	public static abstract class CustomAction extends PopupAction {
-		public CustomAction(String name, JTable table) {
+		public CustomAction(String name, AutoFitTable table) {
 			super(name, table);
 		}
 	}

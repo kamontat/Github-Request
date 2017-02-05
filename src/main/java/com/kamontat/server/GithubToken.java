@@ -136,8 +136,10 @@ public class GithubToken implements Serializable {
 	 */
 	public static GithubToken loadCache(String password) {
 		try {
-			if (Cache.loadCache(FILE_NAME).isExist())
-				return Cache.loadCache(FILE_NAME).loadFromFile(GithubToken.class).decryptGT(password);
+			if (Cache.loadCache(FILE_NAME).isExist()) {
+				GithubToken ght = Cache.loadCache(FILE_NAME).loadFromFile(GithubToken.class).decryptGT(password);
+				if (ght.isTokenValid()) return ght;
+			}
 		} catch (Exception ignored) {
 		}
 		return GithubToken.getEmptyToken();

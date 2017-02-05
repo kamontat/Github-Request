@@ -12,6 +12,7 @@ import java.util.*;
  * @since 1/31/2017 AD - 1:21 AM
  */
 public class TableInformationModel<T> extends DefaultTableModel {
+	private Class data;
 	public ArrayList<T> rawData = new ArrayList<T>();
 	
 	public TableInformationModel(Vector columnNames) {
@@ -46,6 +47,14 @@ public class TableInformationModel<T> extends DefaultTableModel {
 	public void deleteAll() {
 		setRowCount(0);
 		rawData.removeAll(rawData);
+	}
+	
+	public T getData(int row) {
+		return rawData.get(row);
+	}
+	
+	public Class getDataClass() {
+		return rawData.get(0).getClass();
 	}
 	
 	@Override

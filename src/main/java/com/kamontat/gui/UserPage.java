@@ -2,24 +2,22 @@ package com.kamontat.gui;
 
 import com.kamontat.constant.FileExtension;
 import com.kamontat.controller.loader.LoadProgress;
+import com.kamontat.controller.loader.LoadingFile;
 import com.kamontat.controller.loader.Task;
-import com.kamontat.model.management.Device;
-import com.kamontat.model.management.Location;
-import com.kamontat.model.management.Size;
 import com.kamontat.controller.mouse.AbstractMouseAction;
 import com.kamontat.controller.popup.PopupAction;
 import com.kamontat.controller.popup.PopupController;
 import com.kamontat.controller.popup.PopupLog;
 import com.kamontat.controller.table.TableInformationModel;
 import com.kamontat.exception.RequestException;
-import com.kamontat.model.management.FileUtil;
-import com.kamontat.controller.loader.LoadingFile;
 import com.kamontat.model.gihub.User;
+import com.kamontat.model.management.Device;
+import com.kamontat.model.management.FileUtil;
+import com.kamontat.model.management.Location;
+import com.kamontat.model.management.Size;
 import com.kamontat.server.GithubLoader;
 
 import javax.swing.*;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,7 +39,7 @@ public class UserPage extends JFrame {
 	private JButton multiSBtn;
 	private JButton myselfBtn;
 	private JButton nextBtn;
-	private com.kamontat.controller.table.AutoFitTable table;
+	private com.kamontat.controller.table.AutoFitTable<User> table;
 	private JPanel pane;
 	
 	private TableInformationModel<User> model = new TableInformationModel<User>(User.getStringTitleVectorStatic());
@@ -69,15 +67,15 @@ public class UserPage extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GithubLoader.wait(myselfBtn);
-				User user = getMyself();
-				if (user == null) {
+				try {
+					model.addRow(GithubLoader.getGithubLoader().getMyself());
+				} catch (RequestException e1) {
 					PopupLog.getLog(myselfBtn).errorMessage("Myself Not Found", "please check sign-in token or internet connecting clearly");
-				} else {
-					model.addRow(user);
 				}
 				GithubLoader.done(myselfBtn);
 			}
 		});
+		
 		multiSBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
@@ -141,9 +139,7 @@ public class UserPage extends JFrame {
 	
 	private void settingTable() {
 		table.setModel(model);
-		
 		settingPopup();
-		
 		table.addMouseListener(new AbstractMouseAction() {
 			
 			@Override
@@ -173,44 +169,14 @@ public class UserPage extends JFrame {
 	
 	private void settingPopup() {
 		table.addPopup(PopupController.getInstance());
+		// information action
+		table.addPopupAction(new PopupAction.InfoAction(this, table));
 		// copy action
 		table.addPopupAction(new PopupAction.CopyAction(table));
 		// delete action
 		table.addPopupAction(new PopupAction.DeleteAction(table));
 		// delete all action
 		table.addPopupAction(new PopupAction.DeleteAllAction(table));
-	}
-	
-	private void autoFit() {
-		for (int column = 0; column < table.getColumnCount(); column++) {
-			TableColumn tableColumn = table.getColumnModel().getColumn(column);
-			int preferredWidth = tableColumn.getMinWidth();
-			int maxWidth = tableColumn.getMaxWidth();
-			
-			for (int row = 0; row < table.getRowCount(); row++) {
-				TableCellRenderer cellRenderer = table.getCellRenderer(row, column);
-				Component c = table.prepareRenderer(cellRenderer, row, column);
-				int width = c.getPreferredSize().width + table.getIntercellSpacing().width;
-				preferredWidth = Math.max(preferredWidth, width);
-				
-				//  We've exceeded the maximum width, no need to check other rows
-				if (preferredWidth >= maxWidth) {
-					preferredWidth = maxWidth;
-					break;
-				}
-			}
-			
-			tableColumn.setPreferredWidth(preferredWidth + 50);
-		}
-	}
-	
-	private User getMyself() {
-		try {
-			return GithubLoader.getGithubLoader().getMyself();
-		} catch (RequestException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
 	private void compile(Window oldPage) {
