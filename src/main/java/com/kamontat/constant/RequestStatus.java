@@ -36,7 +36,7 @@ public enum RequestStatus {
 	
 	private String description;
 	
-	private RequestStatus(String description) {
+	RequestStatus(String description) {
 		this.description = description;
 	}
 	
@@ -47,7 +47,7 @@ public enum RequestStatus {
 	 * 		user, this method will get only user name
 	 * @param repository
 	 * 		this method wll get only repository name
-	 * @return
+	 * @return full description
 	 */
 	public String getFullDescription(User user, Repositories.Repository repository) {
 		if (repository == null) return getFullDescription(user, "-");

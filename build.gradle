@@ -35,6 +35,10 @@ task execute(type: JavaExec) {
 
 task gendocs(type: Javadoc) {
     source = sourceSets.main.allJava
+    title = "Github-Request $version"
+    options.windowTitle = "Github-Request $version"
+    options.quiet()
+
 }
 
 repositories {

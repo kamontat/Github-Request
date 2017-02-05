@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class GithubTokenTest {
 	private static String password = "pass";
-	private static String token = "token";
+	private static String token = "fef5a7179eff6366d8b7c5f11fc94479485681da";
 	
 	private static GithubToken gt = new GithubToken(token);
 	
@@ -29,22 +29,8 @@ public class GithubTokenTest {
 	
 	@Test
 	public void checkTokenLoadComplete() {
-		final GithubToken[] newOne = new GithubToken[1];
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				newOne[0] = GithubToken.loadCache(password);
-			}
-		});
-		t.start();
-		
-		try {
-			t.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		assertEquals(token, newOne[0].getToken());
+		final GithubToken newOne = GithubToken.loadCache(password);
+		assertEquals(token, newOne.getToken());
 		
 	}
 	
