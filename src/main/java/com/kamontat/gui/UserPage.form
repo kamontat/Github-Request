@@ -65,18 +65,8 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="be8e9" class="javax.swing.JTable" binding="table">
+              <component id="ea037" class="com.kamontat.controller.table.AutoFitTable" binding="table">
                 <constraints/>
-                <properties>
-                  <cellSelectionEnabled value="false"/>
-                  <columnSelectionAllowed value="false"/>
-                  <inheritsPopupMenu value="false"/>
-                  <rowSelectionAllowed value="true"/>
-                </properties>
-                <clientProperties>
-                  <html.disable class="java.lang.Boolean" value="false"/>
-                  <terminateEditOnFocusLost class="java.lang.Boolean" value="false"/>
-                </clientProperties>
               </component>
             </children>
           </scrollpane>

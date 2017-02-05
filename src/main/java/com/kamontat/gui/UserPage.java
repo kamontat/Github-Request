@@ -6,9 +6,10 @@ import com.kamontat.controller.loader.Task;
 import com.kamontat.controller.management.Device;
 import com.kamontat.controller.management.Location;
 import com.kamontat.controller.management.Size;
+import com.kamontat.controller.mouse.AbstractMouseAction;
+import com.kamontat.controller.popup.PopupAction;
 import com.kamontat.controller.popup.PopupController;
 import com.kamontat.controller.popup.PopupLog;
-import com.kamontat.controller.popup.TablePopupAction;
 import com.kamontat.controller.table.TableInformationModel;
 import com.kamontat.exception.RequestException;
 import com.kamontat.file.FileUtil;
@@ -17,14 +18,11 @@ import com.kamontat.model.User;
 import com.kamontat.server.GithubLoader;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.net.URL;
@@ -43,7 +41,7 @@ public class UserPage extends JFrame {
 	private JButton multiSBtn;
 	private JButton myselfBtn;
 	private JButton nextBtn;
-	private JTable table;
+	private com.kamontat.controller.table.AutoFitTable table;
 	private JPanel pane;
 	
 	private TableInformationModel<User> model = new TableInformationModel<User>(User.getStringTitleVectorStatic());
@@ -53,7 +51,6 @@ public class UserPage extends JFrame {
 		setContentPane(pane);
 		
 		settingTable();
-		settingPopup();
 		
 		textFieldEvent();
 		buttonEvent();
@@ -143,50 +140,46 @@ public class UserPage extends JFrame {
 	}
 	
 	private void settingTable() {
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setModel(model);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		table.addMouseListener(new MouseAdapter() {
+		
+		settingPopup();
+		
+		table.addMouseListener(new AbstractMouseAction() {
+			
 			@Override
-			public void mousePressed(MouseEvent e) {
-				int row = table.getSelectedRow();
-				int column = table.getSelectedColumn();
-				if (e.getClickCount() == 3) {
-					// triple click event
-					for (int i = 0; i < table.getColumnCount(); i++) {
-						try {
-							URL url = (URL) table.getValueAt(row, i);
-							Device.openWeb(url);
-						} catch (ClassCastException ignore) {
-							
-						}
-					}
-				} else if (e.getButton() == MouseEvent.BUTTON3) {
-					if (e.isPopupTrigger()) {
-						TablePopupAction.getInstance().show(e);
+			public void tripleClick(MouseEvent e) {
+				// triple click event
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					try {
+						URL url = (URL) table.getValueAt(row(), i);
+						Device.openWeb(url);
+					} catch (ClassCastException ignore) {
+						
 					}
 				}
 			}
-		});
-		table.getModel().addTableModelListener(new TableModelListener() {
+			
 			@Override
-			public void tableChanged(TableModelEvent e) {
-				// auto fit the content
-				autoFit();
+			public void rightClick(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					PopupController.getInstance().show(e);
+				}
+			}
+			
+			private int row() {
+				return table.getSelectedRow();
 			}
 		});
-		
-		// auto fit the content
-		autoFit();
 	}
 	
 	private void settingPopup() {
+		table.addPopup(PopupController.getInstance());
 		// copy action
-		TablePopupAction.getInstance().addAction(new PopupController.CopyAction(table));
+		table.addPopupAction(new PopupAction.CopyAction(table));
 		// delete action
-		TablePopupAction.getInstance().addAction(new PopupController.DeleteAction(table));
+		table.addPopupAction(new PopupAction.DeleteAction(table));
 		// delete all action
-		TablePopupAction.getInstance().addAction(new PopupController.DeleteAllAction(table));
+		table.addPopupAction(new PopupAction.DeleteAllAction(table));
 	}
 	
 	private void autoFit() {
