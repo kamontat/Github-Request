@@ -144,6 +144,8 @@ public class UserPage extends JFrame {
 			
 			@Override
 			public void tripleClick(MouseEvent e) {
+				table.updateSelected(e.getPoint());
+				
 				// triple click event
 				for (int i = 0; i < table.getColumnCount(); i++) {
 					try {
@@ -156,6 +158,8 @@ public class UserPage extends JFrame {
 			
 			@Override
 			public void rightClick(MouseEvent e) {
+				table.updateSelected(e.getPoint());
+				
 				if (e.isPopupTrigger()) {
 					table.showPopup(e);
 				}

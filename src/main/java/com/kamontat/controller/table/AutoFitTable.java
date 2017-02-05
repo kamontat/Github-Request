@@ -50,6 +50,11 @@ public class AutoFitTable<T> extends JTable {
 		return null;
 	}
 	
+	public void updateSelected(Point p) {
+		setRowSelectionInterval(rowAtPoint(p), rowAtPoint(p));
+		setColumnSelectionInterval(columnAtPoint(p), columnAtPoint(p));
+	}
+	
 	@Override
 	public void setModel(TableModel dataModel) {
 		if (dataModel instanceof TableInformationModel) model = (TableInformationModel<T>) dataModel;
