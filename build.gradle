@@ -35,11 +35,10 @@ task execute(type: JavaExec) {
 
 task gendocs(type: Javadoc) {
     source = sourceSets.main.allJava
-    destinationDir = reporting.file("docs")
+    destinationDir = file("$rootDir/docs")
     title = "Github-Request $version"
     options.windowTitle = "Github-Request $version"
     options.quiet()
-
 }
 
 repositories {
