@@ -8,7 +8,7 @@ mainClassName = "com.kamontat.main.Main"
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
-version = '2.2'
+version = '2.2.2'
 
 description = 'Github Request By Java'
 
@@ -31,6 +31,10 @@ task execute(type: JavaExec) {
         main = getProperty('mainClass')
         classpath = sourceSets.main.runtimeClasspath
     }
+}
+
+task gendocs(type: Javadoc) {
+    source = sourceSets.main.allJava
 }
 
 repositories {

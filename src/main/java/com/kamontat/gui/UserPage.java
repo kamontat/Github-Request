@@ -145,8 +145,6 @@ public class UserPage extends JFrame {
 			@Override
 			public void tripleClick(MouseEvent e) {
 				table.updateSelected(e.getPoint());
-				
-				// triple click event
 				for (int i = 0; i < table.getColumnCount(); i++) {
 					try {
 						URL url = (URL) table.getValueAt(row(), i);

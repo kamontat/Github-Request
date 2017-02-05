@@ -4,8 +4,13 @@ import com.kamontat.model.gihub.Repositories;
 import com.kamontat.model.gihub.User;
 
 /**
+ * when this program need to request some thing in the internet <br>
+ * this might return some exception or code that program can't handle by itself so this class will have develop and user to know that which exception be happen and what best result that we should handle <br>
+ * <b>mostly</b> this enum class will use with {@link com.kamontat.exception.RequestException} to handle exception easier.
+ *
  * @author kamontat
  * @version 5
+ * @see com.kamontat.exception.RequestException
  * @since 1/26/2017 AD - 2:11 PM
  */
 public enum RequestStatus {
@@ -31,20 +36,53 @@ public enum RequestStatus {
 	
 	private String description;
 	
-	RequestStatus(String description) {
+	private RequestStatus(String description) {
 		this.description = description;
 	}
 	
+	/**
+	 * change every parameter to string and call {@link #getFullDescription(String, String)}
+	 *
+	 * @param user
+	 * 		user, this method will get only user name
+	 * @param repository
+	 * 		this method wll get only repository name
+	 * @return
+	 */
 	public String getFullDescription(User user, Repositories.Repository repository) {
 		if (repository == null) return getFullDescription(user, "-");
 		return String.format("%s (%s) %s", user.fullname, repository.name, description);
 	}
 	
+	/**
+	 * change every parameter to string and call {@link #getFullDescription(String, String)}
+	 *
+	 * @param user
+	 * 		user, this method will get only user name
+	 * @param repoName
+	 * 		repository name
+	 * @return full description
+	 * @see #getFullDescription(String, String)
+	 */
 	public String getFullDescription(User user, String repoName) {
 		if (user == null) return getFullDescription("-", repoName);
 		return getFullDescription(user.fullname, repoName);
 	}
 	
+	/**
+	 * get full description (include user and repository) that occurred exception or something don't have if error occurred faster that get user and repository
+	 *
+	 * @param username
+	 * 		name of user
+	 * @param repoName
+	 * 		name of repository
+	 * @return string in one of this format <br>
+	 * <ol>
+	 * <li><code>username (repo_name) exception_description</code></li>
+	 * <li><code>username exception_description</code></li>
+	 * <li><code>exception_description</code></li>
+	 * </ol>
+	 */
 	public String getFullDescription(String username, String repoName) {
 		if (username == null) {
 			return String.format("%s", description);
