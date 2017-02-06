@@ -109,7 +109,7 @@ public class UserPage extends JFrame {
 		nextBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// open nextEvent page
+				ArrayList<User> allUser = model.getAllData();
 			}
 		});
 	}

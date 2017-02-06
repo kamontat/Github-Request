@@ -41,7 +41,7 @@ public enum FileExtension {
 	 */
 	public static FileExtension getExtension(String t) {
 		for (FileExtension fe : FileExtension.values()) {
-			if (t.contains(fe.text)) return fe;
+			if (t.equalsIgnoreCase(fe.text)) return fe;
 		}
 		OTHER.setExtensionText(t);
 		return OTHER;

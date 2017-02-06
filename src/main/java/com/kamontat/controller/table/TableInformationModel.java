@@ -46,11 +46,16 @@ public class TableInformationModel<T> extends DefaultTableModel {
 	
 	public void deleteAll() {
 		setRowCount(0);
+		
 		rawData.removeAll(rawData);
 	}
 	
 	public T getData(int row) {
 		return rawData.get(row);
+	}
+	
+	public ArrayList<T> getAllData() {
+		return new ArrayList<T>(rawData);
 	}
 	
 	public Class getDataClass() {
