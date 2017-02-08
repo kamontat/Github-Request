@@ -1,5 +1,7 @@
 package com.kamontat.gui;
 
+import com.kamontat.constant.HotKey;
+import com.kamontat.controller.menu.MenuBarController;
 import com.kamontat.controller.popup.PopupLog;
 import com.kamontat.model.management.Location;
 import com.kamontat.model.management.Size;
@@ -30,6 +32,7 @@ public class LoginPage extends JFrame {
 	private LoginPage() {
 		super("Login Page");
 		setContentPane(pane);
+		setMenuBar();
 		
 		textField.setToolTipText(GithubToken.getHelp());
 		textField.addActionListener(new ActionListener() {
@@ -45,6 +48,28 @@ public class LoginPage extends JFrame {
 				login();
 			}
 		});
+	}
+	
+	private void setMenuBar() {
+		// left
+		MenuBarController.Menu manageMenu = new MenuBarController.Menu("Management");
+		
+		
+		// right
+		MenuBarController.Menu settingMenu = new MenuBarController.Menu("Setting");
+		settingMenu.addItem(MenuBarController.Menu.MenuItem.getExitMenu());
+		// custom setting
+		settingMenu.addItem(new MenuBarController.Menu.MenuItem(new HotKey("test"), new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		}));
+		
+		MenuBarController.Menu[] lefts = MenuBarController.Menu.toArray(manageMenu);
+		MenuBarController.Menu[] rights = MenuBarController.Menu.toArray(settingMenu);
+		
+		setJMenuBar(new MenuBarController(lefts, rights));
 	}
 	
 	private void login() {
@@ -93,8 +118,8 @@ public class LoginPage extends JFrame {
 	
 	private void loadCache() {
 		GithubLoader.wait(this);
-		//			String password = password(Pass.GET);
-		GithubToken t = GithubToken.loadCache("Net"); // password);
+		String password = password(Pass.GET);
+		GithubToken t = GithubToken.loadCache(password);
 		
 		// success
 		if (!t.isEmptyToken()) {
