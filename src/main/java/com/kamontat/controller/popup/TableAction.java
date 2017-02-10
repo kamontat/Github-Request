@@ -2,7 +2,7 @@ package com.kamontat.controller.popup;
 
 import com.kamontat.controller.table.AutoFitTable;
 import com.kamontat.gui.UserInfoPage;
-import com.kamontat.model.gihub.User;
+import com.kamontat.model.github.User;
 
 import javax.swing.*;
 import java.awt.*;

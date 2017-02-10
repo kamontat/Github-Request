@@ -187,11 +187,11 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubLoader.html#getMaximumRateLimit--">getMaximumRateLimit</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code><a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.gihub">User</a></code></td>
+<td class="colFirst"><code><a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.github">User</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubLoader.html#getMyself--">getMyself</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code><a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.gihub">User</a>[]</code></td>
+<td class="colFirst"><code><a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.github">User</a>[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubLoader.html#getOrganization-java.lang.String-">getOrganization</a></span>(java.lang.String&nbsp;name)</code>&nbsp;</td>
 </tr>
 <tr id="i6" class="altColor">
@@ -200,14 +200,14 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,org.kohsuke.github.GHRepository&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubLoader.html#getRepositories-com.kamontat.model.gihub.User-">getRepositories</a></span>(<a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.gihub">User</a>&nbsp;user)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubLoader.html#getRepositories-com.kamontat.model.gihub.User-">getRepositories</a></span>(<a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.github">User</a>&nbsp;user)</code>&nbsp;</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="../../../com/kamontat/server/GithubLoader.Type.html" title="enum in com.kamontat.server">GithubLoader.Type</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubLoader.html#getType--">getType</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i9" class="rowColor">
-<td class="colFirst"><code><a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.gihub">User</a></code></td>
+<td class="colFirst"><code><a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.github">User</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubLoader.html#getUser-java.lang.String-">getUser</a></span>(java.lang.String&nbsp;name)</code>&nbsp;</td>
 </tr>
 <tr id="i10" class="altColor">
@@ -331,7 +331,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getMyself</h4>
-<pre>public&nbsp;<a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.gihub">User</a>&nbsp;getMyself()
+<pre>public&nbsp;<a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.github">User</a>&nbsp;getMyself()
                throws <a href="../../../com/kamontat/exception/RequestException.html" title="class in com.kamontat.exception">RequestException</a></pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -359,7 +359,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getOrganization</h4>
-<pre>public&nbsp;<a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.gihub">User</a>[]&nbsp;getOrganization(java.lang.String&nbsp;name)
+<pre>public&nbsp;<a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.github">User</a>[]&nbsp;getOrganization(java.lang.String&nbsp;name)
                        throws <a href="../../../com/kamontat/exception/RequestException.html" title="class in com.kamontat.exception">RequestException</a></pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -373,7 +373,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getUser</h4>
-<pre>public&nbsp;<a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.gihub">User</a>&nbsp;getUser(java.lang.String&nbsp;name)
+<pre>public&nbsp;<a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.github">User</a>&nbsp;getUser(java.lang.String&nbsp;name)
              throws <a href="../../../com/kamontat/exception/RequestException.html" title="class in com.kamontat.exception">RequestException</a></pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -387,7 +387,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getRepositories</h4>
-<pre>public&nbsp;java.util.Map&lt;java.lang.String,org.kohsuke.github.GHRepository&gt;&nbsp;getRepositories(<a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.gihub">User</a>&nbsp;user)
+<pre>public&nbsp;java.util.Map&lt;java.lang.String,org.kohsuke.github.GHRepository&gt;&nbsp;getRepositories(<a href="../../../com/kamontat/model/gihub/User.html" title="class in com.kamontat.model.github">User</a>&nbsp;user)
                                                                                 throws <a href="../../../com/kamontat/exception/RequestException.html" title="class in com.kamontat.exception">RequestException</a></pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>

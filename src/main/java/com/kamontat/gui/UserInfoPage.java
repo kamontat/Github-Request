@@ -1,6 +1,6 @@
 package com.kamontat.gui;
 
-import com.kamontat.model.gihub.User;
+import com.kamontat.model.github.User;
 import com.kamontat.model.management.Device;
 import com.kamontat.model.management.Location;
 import com.kamontat.model.management.Size;

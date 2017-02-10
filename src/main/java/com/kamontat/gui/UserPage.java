@@ -13,7 +13,7 @@ import com.kamontat.controller.popup.PopupController;
 import com.kamontat.controller.popup.Popup;
 import com.kamontat.controller.table.TableInformationModel;
 import com.kamontat.exception.RequestException;
-import com.kamontat.model.gihub.User;
+import com.kamontat.model.github.User;
 import com.kamontat.model.management.Device;
 import com.kamontat.model.management.FileUtil;
 import com.kamontat.model.management.Location;

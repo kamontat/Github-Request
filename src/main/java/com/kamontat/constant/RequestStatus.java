@@ -1,7 +1,7 @@
 package com.kamontat.constant;
 
-import com.kamontat.model.gihub.Repositories;
-import com.kamontat.model.gihub.User;
+import com.kamontat.model.github.Repositories;
+import com.kamontat.model.github.User;
 
 /**
  * when this program need to request some thing in the internet <br>

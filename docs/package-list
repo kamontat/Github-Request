@@ -8,6 +8,6 @@ com.kamontat.exception
 com.kamontat.gui
 com.kamontat.main
 com.kamontat.model.encryption
-com.kamontat.model.gihub
+com.kamontat.model.github
 com.kamontat.model.management
 com.kamontat.server
