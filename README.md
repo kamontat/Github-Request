@@ -7,13 +7,17 @@ http://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repos
 # TODO-LIST
 
 ## Major
-- [ ] **Menu Bar**
-  - [ ] Multi-Selected in User Page
-    - [ ] use text file
-    - [ ] use org
-  -  [ ] Account Management
-    - [ ] limit
-    - [ ] myself information
-    - [ ] logout
-- [ ] **Repository Page**
+- [ ] **Login Page**
+- [ ] **User Management Page**
+    - [X] **Menu Bar**
+      - [X] Multi-Selected in User Page
+        - [X] use text file
+        - [X] use org
+      - [ ] Account Management
+        - [ ] limit
+        - [ ] myself information
+        - [ ] logout
+      - [X] Exit
+- [ ] **Repository Management Page**
 - [ ] **Download Page**
+- [ ] **Issue Management Page**
