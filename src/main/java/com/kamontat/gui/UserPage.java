@@ -1,13 +1,16 @@
 package com.kamontat.gui;
 
 import com.kamontat.constant.FileExtension;
+import com.kamontat.constant.HotKey;
 import com.kamontat.controller.loader.LoadProgress;
 import com.kamontat.controller.loader.LoadingFile;
 import com.kamontat.controller.loader.Task;
+import com.kamontat.controller.menu.MenuBarController;
+import com.kamontat.controller.menu.MenuUpdateListener;
 import com.kamontat.controller.mouse.AbstractMouseAction;
-import com.kamontat.controller.popup.PopupAction;
+import com.kamontat.controller.popup.TableAction;
 import com.kamontat.controller.popup.PopupController;
-import com.kamontat.controller.popup.PopupLog;
+import com.kamontat.controller.popup.Popup;
 import com.kamontat.controller.table.TableInformationModel;
 import com.kamontat.exception.RequestException;
 import com.kamontat.model.gihub.User;
@@ -18,6 +21,7 @@ import com.kamontat.model.management.Size;
 import com.kamontat.server.GithubLoader;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,9 +38,15 @@ import static javax.swing.SwingUtilities.invokeLater;
  * @since 1/30/2017 AD - 5:57 PM
  */
 public class UserPage extends JFrame {
+	private final static String name1 = "With Text File";
+	private final static String name2 = "With Organizations";
+	
+	enum SelectedWay {
+		TEXT, ORG
+	}
+	
 	private JTextField searchingField;
 	private JButton selectBtn;
-	private JButton multiSBtn;
 	private JButton myselfBtn;
 	private JButton nextBtn;
 	private com.kamontat.controller.table.AutoFitTable<User> table;
@@ -48,14 +58,60 @@ public class UserPage extends JFrame {
 		super("User Page");
 		setContentPane(pane);
 		
+		setMenuBar();
 		settingTable();
 		
 		textFieldEvent();
 		buttonEvent();
 	}
 	
+	private void setMenuBar() {
+		// left
+		MenuBarController.Menu manageMenu = new MenuBarController.Menu("Management");
+		// delete
+		TableAction deleteAct = new TableAction.DeleteAction(table);
+		manageMenu.addItem(new MenuBarController.Menu.Item(new HotKey(deleteAct.getName() + " selected"), deleteAct));
+		// delete all
+		TableAction deleteAllAct = new TableAction.DeleteAllAction(table);
+		manageMenu.addItem(new MenuBarController.Menu.Item(new HotKey(deleteAllAct.getName()), deleteAllAct));
+		// exit
+		manageMenu.addItem(MenuBarController.Menu.Item.getExitMenu());
+		
+		MenuBarController.Menu multiSMenu = new MenuBarController.Menu("Multi-Selection");
+		multiSMenu.addItem(new MenuBarController.Menu.Item(new HotKey(name1), new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				multiSelection(SelectedWay.TEXT);
+			}
+		}));
+		
+		multiSMenu.addItem(new MenuBarController.Menu.Item(new HotKey(name2), new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				multiSelection(SelectedWay.ORG);
+			}
+		}));
+		
+		// right
+		final MenuBarController.Menu infoMenu = new MenuBarController.Menu("Information");
+		final MenuBarController.Menu.Item sizeItem = new MenuBarController.Menu.Item("have: " + model.size() + " user(s)");
+		infoMenu.addItem(sizeItem);
+		infoMenu.addMenuUpdateListener(new MenuUpdateListener() {
+			@Override
+			public void updateTitle(MenuEvent e) {
+				sizeItem.setText("have: " + model.size() + " user(s)");
+			}
+		});
+		
+		final MenuBarController.Menu settingMenu = new MenuBarController.Menu("Setting");
+		
+		MenuBarController.Menu[] lefts = MenuBarController.Menu.toArray(manageMenu, multiSMenu);
+		MenuBarController.Menu[] rights = MenuBarController.Menu.toArray(infoMenu, settingMenu);
+		
+		setJMenuBar(new MenuBarController(lefts, rights));
+	}
+	
 	private void buttonEvent() {
-		final Window self = this;
 		selectBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -70,39 +126,9 @@ public class UserPage extends JFrame {
 				try {
 					model.addRow(GithubLoader.getGithubLoader().getMyself());
 				} catch (RequestException e1) {
-					PopupLog.getLog(myselfBtn).errorMessage("Myself Not Found", "please check sign-in token or internet connecting clearly");
+					Popup.getLog(myselfBtn).error("Myself Not Found", "please check sign-in token or internet connecting clearly");
 				}
 				GithubLoader.done(myselfBtn);
-			}
-		});
-		
-		multiSBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				final File file = LoadingFile.type(FileExtension.TXT).getFile(self);
-				if (file != null) {
-					final ArrayList<String> arr = FileUtil.getContentByLine(file);
-					
-					final LoadProgress loadPage = new LoadProgress(self, "Loading... username", arr.size());
-					loadPage.setTask(new Task() {
-						@Override
-						public void whenUpdate(Object oldValue, Object newValue) {
-							int maximum = loadPage.getMax();
-							int progress = (Integer) newValue;
-							String message = String.format("loading: %s (%d%%).\n", getLabel(), (progress * 100) / maximum);
-							loadPage.set(message, progress);
-						}
-						
-						@Override
-						public void progress() {
-							for (String name : arr) {
-								update(name, 1);
-								addUser(name);
-								if (loadPage.isCancel()) break;
-							}
-						}
-					});
-				}
 			}
 		});
 		
@@ -110,6 +136,65 @@ public class UserPage extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<User> allUser = model.getAllData();
+			}
+		});
+	}
+	
+	private void multiSelection(SelectedWay way) {
+		if (way == SelectedWay.TEXT) multiSByText();
+		else if (way == SelectedWay.ORG) multiSByOrg();
+	}
+	
+	private void multiSByText() {
+		final File file = LoadingFile.type(FileExtension.TXT).getFile(this);
+		if (file != null) {
+			ArrayList<String> arr = FileUtil.getContentByLine(file);
+			loadingProgress(arr, "Loading... username (Text File)");
+		}
+	}
+	
+	private void multiSByOrg() {
+		try {
+			String name = Popup.getInput(this).question("Organization Name", "Enter the Organization Name?");
+			GithubLoader.wait(this);
+			User[] users = GithubLoader.getGithubLoader().getOrganization(name);
+			GithubLoader.done(this);
+			ArrayList<String> arr = new ArrayList<String>();
+			for (User u : users) {
+				arr.add(u.loginName);
+			}
+			
+			loadingProgress(arr, "Loading... username (Organizations)");
+		} catch (RequestException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void loadingProgress(final ArrayList<String> arr, String title) {
+		final Component self = this;
+		final LoadProgress loadPage = new LoadProgress(this, title, arr.size());
+		loadPage.setTask(new Task() {
+			@Override
+			public void whenUpdate(Object oldValue, Object newValue) {
+				int maximum = loadPage.getMax();
+				int progress = (Integer) newValue;
+				int percent = (progress * 100) / maximum;
+				String message = String.format("loading: %s (%d%%).\n", getLabel(), percent);
+				loadPage.set(message, progress);
+			}
+			
+			@Override
+			public void progress() {
+				for (String name : arr) {
+					update(name, 1);
+					addUser(name);
+					if (loadPage.isCancel()) break;
+				}
+			}
+			
+			@Override
+			public void ifDone() {
+				Popup.getLog(self).info("Loaded User", "there are " + arr.size() + " user(s)");
 			}
 		});
 	}
@@ -132,7 +217,7 @@ public class UserPage extends JFrame {
 			user = GithubLoader.getGithubLoader().getUser(name);
 			model.addRow(user);
 		} catch (RequestException e) {
-			PopupLog.getLog(selectBtn).errorMessage("User Not Found", "please check user name clearly");
+			Popup.getLog(selectBtn).error("User Not Found", "please check user name clearly");
 		}
 		GithubLoader.done(this);
 	}
@@ -172,13 +257,13 @@ public class UserPage extends JFrame {
 	private void settingPopup() {
 		table.addPopup(PopupController.getInstance());
 		// information action
-		table.addPopupAction(new PopupAction.InfoAction(this, table));
+		table.addTableAction(new TableAction.InfoAction(this, table));
 		// copy action
-		table.addPopupAction(new PopupAction.CopyAction(table));
+		table.addTableAction(new TableAction.CopyAction(table));
 		// delete action
-		table.addPopupAction(new PopupAction.DeleteAction(table));
+		table.addTableAction(new TableAction.DeleteAction(table));
 		// delete all action
-		table.addPopupAction(new PopupAction.DeleteAllAction(table));
+		table.addTableAction(new TableAction.DeleteAllAction(table));
 	}
 	
 	private void compile(Window oldPage) {
@@ -196,5 +281,4 @@ public class UserPage extends JFrame {
 			}
 		});
 	}
-	
 }

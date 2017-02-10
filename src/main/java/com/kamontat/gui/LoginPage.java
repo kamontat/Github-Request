@@ -3,7 +3,7 @@ package com.kamontat.gui;
 import com.kamontat.constant.HotKey;
 import com.kamontat.controller.menu.MenuBarController;
 import com.kamontat.controller.menu.MenuUpdateListener;
-import com.kamontat.controller.popup.PopupLog;
+import com.kamontat.controller.popup.Popup;
 import com.kamontat.model.management.Location;
 import com.kamontat.model.management.Size;
 import com.kamontat.server.GithubLoader;
@@ -14,6 +14,7 @@ import javax.swing.event.MenuEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static com.kamontat.gui.LoginPage.Pass.GET;
 import static javax.swing.SwingUtilities.invokeLater;
 
 /**
@@ -29,7 +30,7 @@ public class LoginPage extends JFrame {
 	
 	private JPanel pane;
 	private JButton loginBtn;
-	private JTextField textField;
+	private JPasswordField textField;
 	
 	private LoginPage() {
 		super("Login Page");
@@ -53,10 +54,9 @@ public class LoginPage extends JFrame {
 	}
 	
 	private void setMenuBar() {
-		
 		// left
 		MenuBarController.Menu manageMenu = new MenuBarController.Menu("Management");
-		manageMenu.addItem(MenuBarController.Menu.MenuItem.getExitMenu());
+		manageMenu.addItem(MenuBarController.Menu.Item.getExitMenu());
 		
 		// right
 		final MenuBarController.Menu settingMenu = new MenuBarController.Menu("Setting");
@@ -78,7 +78,7 @@ public class LoginPage extends JFrame {
 	}
 	
 	private void login() {
-		GithubToken token = new GithubToken(textField.getText());
+		GithubToken token = new GithubToken(new String(textField.getPassword()));
 		int ans = -99;
 		
 		GithubLoader.wait(loginBtn);
@@ -91,6 +91,7 @@ public class LoginPage extends JFrame {
 			if (ans == JOptionPane.OK_OPTION) GithubLoader.setAnonymous();
 		} else {
 			String password = password(Pass.SET);
+			System.out.println(password);
 			GithubLoader.setAuth(token);
 			token.saveCache(password);
 		}
@@ -105,8 +106,8 @@ public class LoginPage extends JFrame {
 		
 		switch (pt) {
 			case SET:
-				title = "Set Password";
-				output = "For use next time without enter token again";
+				title = "Setting Password";
+				output = "For (Personal Computer) you can blank input field to set as no password \n\t\tSo next time you will login automatically\n" + "For (Public Computer) you should enter password to encrypt your token";
 				break;
 			case GET:
 				title = "Enter Password";
@@ -117,40 +118,58 @@ public class LoginPage extends JFrame {
 				output = "";
 				break;
 		}
-		
-		return JOptionPane.showInputDialog(loginBtn, output, title, JOptionPane.QUESTION_MESSAGE);
+		return Popup.getInput(loginBtn).question(title, output);
 	}
 	
 	private void loadCache() {
 		GithubLoader.wait(this);
-		String password = password(Pass.GET);
-		GithubToken t = GithubToken.loadCache(password);
-		
-		// success
+		if (!preLoadCache()) {
+			GithubToken t = GithubToken.loadCache(password(GET));
+			// success
+			if (!t.isEmptyToken()) {
+				GithubLoader.setAuth(t);
+				loginSuccess();
+				// remove cache
+			} else {
+				GithubToken.removeCache();
+				
+				Popup.getLog(this).error("Have Problem", "The saved token will be lost!");
+			}
+		}
+		GithubLoader.done(this);
+	}
+	
+	/**
+	 * this method will try to loading cache with no password.
+	 *
+	 * @return true if loading successfully, false in otherwise
+	 */
+	private boolean preLoadCache() {
+		GithubLoader.wait(this);
+		GithubToken t = GithubToken.loadCache();
 		if (!t.isEmptyToken()) {
 			GithubLoader.setAuth(t);
 			loginSuccess();
-			// remove cache
-		} else {
-			GithubToken.removeCache();
-			
 			GithubLoader.done(this);
-			PopupLog.getLog(this).errorMessage("Have Problem", "The saved token will be lost!");
+			return true;
 		}
+		GithubLoader.done(this);
+		return false;
 	}
 	
 	private void loginSuccess() {
 		// login success
 		UserPage.run(this);
 		dispose();
-		GithubLoader.done(this);
 	}
 	
 	private void compile() {
-		setSize(Size.getDefaultPageSize());
-		setLocation(Location.getCenterLocation(this.getSize()));
-		setVisible(true);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		if (!preLoadCache()) {
+			setSize(Size.getDefaultPageSize());
+			setLocation(Location.getCenterLocation(this.getSize()));
+			setVisible(true);
+			setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		}
 	}
 	
 	public static void run() {
@@ -162,7 +181,7 @@ public class LoginPage extends JFrame {
 		});
 	}
 	
-	private class LoadCache extends MenuBarController.Menu.MenuItem {
+	private class LoadCache extends MenuBarController.Menu.Item {
 		private final static String name = "Load Cache";
 		
 		private LoadCache() {
