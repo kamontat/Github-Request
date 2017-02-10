@@ -1,5 +1,6 @@
 com.kamontat.constant
 com.kamontat.controller.loader
+com.kamontat.controller.menu
 com.kamontat.controller.mouse
 com.kamontat.controller.popup
 com.kamontat.controller.table

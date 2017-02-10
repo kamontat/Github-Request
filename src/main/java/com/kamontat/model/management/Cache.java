@@ -7,15 +7,13 @@ import java.io.*;
 /**
  * This class for save the object into file and can restore every time <br>
  * Easy to use and manage <br>
+ * 1) call method loadCache(file name) to get name of the file cache <br>
+ * 2) and than there have 4 method that you can use it
  * <ol>
- * <li>call method loadCache(file name) to get name of the file cache</li>
- * <li>and than there have 4 method that you can use it</li>
- * <ul>
  * <li><code>saveToFile(object)</code> - must be sure that <i>object</i> implements <code>Serializable</code>.</li>
  * <li><code>loadFromFile(class)</code> - you can specify return class by pass in parameter.</li>
  * <li><code>isExist()</code> - to check that cache file is exist or not.</li>
  * <li><code>delete()</code> - delete cache file.</li>
- * </ul>
  * </ol>
  *
  * @author kamontat

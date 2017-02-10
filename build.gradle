@@ -35,9 +35,12 @@ task execute(type: JavaExec) {
 
 task gendocs(type: Javadoc) {
     source = sourceSets.main.allJava
+
+    classpath = sourceSets.main.compileClasspath
+
     destinationDir = file("$rootDir/docs")
-    title = "Github-Request $version"
-    options.windowTitle = "Github-Request $version"
+    title = "Github-Request 2.0"
+    options.windowTitle = "Github-Request 2.0"
     options.quiet()
 }
 
