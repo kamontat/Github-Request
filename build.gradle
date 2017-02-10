@@ -8,7 +8,7 @@ mainClassName = "com.kamontat.main.Main"
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
-version = '2.2.2'
+version = '2.2.3'
 
 description = 'Github Request By Java'
 
