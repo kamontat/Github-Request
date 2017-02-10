@@ -32,7 +32,7 @@ public class AutoFitTable<T> extends JTable {
 		popup = p;
 	}
 	
-	public void addPopupAction(Action a) {
+	public void addTableAction(Action a) {
 		popup.addAction(a);
 	}
 	

@@ -55,6 +55,13 @@ public abstract class Task extends SwingWorker<Void, Void> implements PropertyCh
 	 */
 	public abstract void progress();
 	
+	/**
+	 * This Method never implementation, so you have to implement by yourself
+	 * do this method when finish progress
+	 */
+	public void ifDone() {
+	}
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals(PROGRESS)) whenUpdate(evt.getOldValue(), evt.getNewValue());
@@ -63,6 +70,7 @@ public abstract class Task extends SwingWorker<Void, Void> implements PropertyCh
 	@Override
 	protected Void doInBackground() throws Exception {
 		progress();
+		ifDone();
 		return null;
 	}
 }

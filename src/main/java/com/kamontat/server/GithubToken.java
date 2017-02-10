@@ -1,7 +1,7 @@
 package com.kamontat.server;
 
-import com.kamontat.model.management.Cache;
 import com.kamontat.model.encryption.Encryption;
+import com.kamontat.model.management.Cache;
 import org.kohsuke.github.GitHub;
 
 import java.io.IOException;
@@ -10,8 +10,8 @@ import java.io.Serializable;
 /**
  * this class very importance in <code>GithubLoader</code> class <br>
  * this will use to sign in into github by using Token
- * Normally when you login, you need to enter username and password but to authentication, you can use token as the same way as username and password.
- * you can get easy your token by login your github and go to this link
+ * Normally when you login, you need to enter username and p but to authentication, you can use token as the same way as username and p.
+ * you can getLog easy your token by login your github and go to this link
  * <ul>
  * <li><code>https://github.com/settings/tokens/new</code> - To generate new token</li>
  * <li><code>https://github.com/settings/tokens</code> - To manage your exist token</li>
@@ -33,6 +33,8 @@ public class GithubToken implements Serializable {
 	private static final String FILE_NAME = "Token";
 	// token
 	private String token;
+	// check that user set password or not
+	private boolean p;
 	
 	/**
 	 * return empty token
@@ -61,7 +63,7 @@ public class GithubToken implements Serializable {
 	}
 	
 	/**
-	 * get real token or <b>empty string</b> ("") if it's <b>empty token</b>
+	 * getLog real token or <b>empty string</b> ("") if it's <b>empty token</b>
 	 *
 	 * @return token
 	 */
@@ -85,10 +87,10 @@ public class GithubToken implements Serializable {
 	}
 	
 	/**
-	 * encrypt current github token by using password
+	 * encrypt current github token by using p
 	 *
 	 * @param password
-	 * 		encrypt password
+	 * 		encrypt p
 	 * @return Encrypt GithubToken
 	 * @throws Exception
 	 * 		every exception that occurred
@@ -98,13 +100,13 @@ public class GithubToken implements Serializable {
 	}
 	
 	/**
-	 * decrypt current github token by using password
+	 * decrypt current github token by using p
 	 *
 	 * @param password
-	 * 		decrypt password
+	 * 		decrypt p
 	 * @return Normal GithubToken
 	 * @throws Exception
-	 * 		mostly will throw if password wrong
+	 * 		mostly will throw if p wrong
 	 */
 	private GithubToken decryptGT(String password) throws Exception {
 		this.token = Encryption.decode(password, token);
@@ -115,10 +117,14 @@ public class GithubToken implements Serializable {
 	 * save current github token into cache file
 	 *
 	 * @param password
-	 * 		password that need to decryption later
+	 * 		p that need to decryption later
 	 * @return true if save successfully; false otherwise
 	 */
 	public boolean saveCache(String password) {
+		if (password.equals("")) {
+			this.p = false;
+		}
+		this.p = true;
 		try {
 			Cache.loadCache(FILE_NAME).saveToFile(this.encryptGT(password));
 			return true;
@@ -128,11 +134,21 @@ public class GithubToken implements Serializable {
 	}
 	
 	/**
-	 * load github token from cache file by using password that create when save cache
+	 * save current github token into cache file with option <code>not use password</code>
+	 *
+	 * @return true if save successfully; false otherwise
+	 */
+	public boolean saveCache() {
+		return saveCache("");
+	}
+	
+	
+	/**
+	 * load github token from cache file by using p that create when save cache
 	 *
 	 * @param password
-	 * 		decryption password
-	 * @return real token if password correctly; false otherwise
+	 * 		decryption p
+	 * @return real token if p correctly; false otherwise
 	 */
 	public static GithubToken loadCache(String password) {
 		try {
@@ -143,6 +159,15 @@ public class GithubToken implements Serializable {
 		} catch (Exception ignored) {
 		}
 		return GithubToken.getEmptyToken();
+	}
+	
+	/**
+	 * load github token from cache file by that must save with option <code>not use password</code>
+	 *
+	 * @return real token if and only if cache save with option <code>not use password</code>, otherwise return empty token
+	 */
+	public static GithubToken loadCache() {
+		return loadCache("");
 	}
 	
 	/**

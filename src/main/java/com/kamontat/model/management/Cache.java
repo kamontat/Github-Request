@@ -1,13 +1,13 @@
 package com.kamontat.model.management;
 
-import com.kamontat.controller.popup.PopupLog;
+import com.kamontat.controller.popup.Popup;
 
 import java.io.*;
 
 /**
  * This class for save the object into file and can restore every time <br>
  * Easy to use and manage <br>
- * 1) call method loadCache(file name) to get name of the file cache <br>
+ * 1) call method loadCache(file name) to getLog name of the file cache <br>
  * 2) and than there have 4 method that you can use it
  * <ol>
  * <li><code>saveToFile(object)</code> - must be sure that <i>object</i> implements <code>Serializable</code>.</li>
@@ -85,7 +85,7 @@ public class Cache {
 	 * </code></pre>
 	 *
 	 * @param eClass
-	 * 		you can get class by using <code>.class</code>
+	 * 		you can getLog class by using <code>.class</code>
 	 * @param <E>
 	 * 		every class in java.
 	 * @return saving object in cache file by from of <code>eClass</code>. <br>
@@ -101,7 +101,7 @@ public class Cache {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
 			return (E) ois.readObject();
 		} catch (InvalidClassException e) {
-			PopupLog.getLog(null).errorMessage("Invalid Cache Version", "Your saving Cache version is too old");
+			Popup.getLog(null).error("Invalid Cache Version", "Your saving Cache version is too old");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (ClassCastException e) {

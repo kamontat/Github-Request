@@ -15,11 +15,13 @@ import java.awt.event.ActionEvent;
  * @version 1.0
  * @since 1/31/2017 AD - 1:35 PM
  */
-public abstract class PopupAction extends AbstractAction {
+public abstract class TableAction extends AbstractAction {
 	private static AutoFitTable table;
+	public String name;
 	
-	PopupAction(String name, AutoFitTable table) {
-		PopupAction.table = table;
+	private TableAction(String name, AutoFitTable table) {
+		TableAction.table = table;
+		this.name = name;
 		putValue(NAME, name);
 	}
 	
@@ -31,11 +33,15 @@ public abstract class PopupAction extends AbstractAction {
 		return table.getSelectedColumn();
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 	public Object getSelectValue() {
 		return table.getValueAt(getSelectR(), getSelectC());
 	}
 	
-	public static class InfoAction extends PopupAction {
+	public static class InfoAction extends TableAction {
 		private Window owner;
 		
 		public InfoAction(Window owner, AutoFitTable table) {
@@ -50,7 +56,7 @@ public abstract class PopupAction extends AbstractAction {
 		}
 	}
 	
-	public static class CopyAction extends PopupAction {
+	public static class CopyAction extends TableAction {
 		public CopyAction(AutoFitTable table) {
 			super("Copy", table);
 		}
@@ -62,7 +68,7 @@ public abstract class PopupAction extends AbstractAction {
 		}
 	}
 	
-	public static class DeleteAction extends PopupAction {
+	public static class DeleteAction extends TableAction {
 		public DeleteAction(AutoFitTable table) {
 			super("Delete", table);
 		}
@@ -73,7 +79,7 @@ public abstract class PopupAction extends AbstractAction {
 		}
 	}
 	
-	public static class DeleteAllAction extends PopupAction {
+	public static class DeleteAllAction extends TableAction {
 		public DeleteAllAction(AutoFitTable table) {
 			super("Delete All", table);
 		}
@@ -84,7 +90,7 @@ public abstract class PopupAction extends AbstractAction {
 		}
 	}
 	
-	public static abstract class CustomAction extends PopupAction {
+	public static abstract class CustomAction extends TableAction {
 		public CustomAction(String name, AutoFitTable table) {
 			super(name, table);
 		}

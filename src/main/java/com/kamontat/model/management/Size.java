@@ -10,12 +10,12 @@ import java.awt.*;
 public class Size {
 	/**
 	 * Screen information <br>
-	 * - get size <code>screen.getWidth</code> and <code>screen.getHeight</code>
+	 * - getLog size <code>screen.getWidth</code> and <code>screen.getHeight</code>
 	 */
 	private static DisplayMode screen = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
 	
 	/**
-	 * get Screen size
+	 * getLog Screen size
 	 *
 	 * @return screen size
 	 */
@@ -24,7 +24,7 @@ public class Size {
 	}
 	
 	/**
-	 * get default/normally page size, (871, 557)
+	 * getLog default/normally page size, (871, 557)
 	 *
 	 * @return default size
 	 */

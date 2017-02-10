@@ -14,37 +14,44 @@ import java.util.*;
 public class MenuBarController extends JMenuBar {
 	public MenuBarController(Menu[] lefts, Menu[] rights) {
 		if (lefts != null) for (Menu left : lefts) {
-			addLeft(left);
+			add(left);
 		}
 		
+		setToRight();
 		if (rights != null) for (Menu right : rights) {
-			addRight(right);
+			add(right);
 		}
 	}
 	
-	private Menu addRight(Menu m) {
-		add(Box.createHorizontalGlue());
+	private Menu add(Menu m) {
 		return (Menu) super.add(m);
 	}
 	
-	private Menu addLeft(Menu m) {
-		return (Menu) super.add(m);
+	private void setToRight() {
+		add(Box.createHorizontalGlue());
 	}
 	
 	public static class Menu extends JMenu {
-		HashMap<String, MenuItem> items;
+		HashMap<String, Item> items;
 		
 		public Menu(String title) {
 			super(title);
-			items = new HashMap<String, MenuItem>();
+			items = new HashMap<String, Item>();
 		}
 		
-		public void addItem(MenuItem menuItem) {
+		public void addItem(Item menuItem) {
 			items.put(menuItem.getText(), menuItem);
 			add(menuItem);
 		}
 		
-		public MenuItem getItem(String text) {
+		public void addItem(Item[] menuItems) {
+			for (Item i : menuItems) {
+				items.put(i.getText(), i);
+				add(i);
+			}
+		}
+		
+		public Item getItem(String text) {
 			return items.get(text);
 		}
 		
@@ -68,23 +75,36 @@ public class MenuBarController extends JMenuBar {
 		/**
 		 * how to use custom menu item
 		 * <pre><code>
-		 * Menu.addItem(new MenuBarController.Menu.MenuItem(new HotKey("test"), new AbstractAction() {
+		 * Menu.addItem(new MenuBarController.Menu.Item(new HotKey("test"), new AbstractAction() {
 		 *      public void actionPerformed(ActionEvent e) {
 		 *          // some code
 		 *      }
 		 * }));
 		 * </code></pre>
 		 */
-		public static class MenuItem extends JMenuItem {
-			public MenuItem(HotKey key, Action a) {
+		public static class Item extends JMenuItem {
+			public Item(HotKey key, Action a) {
 				super(key.getName());
 				addActionListener(a);
 				setAccelerator(key.getKeyStroke());
 				setToolTipText(key.getDescription());
 			}
 			
-			public static MenuItem getExitMenu() {
-				return new MenuItem(HotKey.EXIT, new AbstractAction() {
+			public Item(String text, Action a) {
+				super(text);
+				addActionListener(a);
+			}
+			
+			public Item(String text) {
+				super(text);
+			}
+			
+			public void setText(String text) {
+				super.setText(text);
+			}
+			
+			public static Item getExitMenu() {
+				return new Item(HotKey.EXIT, new AbstractAction() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						System.exit(0);

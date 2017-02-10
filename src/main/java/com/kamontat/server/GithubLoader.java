@@ -7,6 +7,7 @@ import org.kohsuke.github.*;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 import java.util.*;
 
 /**
@@ -46,7 +47,7 @@ public class GithubLoader {
 	}
 	
 	/**
-	 * get github loader by type that you set but if don't call method <code>set</code> before, github loader will load as anonymous
+	 * getLog github loader by type that you set but if don't call method <code>set</code> before, github loader will load as anonymous
 	 *
 	 * @return github loader
 	 */
@@ -83,6 +84,24 @@ public class GithubLoader {
 			throw new RequestException(RequestStatus.INTERNET_ERROR);
 		}
 		return rateLimit;
+	}
+	
+	public User[] getOrganization(String name) throws RequestException {
+		try {
+			PagedIterable<GHUser> allUser = getGithub().getOrganization(name).listMembers();
+			
+			List<GHUser> ghusers = allUser.asList();
+			User[] users = new User[ghusers.size()];
+			
+			int i = 0;
+			for (GHUser ghu : ghusers) {
+				users[i++] = new User(ghu);
+			}
+			
+			return users;
+		} catch (IOException e) {
+			throw new RequestException(RequestStatus.ERROR);
+		}
 	}
 	
 	public User getUser(String name) throws RequestException {

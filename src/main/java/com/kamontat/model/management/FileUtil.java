@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class FileUtil {
 	/**
-	 * get file extension (enum {@link FileExtension}) by using file parameter
+	 * getLog file extension (enum {@link FileExtension}) by using file parameter
 	 *
 	 * @param f
 	 * 		file to search extension
@@ -25,8 +25,8 @@ public class FileUtil {
 	}
 	
 	/**
-	 * get all data separate each by line (To use this method you might need plain text file). <br>
-	 * you can get line count by using {@link ArrayList#size()}. <br>
+	 * getLog all data separate each by line (To use this method you might need plain text file). <br>
+	 * you can getLog line count by using {@link ArrayList#size()}. <br>
 	 * <b>Warning: </b> this cass have some exception that not handle so you might do some thing with it
 	 *
 	 * @param f
@@ -50,7 +50,7 @@ public class FileUtil {
 	}
 	
 	/**
-	 * get file extension (String {@link String}) of file in parameter
+	 * getLog file extension (String {@link String}) of file in parameter
 	 *
 	 * @param f
 	 * 		file

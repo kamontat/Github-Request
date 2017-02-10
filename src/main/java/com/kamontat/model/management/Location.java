@@ -10,12 +10,12 @@ import java.awt.*;
 public class Location {
 	
 	/**
-	 * get default point at x=0, y=0
+	 * getLog default point at x=0, y=0
 	 */
 	public static Point getDefaultPoint = new Point(0, 0);
 	
 	/**
-	 * get point that stay in the center of the screen
+	 * getLog point that stay in the center of the screen
 	 *
 	 * @param pageSize
 	 * 		size of page that want to show in the center
@@ -26,7 +26,7 @@ public class Location {
 	}
 	
 	/**
-	 * get point to show page at center of the old page <br>
+	 * getLog point to show page at center of the old page <br>
 	 * if don't have old page (oldPage is <code>null</code>) this method will return center of the screen
 	 *
 	 * @param oldPage

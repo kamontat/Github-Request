@@ -1,6 +1,6 @@
 package com.kamontat.controller.table;
 
-import com.kamontat.controller.popup.PopupLog;
+import com.kamontat.controller.popup.Popup;
 import com.kamontat.model.gihub.TableInformation;
 
 import javax.swing.table.DefaultTableModel;
@@ -35,7 +35,7 @@ public class TableInformationModel<T> extends DefaultTableModel {
 			super.addRow(info.getStringInformationVector());
 			rawData.add(info.getRawData());
 		} else {
-			PopupLog.getLog(null).warningMessage("Duplicate Data", info.getName() + " already add to table");
+			Popup.getLog(null).warning("Duplicate Data", info.getName() + " already add to table");
 		}
 	}
 	
@@ -58,8 +58,8 @@ public class TableInformationModel<T> extends DefaultTableModel {
 		return new ArrayList<T>(rawData);
 	}
 	
-	public Class getDataClass() {
-		return rawData.get(0).getClass();
+	public int size() {
+		return rawData.size();
 	}
 	
 	@Override
