@@ -4,6 +4,7 @@ import com.kamontat.constant.HotKey;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.*;
 
 /**
  * @author kamontat
@@ -31,12 +32,29 @@ public class MenuBarController extends JMenuBar {
 	}
 	
 	public static class Menu extends JMenu {
+		HashMap<String, MenuItem> items;
+		
 		public Menu(String title) {
 			super(title);
+			items = new HashMap<String, MenuItem>();
 		}
 		
 		public void addItem(MenuItem menuItem) {
+			items.put(menuItem.getText(), menuItem);
 			add(menuItem);
+		}
+		
+		public MenuItem getItem(String text) {
+			return items.get(text);
+		}
+		
+		public boolean isContain(String text) {
+			return items.containsKey(text);
+		}
+		
+		@Override
+		public void addSeparator() {
+			super.addSeparator();
 		}
 		
 		public static Menu[] toArray(Menu... menus) {
@@ -50,7 +68,7 @@ public class MenuBarController extends JMenuBar {
 		/**
 		 * how to use custom menu item
 		 * <pre><code>
-		 * settingMenu.addItem(new MenuBarController.Menu.MenuItem(new HotKey("test"), new AbstractAction() {
+		 * Menu.addItem(new MenuBarController.Menu.MenuItem(new HotKey("test"), new AbstractAction() {
 		 *      public void actionPerformed(ActionEvent e) {
 		 *          // some code
 		 *      }

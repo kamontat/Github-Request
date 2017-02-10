@@ -2,6 +2,7 @@ package com.kamontat.gui;
 
 import com.kamontat.constant.HotKey;
 import com.kamontat.controller.menu.MenuBarController;
+import com.kamontat.controller.menu.MenuUpdateListener;
 import com.kamontat.controller.popup.PopupLog;
 import com.kamontat.model.management.Location;
 import com.kamontat.model.management.Size;
@@ -9,6 +10,7 @@ import com.kamontat.server.GithubLoader;
 import com.kamontat.server.GithubToken;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -51,20 +53,23 @@ public class LoginPage extends JFrame {
 	}
 	
 	private void setMenuBar() {
+		
 		// left
 		MenuBarController.Menu manageMenu = new MenuBarController.Menu("Management");
-		
+		manageMenu.addItem(MenuBarController.Menu.MenuItem.getExitMenu());
 		
 		// right
-		MenuBarController.Menu settingMenu = new MenuBarController.Menu("Setting");
-		settingMenu.addItem(MenuBarController.Menu.MenuItem.getExitMenu());
-		// custom setting
-		settingMenu.addItem(new MenuBarController.Menu.MenuItem(new HotKey("test"), new AbstractAction() {
+		final MenuBarController.Menu settingMenu = new MenuBarController.Menu("Setting");
+		settingMenu.addMenuUpdateListener(new MenuUpdateListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				
+			public void updateTitle(MenuEvent e) {
+				// load cache
+				if (GithubToken.haveCache() && !settingMenu.isContain(LoadCache.name)) {
+					// loading cache
+					settingMenu.addItem(new LoadCache());
+				}
 			}
-		}));
+		});
 		
 		MenuBarController.Menu[] lefts = MenuBarController.Menu.toArray(manageMenu);
 		MenuBarController.Menu[] rights = MenuBarController.Menu.toArray(settingMenu);
@@ -146,11 +151,6 @@ public class LoginPage extends JFrame {
 		setLocation(Location.getCenterLocation(this.getSize()));
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		
-		// load cache
-		if (GithubToken.haveCache()) {
-			loadCache();
-		}
 	}
 	
 	public static void run() {
@@ -160,5 +160,18 @@ public class LoginPage extends JFrame {
 				new LoginPage().compile();
 			}
 		});
+	}
+	
+	private class LoadCache extends MenuBarController.Menu.MenuItem {
+		private final static String name = "Load Cache";
+		
+		private LoadCache() {
+			super(new HotKey(name), new AbstractAction() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					loadCache();
+				}
+			});
+		}
 	}
 }
