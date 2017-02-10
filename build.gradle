@@ -39,8 +39,8 @@ task gendocs(type: Javadoc) {
     classpath = sourceSets.main.compileClasspath
 
     destinationDir = file("$rootDir/docs")
-    title = "Github-Request 2.0"
-    options.windowTitle = "Github-Request 2.0"
+    title = "Github-Request $version"
+    options.windowTitle = "Github-Request $version"
     options.quiet()
 }
 
