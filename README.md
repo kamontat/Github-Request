@@ -1,5 +1,5 @@
 # Github-Request
-request issue in github
+Learn more in [Wiki](https://github.com/kamontat/Github-Request/wiki)
 
 If you fork repository, and want to update the original repository you can see more in this link
 http://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repository
