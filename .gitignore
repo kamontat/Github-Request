@@ -1,6 +1,7 @@
 # Gradle template
 .gradle
 build/*
+!build/distributions
 !build/reports
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)

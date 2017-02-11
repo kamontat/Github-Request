@@ -1,6 +1,7 @@
 group 'kamontat.me'
 
 apply plugin: 'java'
+apply plugin: 'idea'
 
 // run main
 apply plugin: 'application'
@@ -57,8 +58,13 @@ dependencies {
     //    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M3'
     //    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.0-M3'
 
+    // jetbrains gui
+    compile group: 'com.intellij', name: 'forms_rt', version: '7.0.3'
+    // github api
     compile group: 'org.kohsuke', name: 'github-api', version: '1.84'
+    // encryption
     compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
+    // google drive api
     compile 'com.google.api-client:google-api-client:1.22.0'
     compile 'com.google.oauth-client:google-oauth-client-jetty:1.22.0'
     compile 'com.google.apis:google-api-services-drive:v3-rev56-1.22.0'
