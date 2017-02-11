@@ -6,6 +6,10 @@ http://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repos
 
 # TODO-LIST
 
+## S-Major
+- [ ] change code to MVP Pattern
+  - [see more](https://blacklenspub.com/mvp-คืออะไร-แล้วเกี่ยวกะไรกับ-android-7a0460d7cd49#.97fv43hct)
+
 ## Major
 - [ ] **Login Page**
 - [ ] **User Management Page**
