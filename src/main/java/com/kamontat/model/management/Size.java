@@ -3,6 +3,16 @@ package com.kamontat.model.management;
 import java.awt.*;
 
 /**
+ * Size api
+ * <p>
+ * this class contain some of method but all of them is <code>static method</code> so you don't need to assign everything to use it
+ * <ul>
+ * <li>{@link #getDefaultPageSize()}</li>
+ * <li>{@link #getScreenSize()}</li>
+ * <li>{@link #isBiggerThanScreen(Dimension)}</li>
+ * <li>{@link #maximum(Dimension, Dimension)}</li>
+ * </ul>
+ *
  * @author kamontat
  * @version 1.2
  * @since 1/30/2017 AD - 1:47 PM
@@ -10,12 +20,12 @@ import java.awt.*;
 public class Size {
 	/**
 	 * Screen information <br>
-	 * - getLog size <code>screen.getWidth</code> and <code>screen.getHeight</code>
+	 * - get size <code>screen.getWidth</code> and <code>screen.getHeight</code>
 	 */
 	private static DisplayMode screen = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
 	
 	/**
-	 * getLog Screen size
+	 * get Screen size
 	 *
 	 * @return screen size
 	 */
@@ -24,7 +34,7 @@ public class Size {
 	}
 	
 	/**
-	 * getLog default/normally page size, (871, 557)
+	 * get default/normally page size, (871, 557)
 	 *
 	 * @return default size
 	 */

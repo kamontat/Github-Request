@@ -6,15 +6,23 @@ import java.io.*;
 import java.util.*;
 
 /**
- * this class is file api you can easy to use in many way this class contain some of method but all of them is static method so you don't need to assign everything to use it
+ * this class is file api <br>
+ * you can easy to use in many way <br>
+ * <p>
+ * this class contain some of method but all of them is <code>static method</code> so you don't need to assign everything to use it
+ * <ol>
+ * <li>{@link #getContentByLine(File)}</li>
+ * <li>{@link #getExtension(File)}</li>
+ * <li>{@link #getStringExtension(File)}</li>
+ * </ol>
  *
  * @author kamontat
- * @version 1.1
+ * @version 1.2
  * @since 1/25/2017 AD - 8:44 PM
  */
 public class FileUtil {
 	/**
-	 * getLog file extension (enum {@link FileExtension}) by using file parameter
+	 * get file extension (enum {@link FileExtension}) by using file parameter
 	 *
 	 * @param f
 	 * 		file to search extension
@@ -25,8 +33,8 @@ public class FileUtil {
 	}
 	
 	/**
-	 * getLog all data separate each by line (To use this method you might need plain text file). <br>
-	 * you can getLog line count by using {@link ArrayList#size()}. <br>
+	 * get all data separate each by line (To use this method you might need plain text file). <br>
+	 * you can get line count by using {@link ArrayList#size()}. <br>
 	 * <b>Warning: </b> this cass have some exception that not handle so you might do some thing with it
 	 *
 	 * @param f
@@ -50,7 +58,7 @@ public class FileUtil {
 	}
 	
 	/**
-	 * getLog file extension (String {@link String}) of file in parameter
+	 * get file extension (String {@link String}) of file in parameter
 	 *
 	 * @param f
 	 * 		file

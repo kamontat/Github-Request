@@ -3,6 +3,14 @@ package com.kamontat.model.management;
 import java.awt.*;
 
 /**
+ * with 2 method make the class became screen location api
+ * <p>
+ * this class contain some of method but all of them is <code>static method</code> so you don't need to assign everything to use it
+ * <ol>
+ * <li>{@link #getCenterLocation(Dimension)}</li>
+ * <li>{@link #getCenterPage(Window, Window)}</li>
+ * </ol>
+ *
  * @author kamontat
  * @version 4.1
  * @since 17/8/59 - 23:54
@@ -10,12 +18,12 @@ import java.awt.*;
 public class Location {
 	
 	/**
-	 * getLog default point at x=0, y=0
+	 * get default point at x=0, y=0
 	 */
 	public static Point getDefaultPoint = new Point(0, 0);
 	
 	/**
-	 * getLog point that stay in the center of the screen
+	 * get point that stay in the center of the screen
 	 *
 	 * @param pageSize
 	 * 		size of page that want to show in the center
@@ -26,7 +34,7 @@ public class Location {
 	}
 	
 	/**
-	 * getLog point to show page at center of the old page <br>
+	 * get point to show page at center of the old page <br>
 	 * if don't have old page (oldPage is <code>null</code>) this method will return center of the screen
 	 *
 	 * @param oldPage

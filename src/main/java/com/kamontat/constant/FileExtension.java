@@ -15,7 +15,14 @@ import java.io.File;
  * @since 1/31/2017 AD - 12:56 AM
  */
 public enum FileExtension {
-	ALL("", "all file"), TXT("txt", "plain text file"), PDF("pdf", "document file"), XLS("xls", "excel(97-2003) file"), XLSX("xlsx", "excel(2007-now) file"), CSV("csv", "tabular data in plain text file"), OTHER("", "Other");
+	ALL("", "all file"),
+	TXT("txt", "plain text file"),
+	PDF("pdf", "document file"),
+	XLS("xls", "excel(97-2003) file"),
+	XLSX("xlsx", "excel(2007-now) file"),
+	CSV("csv", "tabular data in plain text file"),
+	OTHER("", "Other");
+	
 	/**
 	 * extension like txt, pdf, js, java
 	 */

@@ -19,7 +19,7 @@ import java.io.Serializable;
  * and this class also use cache to keep your encrypt token pass using <code>Encryption</code> class
  *
  * @author kamontat
- * @version 2.2
+ * @version 2.3
  * @see GithubLoader
  * @see java.io.Serializable
  * @see Cache
@@ -28,7 +28,7 @@ import java.io.Serializable;
  */
 public class GithubToken implements Serializable {
 	// stand for version
-	static final long serialVersionUID = 2L;
+	static final long serialVersionUID = 3L;
 	// default name of cache file
 	private static final String FILE_NAME = "Token";
 	// token

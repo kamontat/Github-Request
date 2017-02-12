@@ -9,12 +9,12 @@ import java.io.Serializable;
  * This class use library from <b>jasypt</b> to encryption
  *
  * @author kamontat
- * @version 1.2
+ * @version 1.3
  * @see <a href="www.jasypt.com">jasypt</a>
  * @since 1/28/2017 AD - 2:34 AM
  */
 public class Encryption implements Serializable {
-	static final long serialVersionUID = 1L;
+	static final long serialVersionUID = 3L;
 	
 	private StandardPBEStringEncryptor encryption;
 	

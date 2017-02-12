@@ -80,6 +80,11 @@ public enum RequestStatus {
 		return String.format("%s (%s) %s", username, repoName, description);
 	}
 	
+	/**
+	 * return description of the error
+	 *
+	 * @return description
+	 */
 	@Override
 	public String toString() {
 		return description;
