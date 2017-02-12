@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
+import static com.kamontat.constant.RequestStatus.REPO_NOT_FOUND;
+
 /**
  * @author kamontat
  * @version 2.2
@@ -86,6 +88,10 @@ public class GithubLoader {
 		return rateLimit;
 	}
 	
+	public boolean isOutLimit() throws RequestException {
+		return GithubLoader.getGithubLoader().getRateLimit().remaining == 0;
+	}
+	
 	public User[] getOrganization(String name) throws RequestException {
 		try {
 			PagedIterable<GHUser> allUser = getGithub().getOrganization(name).listMembers();
@@ -113,21 +119,33 @@ public class GithubLoader {
 	}
 	
 	public Map<String, GHRepository> getRepositories(User user) throws RequestException {
-		try {
-			return user.githubUser.getRepositories();
-		} catch (IOException e) {
-			throw new RequestException(user.getName());
+		if (user.isMine()) {
+			try {
+				return user.githubMy.getAllRepositories();
+			} catch (IOException e) {
+				throw new RequestException(user.getName());
+			}
+		} else {
+			try {
+				return user.githubUser.getRepositories();
+			} catch (IOException e) {
+				throw new RequestException(user.getName());
+			}
 		}
 	}
 	
 	public GHRepository getRepository(User user, String repoName) throws RequestException {
 		try {
-			GHRepository repo = user.githubUser.getRepository(repoName);
-			if (repo == null) throw new RequestException(RequestStatus.REPO_NOT_FOUND, user.getName(), repoName);
-			return repo;
+			GHRepository repository = null;
 			
+			if (user.isMine()) repository = user.githubMy.getRepository(repoName);
+			else repository = user.githubUser.getRepository(repoName);
+			
+			if (repository == null) throw new RequestException(REPO_NOT_FOUND, user.getName(), repoName);
+			
+			return repository;
 		} catch (IOException e) {
-			throw new RequestException(user.getName());
+			throw new RequestException(user.getName(), repoName);
 		}
 	}
 	

@@ -1,8 +1,8 @@
 package com.kamontat.model.github;
 
 import com.kamontat.exception.RequestException;
-import org.kohsuke.github.*;
 import com.kamontat.server.GithubLoader;
+import org.kohsuke.github.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,10 +21,20 @@ public class Repositories {
 	
 	public Repositories(User user) {
 		this.owner = user;
-		getAllRepositories();
 	}
 	
-	private void getAllRepositories() {
+	public void addRepository(String repoName) {
+		try {
+			GHRepository ghRepo = owner.getRepository(repoName);
+			repositories.put(repoName, ghRepo);
+		} catch (RequestException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void addAllRepositories() throws RequestException {
+		if (GithubLoader.getGithubLoader().isOutLimit()) throw new RequestException(LIMIT_EXCEED);
+		
 		Thread run = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -35,12 +45,34 @@ public class Repositories {
 				}
 			}
 		});
+		
 		try {
 			run.start();
 			run.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Repository getRepository(String name) {
+		if (repositories.get(name) == null) addRepository(name);
+		
+		GHRepository repo = repositories.get(name);
+		try {
+			if (repo != null) return new Repository(owner, repo);
+		} catch (RequestException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Repository> getAllRepositories() throws RequestException {
+		Collection<GHRepository> collection = repositories.values();
+		ArrayList<Repository> repositories = new ArrayList<Repository>(collection.size());
+		for (GHRepository repo : collection) {
+			repositories.add(new Repository(owner, repo));
+		}
+		return repositories;
 	}
 	
 	/**
@@ -112,27 +144,14 @@ public class Repositories {
 		}
 	}
 	
-	public Repository getRepository(String repoName) throws RequestException {
-		GHRepository repository = repositories.get(repoName);
-		if (repository == null) throw new RequestException(REPO_NOT_FOUND, owner.getName(), repoName);
-		return new Repository(owner, repository);
-	}
-	
-	public List<GHRepository> getAll() {
-		return new ArrayList<GHRepository>(repositories.values());
-	}
-	
 	private List<GHIssue> getIssue(Repository repository, GHIssueState issueState) throws RequestException {
-		if (isOutLimit()) throw new RequestException(LIMIT_EXCEED);
+		if (GithubLoader.getGithubLoader().isOutLimit()) throw new RequestException(LIMIT_EXCEED);
 		
+		// empty issue
 		if (repository.getIssues(issueState).isEmpty())
 			System.err.println(EMPTY.getFullDescription(repository.owner, repository));
 		
 		return repository.getIssues(issueState);
-	}
-	
-	private boolean isOutLimit() throws RequestException {
-		return GithubLoader.getGithubLoader().getRateLimit().remaining == 0;
 	}
 	
 	@Override
@@ -160,10 +179,21 @@ public class Repositories {
 		public Date createAt;
 		public Date updateAt;
 		
+		GHContent readme;
 		public String readme_link;
 		public String readme_download_link;
 		public String readme_api_url;
 		
+		/**
+		 * get all information from repository
+		 *
+		 * @param owner
+		 * 		repository owner
+		 * @param repository
+		 * 		some repo
+		 * @throws RequestException
+		 * 		occurred {@link com.kamontat.constant.RequestStatus#INTERNET_ERROR} when internet error
+		 */
 		Repository(User owner, GHRepository repository) throws RequestException {
 			this.repository = repository;
 			
@@ -175,10 +205,11 @@ public class Repositories {
 			this.owner = owner;
 			
 			try {
-				GHContent ghc = repository.getReadme();
-				readme_api_url = ghc.getUrl();
-				readme_download_link = ghc.getDownloadUrl();
-				readme_link = ghc.getHtmlUrl();
+				readme = repository.getReadme();
+				
+				readme_api_url = readme.getUrl();
+				readme_download_link = readme.getDownloadUrl();
+				readme_link = readme.getHtmlUrl();
 			} catch (IOException e) {
 				System.err.println(README_NOT_FOUND.getFullDescription(owner, name));
 			}
@@ -191,6 +222,15 @@ public class Repositories {
 			}
 		}
 		
+		/**
+		 * get list of issue that match of parameter
+		 *
+		 * @param issueState
+		 * 		status of issue {@link GHIssueState}
+		 * @return list of issue
+		 * @throws RequestException
+		 * 		occurred {@link com.kamontat.constant.RequestStatus#ISSUE_ERROR} when have some error in issue getting
+		 */
 		private List<GHIssue> getIssues(GHIssueState issueState) throws RequestException {
 			try {
 				return repository.getIssues(issueState);
@@ -201,7 +241,7 @@ public class Repositories {
 		
 		@Override
 		public String toString() {
-			return String.format("id=%s name=%s \n\"%s\"\nurl=%s\napi_url=%s\nReadme:\n\tlink=%s\n\tdownload link=%s\n\tapi link=%s\ncreate=\'%s\' update=\'%s\'", id, name, description, url, api_url, readme_link == null ? "none": readme_link, readme_download_link == null ? "none": readme_download_link, readme_api_url == null ? "none": readme_api_url, createAt, updateAt);
+			return name;
 		}
 	}
 }

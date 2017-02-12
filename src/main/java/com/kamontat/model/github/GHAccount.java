@@ -35,14 +35,26 @@ public class GHAccount implements TableInformation<GHAccount> {
 	@Override
 	public Vector<Object> getStringInformationVector() {
 		Vector<Object> vector = this.user.getStringInformationVector();
-		// TODO 2/12/2017 AD 12:31 PM add repository name
+		try {
+			// convert array of repo to text separate by ","
+			StringBuilder repoText = new StringBuilder();
+			ArrayList<Repositories.Repository> repositories = this.repositories.getAllRepositories();
+			for (Repositories.Repository repo : repositories) {
+				repoText.append(repo.name).append(", ");
+			}
+			repoText.delete(repoText.capacity() - 2, repoText.capacity());
+			
+			vector.add(repoText);
+		} catch (RequestException e) {
+			e.printStackTrace();
+		}
 		return vector;
 	}
 	
 	@Override
 	public Vector<String> getStringTitleVector() {
 		Vector<String> vector = user.getStringTitleVector();
-		vector.add("Repository name");
+		vector.add("Repository name (eg. a, b, c)");
 		
 		return vector;
 	}

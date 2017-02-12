@@ -1,4 +1,4 @@
-package com.kamontat.controller.popup;
+package com.kamontat.controller.action;
 
 import com.kamontat.controller.table.AutoFitTable;
 import com.kamontat.gui.UserInfoPage;

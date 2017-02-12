@@ -1,9 +1,9 @@
 package com.kamontat.controller.menu;
 
 import com.kamontat.constant.HotKey;
+import com.kamontat.controller.action.NormalAction;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.util.*;
 
 /**
@@ -104,12 +104,7 @@ public class MenuBarController extends JMenuBar {
 			}
 			
 			public static Item getExitMenu() {
-				return new Item(HotKey.EXIT, new AbstractAction() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						System.exit(0);
-					}
-				});
+				return new Item(HotKey.EXIT, new NormalAction.ExitAction());
 			}
 		}
 	}

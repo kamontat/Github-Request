@@ -12,6 +12,14 @@ public class RequestException extends Exception {
 	private String username;
 	private String repoName;
 	
+	/**
+	 * Error request status
+	 *
+	 * @param user
+	 * 		user that make request
+	 * @param repository
+	 * 		repository that make request
+	 */
 	public RequestException(String user, String repository) {
 		this(RequestStatus.ERROR, user, repository);
 	}
@@ -23,6 +31,12 @@ public class RequestException extends Exception {
 		this.repoName = repoName;
 	}
 	
+	/**
+	 * Error request status
+	 *
+	 * @param fullName
+	 * 		name of user that make request
+	 */
 	public RequestException(String fullName) {
 		this(RequestStatus.ERROR, fullName);
 	}
@@ -33,6 +47,9 @@ public class RequestException extends Exception {
 		this.username = fullName;
 	}
 	
+	/**
+	 * Error request status
+	 */
 	public RequestException() {
 		this(RequestStatus.ERROR);
 	}

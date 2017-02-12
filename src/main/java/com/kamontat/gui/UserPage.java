@@ -11,7 +11,7 @@ import com.kamontat.controller.loader.Task;
 import com.kamontat.controller.menu.MenuBarController;
 import com.kamontat.controller.menu.MenuUpdateListener;
 import com.kamontat.controller.mouse.AbstractMouseAction;
-import com.kamontat.controller.popup.TableAction;
+import com.kamontat.controller.action.TableAction;
 import com.kamontat.controller.popup.PopupController;
 import com.kamontat.controller.popup.Popup;
 import com.kamontat.controller.table.AutoFitTable;

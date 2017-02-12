@@ -3,8 +3,10 @@ package com.kamontat.model.github;
 import com.kamontat.constant.RequestStatus;
 import com.kamontat.exception.RequestException;
 import com.kamontat.server.Downloader;
+import com.kamontat.server.GithubLoader;
 import org.kohsuke.github.GHEmail;
 import org.kohsuke.github.GHMyself;
+import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHUser;
 
 import javax.swing.*;
@@ -20,7 +22,7 @@ import java.util.*;
  */
 public class User implements TableInformation<User> {
 	public GHUser githubUser;
-	private GHMyself githubMy;
+	public GHMyself githubMy;
 	
 	private final int id;
 	public final String loginName;
@@ -108,10 +110,6 @@ public class User implements TableInformation<User> {
 		return obj instanceof User && ((User) obj).id == id && ((User) obj).loginName.equals(loginName);
 	}
 	
-	public GHMyself getGithubMyself() {
-		return githubMy;
-	}
-	
 	public String getID() {
 		return String.valueOf(id);
 	}
@@ -130,6 +128,14 @@ public class User implements TableInformation<User> {
 	
 	public ImageIcon getImage(int w, int h) {
 		return new ImageIcon(image.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
+	}
+	
+	public GHRepository getRepository(String name) throws RequestException {
+		return GithubLoader.getGithubLoader().getRepository(this, name);
+	}
+	
+	public Map<String, GHRepository> getRepositories() throws RequestException {
+		return GithubLoader.getGithubLoader().getRepositories(this);
 	}
 	
 	@Override
