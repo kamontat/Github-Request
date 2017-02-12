@@ -2,6 +2,7 @@ package server;
 
 import com.kamontat.server.GithubToken;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -27,7 +28,7 @@ public class GithubTokenTest {
 		assertEquals(token, gt.getToken());
 	}
 	
-	@Test
+	@Ignore
 	public void checkTokenLoadComplete() {
 		final GithubToken newOne = GithubToken.loadCache(password);
 		assertEquals(token, newOne.getToken());
