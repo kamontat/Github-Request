@@ -7,8 +7,8 @@ apply plugin: 'idea'
 apply plugin: 'application'
 mainClassName = "com.kamontat.main.Main"
 
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 version = '2.2.3'
 
 description = 'Github Request By Java'
@@ -21,6 +21,10 @@ task info {
         println "project-location: \"$projectDir\""
         println "reports-location: \"$reportsDir\""
     }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.3'
 }
 
 task execute(type: JavaExec) {
