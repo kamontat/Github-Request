@@ -24,7 +24,7 @@ public class User implements TableInformation<User> {
 	
 	private final int id;
 	public final String loginName;
-	public String fullname;
+	private String fullname;
 	public String name; // can be null
 	public String surname; // can be null
 	private String email;

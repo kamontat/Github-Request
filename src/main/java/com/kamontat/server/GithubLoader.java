@@ -116,7 +116,18 @@ public class GithubLoader {
 		try {
 			return user.githubUser.getRepositories();
 		} catch (IOException e) {
-			throw new RequestException(user.fullname);
+			throw new RequestException(user.getName());
+		}
+	}
+	
+	public GHRepository getRepository(User user, String repoName) throws RequestException {
+		try {
+			GHRepository repo = user.githubUser.getRepository(repoName);
+			if (repo == null) throw new RequestException(RequestStatus.REPO_NOT_FOUND, user.getName(), repoName);
+			return repo;
+			
+		} catch (IOException e) {
+			throw new RequestException(user.getName());
 		}
 	}
 	

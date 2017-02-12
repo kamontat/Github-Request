@@ -21,7 +21,10 @@ public class Repositories {
 	
 	public Repositories(User user) {
 		this.owner = user;
-		
+		getAllRepositories();
+	}
+	
+	private void getAllRepositories() {
 		Thread run = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -32,7 +35,6 @@ public class Repositories {
 				}
 			}
 		});
-		
 		try {
 			run.start();
 			run.join();
@@ -66,7 +68,7 @@ public class Repositories {
 				sb.append(repoName).append(", ");
 				
 				// full name
-				sb.append(owner.fullname).append(", ");
+				sb.append(owner.getName()).append(", ");
 				
 				// id
 				sb.append(String.valueOf(issue.getNumber())).append(", ");
@@ -106,13 +108,13 @@ public class Repositories {
 			}
 			return sb;
 		} catch (IOException e) {
-			throw new RequestException(ISSUE_ERROR, owner.fullname, repoName);
+			throw new RequestException(ISSUE_ERROR, owner.getName(), repoName);
 		}
 	}
 	
 	public Repository getRepository(String repoName) throws RequestException {
 		GHRepository repository = repositories.get(repoName);
-		if (repository == null) throw new RequestException(REPO_NOT_FOUND, owner.fullname, repoName);
+		if (repository == null) throw new RequestException(REPO_NOT_FOUND, owner.getName(), repoName);
 		return new Repository(owner, repository);
 	}
 	
@@ -193,7 +195,7 @@ public class Repositories {
 			try {
 				return repository.getIssues(issueState);
 			} catch (IOException e) {
-				throw new RequestException(ISSUE_ERROR, owner.fullname, name);
+				throw new RequestException(ISSUE_ERROR, owner.getName(), name);
 			}
 		}
 		

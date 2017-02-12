@@ -17,6 +17,10 @@ import static javax.swing.SwingUtilities.invokeLater;
 public class RepositoryPage extends JFrame {
 	private ArrayList<User> all;
 	private JPanel pane;
+	private JTable table1;
+	private JTextField textField1;
+	private JButton addButton;
+	private JButton addAllButton;
 	
 	private RepositoryPage(ArrayList<User> all) {
 		setContentPane(pane);
