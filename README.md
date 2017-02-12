@@ -1,4 +1,4 @@
-# Github-Request
+# Github-Request [![Build Status](https://travis-ci.org/kamontat/Github-Request.svg?branch=master)](https://travis-ci.org/kamontat/Github-Request)
 request issue in github
 
 If you fork repository, and want to update the original repository you can see more in this link
