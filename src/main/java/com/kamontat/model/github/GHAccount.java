@@ -22,6 +22,14 @@ public class GHAccount implements TableInformation<GHAccount> {
 		return repositories.getRepository(repoName);
 	}
 	
+	public static ArrayList<GHAccount> convertAll(ArrayList<User> users) {
+		ArrayList<GHAccount> accounts = new ArrayList<GHAccount>();
+		for (User u : users) {
+			accounts.add(new GHAccount(u));
+		}
+		return accounts;
+	}
+	
 	@Override
 	public GHAccount getRawData() {
 		return this;

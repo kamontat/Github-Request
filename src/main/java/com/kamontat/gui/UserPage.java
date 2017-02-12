@@ -5,15 +5,15 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.kamontat.constant.FileExtension;
 import com.kamontat.constant.HotKey;
+import com.kamontat.controller.action.TableAction;
 import com.kamontat.controller.loader.LoadProgress;
 import com.kamontat.controller.loader.LoadingFile;
 import com.kamontat.controller.loader.Task;
 import com.kamontat.controller.menu.MenuBarController;
 import com.kamontat.controller.menu.MenuUpdateListener;
 import com.kamontat.controller.mouse.AbstractMouseAction;
-import com.kamontat.controller.action.TableAction;
-import com.kamontat.controller.popup.PopupController;
 import com.kamontat.controller.popup.Popup;
+import com.kamontat.controller.popup.PopupController;
 import com.kamontat.controller.table.AutoFitTable;
 import com.kamontat.controller.table.TableInformationModel;
 import com.kamontat.exception.RequestException;
@@ -168,6 +168,7 @@ public class UserPage extends JFrame {
 	}
 	
 	private void buttonEvent() {
+		final Window self = this;
 		selectBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -192,6 +193,12 @@ public class UserPage extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<User> allUser = model.getAllData();
+				if (!allUser.isEmpty()) {
+//					RepositoryPage.run(self, GHAccount.convertAll(allUser));
+					dispose();
+				} else {
+					Popup.getLog(self).info("No Github User", "must have at least 1 user");
+				}
 			}
 		});
 	}

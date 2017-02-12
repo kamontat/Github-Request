@@ -49,6 +49,7 @@ public class UserInfoPage extends JDialog {
 		oldWindow = oldPage;
 		setContentPane(pane);
 		setModal(true);
+		getRootPane().setDefaultButton(backBtn);
 		
 		this.user = user;
 		setImage();
@@ -60,6 +61,7 @@ public class UserInfoPage extends JDialog {
 	}
 	
 	private void addBtnEvent() {
+		
 		backBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -74,7 +76,7 @@ public class UserInfoPage extends JDialog {
 	
 	private void setUsername() {
 		idLb.setText(user.getID());
-		fullNameLb.setText(user.fullname);
+		fullNameLb.setText(user.getName());
 		loginNameLb.setText(String.format("(%s)", user.loginName));
 		statusLb.setText(user.isFullName() ? (user.isMine() ? "Myself": "OK!"): "Not Full Name");
 	}
