@@ -1,7 +1,7 @@
 package com.kamontat.controller.action;
 
 import com.kamontat.controller.table.AutoFitTable;
-import com.kamontat.gui.UserInfoPage;
+import com.kamontat.gui.containers.UserInfoPage;
 import com.kamontat.model.github.User;
 
 import javax.swing.*;

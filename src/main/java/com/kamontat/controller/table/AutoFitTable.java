@@ -21,7 +21,6 @@ public class AutoFitTable<T> extends JTable {
 	public TableInformationModel<T> model;
 	
 	public AutoFitTable() {
-		
 	}
 	
 	public AutoFitTable(TableInformationModel<T> model) {

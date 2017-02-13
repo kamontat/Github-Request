@@ -1,4 +1,4 @@
-package com.kamontat.gui;
+package com.kamontat.gui.containers;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;

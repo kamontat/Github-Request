@@ -1,6 +1,6 @@
 package com.kamontat.main;
 
-import com.kamontat.gui.LoginPage;
+import com.kamontat.gui.containers.LoginPage;
 
 /**
  * @author kamontat

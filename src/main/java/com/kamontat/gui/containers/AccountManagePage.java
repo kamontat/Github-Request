@@ -1,4 +1,4 @@
-package com.kamontat.gui;
+package com.kamontat.gui.containers;
 
 import com.kamontat.model.github.GHAccount;
 import com.kamontat.model.management.Location;
@@ -17,6 +17,8 @@ import static javax.swing.SwingUtilities.invokeLater;
  */
 public class AccountManagePage extends JFrame {
 	private ArrayList<GHAccount> accounts;
+	private JPanel panel1;
+	private JList list;
 	
 	public AccountManagePage(ArrayList<GHAccount> accounts) {
 		this.accounts = accounts;

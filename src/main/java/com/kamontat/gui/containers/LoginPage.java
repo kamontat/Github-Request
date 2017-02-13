@@ -1,4 +1,4 @@
-package com.kamontat.gui;
+package com.kamontat.gui.containers;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -18,7 +18,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static com.kamontat.gui.LoginPage.Pass.GET;
+import static com.kamontat.gui.containers.LoginPage.Pass.GET;
 import static javax.swing.SwingUtilities.invokeLater;
 
 /**
