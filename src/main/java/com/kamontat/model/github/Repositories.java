@@ -1,10 +1,13 @@
 package com.kamontat.model.github;
 
+import com.kamontat.constant.RequestStatus;
 import com.kamontat.exception.RequestException;
 import com.kamontat.server.GithubLoader;
 import org.kohsuke.github.*;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.net.URL;
 import java.util.*;
 
@@ -179,7 +182,7 @@ public class Repositories {
 		public Date createAt;
 		public Date updateAt;
 		
-		GHContent readme;
+		private GHContent readme;
 		public String readme_link;
 		public String readme_download_link;
 		public String readme_api_url;
@@ -220,6 +223,24 @@ public class Repositories {
 			} catch (IOException e) {
 				throw new RequestException(INTERNET_ERROR);
 			}
+		}
+		
+		public InputStream getReadme() {
+			try {
+				return readme.read();
+			} catch (IOException e) {
+				System.out.println(RequestStatus.INTERNET_ERROR.getFullDescription(owner, this));
+			}
+			return null;
+		}
+		
+		public Reader readerMarkdown(String text, MarkdownMode mode) {
+			try {
+				return repository.renderMarkdown(text, mode);
+			} catch (IOException e) {
+				System.out.println(RequestStatus.INTERNET_ERROR.getFullDescription(owner, this));
+			}
+			return null;
 		}
 		
 		/**

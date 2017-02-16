@@ -14,19 +14,34 @@ version = '2.2.3'
 description = 'Github Request By Java'
 
 task info {
-    doLast {
-        println "name: $project.name ($version)"
-        println "description: $project.description"
+    description "get project information"
 
-        println "project-location: \"$projectDir\""
-        println "reports-location: \"$reportsDir\""
+    doFirst {
+        println "----------------"
+        println "Name: $project.name ($version)"
+        println "Description: $project.description"
+
+        println "Project-location: \"$projectDir\""
+        println "----------------"
+        println "Build-location: \"$buildDir\""
+        println "Reports-location: \"$reportsDir\""
+        println "Distributions-location: \"$buildDir/distributions\""
+        println "----------------"
+    }
+
+    doLast {
+        println ""
+        println ""
+        println ""
     }
 }
 
 task wrapper(type: Wrapper) {
+    description "create wrapper gradle version 3.3"
     gradleVersion = '3.3'
 }
 
+// execute main class by run `gradlew execute -P mainClass=<Name>` or `gradlew execute -P mainClass=<Name> -P arguments=<arguments>`
 task execute(type: JavaExec) {
     if (project.hasProperty('arguments')) {
         args(getProperty('arguments').split(','))
@@ -39,15 +54,38 @@ task execute(type: JavaExec) {
 }
 
 task gendocs(type: Javadoc) {
-    source = sourceSets.main.allJava
+    description "create docs folder in root folder($rootDir) and contain all javadoc"
+//    source = sourceSets.main.allJava
 
     classpath = sourceSets.main.compileClasspath
 
     destinationDir = file("$rootDir/docs")
     title = "Github-Request $version"
-    options.windowTitle = "Github-Request $version"
-    options.quiet()
+//    options.windowTitle = "Github-Request $version"
+//    options.quiet()
 }
+
+// add version class in com.kamontat.model.management call `Version.java`
+task genversionclass {
+    description "add version class in com.kamontat.model.management call `Version.java`"
+    doFirst {
+        new File("src/main/java/com/kamontat/model/management", "Version.java").write(
+                "package com.kamontat.model.management;\n" +
+                        "\n" +
+                        "public class Version {\n" +
+                        "\tpublic static final String VERSION = \"2.2.3\";\n" +
+                        "}"
+        )
+    }
+}
+
+// ordering task
+compileJava.dependsOn clean
+
+build.dependsOn gendocs
+build.dependsOn genversionclass
+
+build.finalizedBy info
 
 repositories {
     maven { url "https://repo.jenkins-ci.org/releases/" }
