@@ -80,11 +80,24 @@ task genversionclass {
     }
 }
 
+task jarmaker(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Github Request',
+                'Implementation-Version': version,
+                'Main-Class': mainClassName
+    }
+
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 // ordering task
 compileJava.dependsOn clean
 
 build.dependsOn gendocs
 build.dependsOn genversionclass
+jar.finalizedBy jarmaker
 
 build.finalizedBy info
 
