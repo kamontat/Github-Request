@@ -7,6 +7,8 @@ import org.kohsuke.github.GitHub;
 import java.io.IOException;
 import java.io.Serializable;
 
+// FIXME: 2/17/2017 AD I think saving and loading object from caches file can't loading in other day!
+
 /**
  * this class very importance in <code>GithubLoader</code> class <br>
  * this will use to sign in into github by using Token
