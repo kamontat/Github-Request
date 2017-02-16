@@ -1,12 +1,23 @@
 # Github-Request [![Build Status](https://travis-ci.org/kamontat/Github-Request.svg?branch=master)](https://travis-ci.org/kamontat/Github-Request)  [![Documentation Status](https://readthedocs.org/projects/github-request/badge/?version=latest)](http://github-request.readthedocs.io/en/latest/?badge=latest)
 request issue in github
 
+# I WILL UPDATE ALL DOCUMENT *QUICK* AS I CAN #
+
 If you fork repository, and want to update the original repository you can see more in this link
 http://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repository
 
 ### Design
 - [Designing Page](https://github.com/kamontat/Github-Request/tree/master/design/picture)
 
+### NEW BUILD & RUN
+- To build you just call `./gradew build`(MacOS, Linux) or `gradew build`(WinOS)
+  - In build commend do a lot of thing;
+    1. `clean` - remove old version, to avoid conflicts
+    2. `gendocs` - create javadoc in path `docs`
+    3. `genversionclass` - create Version.java inside path `com.kamontat.model.management` that contain version of current program
+    4. other common commend in build function like `:compileJava`, `:processResources`, `:test` etc.
+    5. `info` - to output all information inside this program
+    
 # TODO-LIST
 
 ## S-Major

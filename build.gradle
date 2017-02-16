@@ -22,6 +22,7 @@ task info {
         println "Description: $project.description"
 
         println "Project-location: \"$projectDir\""
+        println "Project-location: \"$projectDir/docs\""
         println "----------------"
         println "Build-location: \"$buildDir\""
         println "Reports-location: \"$reportsDir\""
