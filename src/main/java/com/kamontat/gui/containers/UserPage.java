@@ -19,7 +19,7 @@ import com.kamontat.controller.table.TableInformationModel;
 import com.kamontat.exception.RequestException;
 import com.kamontat.model.github.User;
 import com.kamontat.model.management.Device;
-import com.kamontat.model.management.FileUtil;
+import com.kamontat.model.management.FileUtils;
 import com.kamontat.model.management.Location;
 import com.kamontat.model.management.Size;
 import com.kamontat.server.GithubLoader;
@@ -211,7 +211,7 @@ public class UserPage extends JFrame {
 	private void multiSByText() {
 		final File file = LoadingFile.type(FileExtension.TXT).getFile(this);
 		if (file != null) {
-			ArrayList<String> arr = FileUtil.getContentByLine(file);
+			ArrayList<String> arr = FileUtils.getContentByLine(file);
 			loadingProgress(arr, "Loading... username (Text File)");
 		}
 	}

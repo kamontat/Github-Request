@@ -18,6 +18,7 @@ public enum RequestStatus {
 	EMPTY("Empty issue."),
 	README_NOT_FOUND("Readme not found."),
 	
+	LINK_NOT_FOUND("link not found"),
 	USER_NOT_FOUND("Username not found."),
 	REPO_NOT_FOUND("Repositories not found."),
 	

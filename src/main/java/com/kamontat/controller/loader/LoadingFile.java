@@ -1,7 +1,7 @@
 package com.kamontat.controller.loader;
 
 import com.kamontat.constant.FileExtension;
-import com.kamontat.model.management.FileUtil;
+import com.kamontat.model.management.FileUtils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -20,7 +20,7 @@ public class LoadingFile {
 		return new LoadingFile(new FileFilter() {
 			@Override
 			public boolean accept(File f) {
-				return f.isDirectory() || FileUtil.getExtension(f) == extension;
+				return f.isDirectory() || FileUtils.getExtension(f) == extension;
 			}
 			
 			@Override

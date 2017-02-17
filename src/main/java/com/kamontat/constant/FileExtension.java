@@ -1,14 +1,16 @@
 package com.kamontat.constant;
 
+import com.kamontat.model.management.FileUtils;
+
 import java.io.File;
 
 /**
  * All file extension that might use in this program. <br>
  * contain: txt, pdf, xls, xlsx, csv <br>
  * and if don't have extension in this enum this will create extension other and return by itself
- * you can easiest found extension by use {@link FileExtension#getExtension(String)} and you can get string extension by using  {@link com.kamontat.model.management.FileUtil#getStringExtension(File) FileUtil.getStringExtension(File)} <br>
+ * you can easiest found extension by use {@link FileExtension#getExtension(String)} and you can get string extension by using  {@link FileUtils#getStringExtension(File) FileUtils.getStringExtension(File)} <br>
  * <p>
- * BUT For more easy than that you can use {@link com.kamontat.model.management.FileUtil#getExtension(File) FileUtil.getExtension(File)} and it will return extension that you want</p>
+ * BUT For more easy than that you can use {@link FileUtils#getExtension(File) FileUtils.getExtension(File)} and it will return extension that you want</p>
  *
  * @author kamontat
  * @version 1.0

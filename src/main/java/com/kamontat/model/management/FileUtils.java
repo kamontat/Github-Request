@@ -20,7 +20,7 @@ import java.util.*;
  * @version 1.2
  * @since 1/25/2017 AD - 8:44 PM
  */
-public class FileUtil {
+public class FileUtils {
 	/**
 	 * get file extension (enum {@link FileExtension}) by using file parameter
 	 *
