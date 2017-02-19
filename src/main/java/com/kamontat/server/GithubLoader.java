@@ -1,6 +1,7 @@
 package com.kamontat.server;
 
 import com.kamontat.constant.RequestStatus;
+import com.kamontat.exception.NonException;
 import com.kamontat.exception.RequestException;
 import com.kamontat.model.github.User;
 import org.kohsuke.github.*;
@@ -63,7 +64,7 @@ public class GithubLoader {
 			if (type == Type.AUTH) return GitHub.connectUsingOAuth(token.getToken());
 			else return GitHub.connectAnonymously();
 		} catch (IOException e) {
-			throw new RequestException(RequestStatus.TOKEN_ERROR);
+			throw new RequestException(e, RequestStatus.TOKEN_ERROR);
 		}
 	}
 	
@@ -72,7 +73,7 @@ public class GithubLoader {
 			try {
 				return new User(getGithub().getMyself());
 			} catch (IOException e) {
-				throw new RequestException(RequestStatus.MYSELF_ERROR);
+				throw new RequestException(e, RequestStatus.MYSELF_ERROR);
 			}
 		}
 		return null;
@@ -83,7 +84,7 @@ public class GithubLoader {
 		try {
 			rateLimit = getGithub().rateLimit();
 		} catch (IOException e) {
-			throw new RequestException(RequestStatus.INTERNET_ERROR);
+			throw new RequestException(e, RequestStatus.INTERNET_ERROR);
 		}
 		return rateLimit;
 	}
@@ -106,7 +107,7 @@ public class GithubLoader {
 			
 			return users;
 		} catch (IOException e) {
-			throw new RequestException(RequestStatus.ERROR);
+			throw new RequestException(e, RequestStatus.ERROR);
 		}
 	}
 	
@@ -114,7 +115,7 @@ public class GithubLoader {
 		try {
 			return new User(getGithub().getUser(name));
 		} catch (IOException e) {
-			throw new RequestException(RequestStatus.USER_NOT_FOUND);
+			throw new RequestException(e, RequestStatus.USER_NOT_FOUND);
 		}
 	}
 	
@@ -123,13 +124,13 @@ public class GithubLoader {
 			try {
 				return user.githubMy.getAllRepositories();
 			} catch (IOException e) {
-				throw new RequestException(user.getName());
+				throw new RequestException(e, user.getName());
 			}
 		} else {
 			try {
 				return user.githubUser.getRepositories();
 			} catch (IOException e) {
-				throw new RequestException(user.getName());
+				throw new RequestException(e, user.getName());
 			}
 		}
 	}
@@ -141,11 +142,12 @@ public class GithubLoader {
 			if (user.isMine()) repository = user.githubMy.getRepository(repoName);
 			else repository = user.githubUser.getRepository(repoName);
 			
-			if (repository == null) throw new RequestException(REPO_NOT_FOUND, user.getName(), repoName);
+			if (repository == null)
+				throw new RequestException(NonException.get(), REPO_NOT_FOUND, user.getName(), repoName);
 			
 			return repository;
 		} catch (IOException e) {
-			throw new RequestException(user.getName(), repoName);
+			throw new RequestException(e, user.getName(), repoName);
 		}
 	}
 	

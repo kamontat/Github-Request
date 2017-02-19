@@ -11,6 +11,7 @@ import com.kamontat.constant.RequestStatus;
  * @since 1/26/2017 AD - 3:49 PM
  */
 public class RequestException extends Exception {
+	private Exception e;
 	private RequestStatus status;
 	private String username;
 	private String repoName;
@@ -23,8 +24,8 @@ public class RequestException extends Exception {
 	 * @param repository
 	 * 		repository that make request
 	 */
-	public RequestException(String user, String repository) {
-		this(RequestStatus.ERROR, user, repository);
+	public RequestException(Exception e, String user, String repository) {
+		this(e, RequestStatus.ERROR, user, repository);
 	}
 	
 	/**
@@ -37,8 +38,9 @@ public class RequestException extends Exception {
 	 * @param repoName
 	 * 		name of repository that make error
 	 */
-	public RequestException(RequestStatus status, String fullName, String repoName) {
+	public RequestException(Exception e, RequestStatus status, String fullName, String repoName) {
 		super(status.toString());
+		this.e = e;
 		this.status = status;
 		this.username = fullName;
 		this.repoName = repoName;
@@ -50,8 +52,8 @@ public class RequestException extends Exception {
 	 * @param fullName
 	 * 		name of user that make request
 	 */
-	public RequestException(String fullName) {
-		this(RequestStatus.ERROR, fullName);
+	public RequestException(Exception e, String fullName) {
+		this(e, RequestStatus.ERROR, fullName);
 	}
 	
 	/**
@@ -62,8 +64,9 @@ public class RequestException extends Exception {
 	 * @param fullName
 	 * 		name of user that make error
 	 */
-	public RequestException(RequestStatus status, String fullName) {
+	public RequestException(Exception e, RequestStatus status, String fullName) {
 		super(status.toString());
+		this.e = e;
 		this.status = status;
 		this.username = fullName;
 	}
@@ -71,8 +74,8 @@ public class RequestException extends Exception {
 	/**
 	 * set request status as <code>Error</code>
 	 */
-	public RequestException() {
-		this(RequestStatus.ERROR);
+	public RequestException(Exception e) {
+		this(e, RequestStatus.ERROR);
 	}
 	
 	/**
@@ -81,8 +84,9 @@ public class RequestException extends Exception {
 	 * @param status
 	 * 		some status that will tell user to know which error had occurred
 	 */
-	public RequestException(RequestStatus status) {
+	public RequestException(Exception e, RequestStatus status) {
 		super(status.toString());
+		this.e = e;
 		this.status = status;
 	}
 	
@@ -118,6 +122,6 @@ public class RequestException extends Exception {
 	
 	public void printStackTrace() {
 		System.err.println(status.getFullDescription(username, repoName));
-		super.printStackTrace();
+		e.printStackTrace();
 	}
 }

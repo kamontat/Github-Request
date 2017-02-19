@@ -28,7 +28,7 @@ public class Update {
 		} catch (RequestException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			new RequestException(RequestStatus.UPDATE_ERROR, DEVELOPER_NAME, PROJECT_NAME).printStackTrace();
+			new RequestException(e, RequestStatus.UPDATE_ERROR, DEVELOPER_NAME, PROJECT_NAME).printStackTrace();
 		}
 	}
 	
@@ -37,5 +37,9 @@ public class Update {
 			// do some job
 		}
 		return false;
+	}
+	
+	private GHRelease getLatestRelease() {
+		return null;
 	}
 }

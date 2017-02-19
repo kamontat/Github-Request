@@ -1,6 +1,7 @@
 package com.kamontat.model.github;
 
 import com.kamontat.constant.RequestStatus;
+import com.kamontat.exception.NonException;
 import com.kamontat.exception.RequestException;
 import com.kamontat.server.GithubLoader;
 import org.kohsuke.github.*;
@@ -36,7 +37,7 @@ public class Repositories {
 	}
 	
 	public void addAllRepositories() throws RequestException {
-		if (GithubLoader.getGithubLoader().isOutLimit()) throw new RequestException(LIMIT_EXCEED);
+		if (GithubLoader.getGithubLoader().isOutLimit()) throw new RequestException(NonException.get(), LIMIT_EXCEED);
 		
 		Thread run = new Thread(new Runnable() {
 			@Override
@@ -143,12 +144,12 @@ public class Repositories {
 			}
 			return sb;
 		} catch (IOException e) {
-			throw new RequestException(ISSUE_ERROR, owner.getName(), repoName);
+			throw new RequestException(e, ISSUE_ERROR, owner.getName(), repoName);
 		}
 	}
 	
 	private List<GHIssue> getIssue(Repository repository, GHIssueState issueState) throws RequestException {
-		if (GithubLoader.getGithubLoader().isOutLimit()) throw new RequestException(LIMIT_EXCEED);
+		if (GithubLoader.getGithubLoader().isOutLimit()) throw new RequestException(NonException.get(), LIMIT_EXCEED);
 		
 		// empty issue
 		if (repository.getIssues(issueState).isEmpty())
@@ -221,7 +222,7 @@ public class Repositories {
 				createAt = repository.getCreatedAt();
 				updateAt = repository.getUpdatedAt();
 			} catch (IOException e) {
-				throw new RequestException(INTERNET_ERROR);
+				throw new RequestException(e, INTERNET_ERROR);
 			}
 		}
 		
@@ -256,7 +257,7 @@ public class Repositories {
 			try {
 				return repository.getIssues(issueState);
 			} catch (IOException e) {
-				throw new RequestException(ISSUE_ERROR, owner.getName(), name);
+				throw new RequestException(e, ISSUE_ERROR, owner.getName(), name);
 			}
 		}
 		
