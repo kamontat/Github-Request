@@ -48,7 +48,7 @@
                 <properties>
                   <editable value="false"/>
                   <lineWrap value="true"/>
-                  <text value="What is Token&#10;    Normally when you need to login, you need to enter username and password but when this program need to  authentication you to the server, I choose token to recognize you. &#10;How to get Token&#10;    you can get your token by login your github&#10;    - `https://github.com/settings/tokens/new` To generate new token&#10;    - `https://github.com/settings/tokens` To manage your exist token"/>
+                  <text value="What is Token&#10;    Normally when you need to login, you need to enter username and password but when this program need to  authentication you to the com.kamontat.server, I choose token to recognize you. &#10;How to get Token&#10;    you can get your token by login your github&#10;    - `https://github.com/settings/tokens/new` To generate new token&#10;    - `https://github.com/settings/tokens` To manage your exist token"/>
                   <wrapStyleWord value="true"/>
                 </properties>
               </component>

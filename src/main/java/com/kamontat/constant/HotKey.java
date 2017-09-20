@@ -17,7 +17,7 @@ public class HotKey {
 	
 	
 	public static HotKey EXIT = new HotKey("Exit", "Exit the program", "Everywhere", "Every time", getKey(KeyEvent.VK_ESCAPE, CTRL));
-	public static HotKey LOAD_CACHE = new HotKey("Load Cache", "Loading token cache with password", "login page", "Every time", getKey(KeyEvent.VK_C, CTRL));
+	public static HotKey LOAD_CACHE = new HotKey("Load Cache", "Loading token com.kamontat.cache with password", "login page", "Every time", getKey(KeyEvent.VK_C, CTRL));
 	
 	private String name;
 	private String description, position, when;

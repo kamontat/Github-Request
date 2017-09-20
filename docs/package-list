@@ -10,7 +10,7 @@ com.kamontat.exception
 com.kamontat.gui.components
 com.kamontat.gui.containers
 com.kamontat.main
-com.kamontat.model.encryption
-com.kamontat.model.github
-com.kamontat.model.management
-com.kamontat.server
+com.kamontat.com.kamontat.model.encryption
+com.kamontat.com.kamontat.model.github
+com.kamontat.com.kamontat.model.management
+com.kamontat.com.kamontat.server

@@ -48,11 +48,11 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../com/kamontat/server/GithubLoader.Type.html" title="enum in com.kamontat.server"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../com/kamontat/server/Update.html" title="class in com.kamontat.server"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../com/kamontat/com.kamontat.server/GithubLoader.Type.html" title="enum in com.kamontat.com.kamontat.server"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../com/kamontat/com.kamontat.server/Update.html" title="class in com.kamontat.com.kamontat.server"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?com/kamontat/server/GithubToken.html" target="_top">Frames</a></li>
+<li><a href="../../../index.html?com/kamontat/com.kamontat.server/GithubToken.html" target="_top">Frames</a></li>
 <li><a href="GithubToken.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_top">
@@ -91,7 +91,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">com.kamontat.server</div>
+<div class="subTitle">com.kamontat.com.kamontat.server</div>
 <h2 title="Class GithubToken" class="title">Class GithubToken</h2>
 </div>
 <div class="contentContainer">
@@ -99,7 +99,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>com.kamontat.server.GithubToken</li>
+<li>com.kamontat.com.kamontat.server.GithubToken</li>
 </ul>
 </li>
 </ul>
@@ -123,16 +123,16 @@ implements java.io.Serializable</pre>
  <li><code>https://github.com/settings/tokens/new</code> - To generate new token</li>
  <li><code>https://github.com/settings/tokens</code> - To manage your exist token</li>
  </ul>
- and this class also use cache to keep your encrypt token pass using <code>Encryption</code> class</div>
+ and this class also use com.kamontat.cache to keep your encrypt token pass using <code>Encryption</code> class</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>1/28/2017 AD - 12:51 AM</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../com/kamontat/server/GithubLoader.html" title="class in com.kamontat.server"><code>GithubLoader</code></a>, 
+<dd><a href="../../../com/kamontat/com.kamontat.server/GithubLoader.html" title="class in com.kamontat.com.kamontat.server"><code>GithubLoader</code></a>,
 <code>Serializable</code>, 
-<a href="../../../com/kamontat/model/management/Cache.html" title="class in com.kamontat.model.management"><code>Cache</code></a>, 
-<a href="../../../com/kamontat/model/encryption/Encryption.html" title="class in com.kamontat.model.encryption"><code>Encryption</code></a>, 
-<a href="../../../serialized-form.html#com.kamontat.server.GithubToken">Serialized Form</a></dd>
+<a href="../../../com/kamontat/com.kamontat.model/management/Cache.html" title="class in com.kamontat.com.kamontat.model.management"><code>Cache</code></a>,
+<a href="../../../com/kamontat/com.kamontat.model/encryption/Encryption.html" title="class in com.kamontat.com.kamontat.model.encryption"><code>Encryption</code></a>,
+<a href="../../../serialized-form.html#com.kamontat.com.kamontat.server.GithubToken">Serialized Form</a></dd>
 </dl>
 </li>
 </ul>
@@ -152,7 +152,7 @@ implements java.io.Serializable</pre>
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#GithubToken-java.lang.String-">GithubToken</a></span>(java.lang.String&nbsp;token)</code>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#GithubToken-java.lang.String-">GithubToken</a></span>(java.lang.String&nbsp;token)</code>
 <div class="block">constructor that will create token by parameter</div>
 </td>
 </tr>
@@ -173,74 +173,74 @@ implements java.io.Serializable</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#getHelp--">getHelp</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#getHelp--">getHelp</a></span>()</code>
 <div class="block">return string how to create new token</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#getToken--">getToken</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#getToken--">getToken</a></span>()</code>
 <div class="block">getLog real token or <b>empty string</b> ("") if it's <b>empty token</b></div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#haveCache--">haveCache</a></span>()</code>
-<div class="block">check is have token cache or not</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#haveCache--">haveCache</a></span>()</code>
+<div class="block">check is have token com.kamontat.cache or not</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#isEmptyToken--">isEmptyToken</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#isEmptyToken--">isEmptyToken</a></span>()</code>
 <div class="block">check is current token is empty or not</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#isTokenValid--">isTokenValid</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#isTokenValid--">isTokenValid</a></span>()</code>
 <div class="block">check is current token valid or not <b>(using internet)</b> <br>
  this method may be slow</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>static <a href="../../../com/kamontat/server/GithubToken.html" title="class in com.kamontat.server">GithubToken</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#loadCache--">loadCache</a></span>()</code>
-<div class="block">load github token from cache file by that must save with option <code>not use password</code></div>
+<td class="colFirst"><code>static <a href="../../../com/kamontat/com.kamontat.server/GithubToken.html" title="class in com.kamontat.com.kamontat.server">GithubToken</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#loadCache--">loadCache</a></span>()</code>
+<div class="block">load github token from com.kamontat.cache file by that must save with option <code>not use password</code></div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><code>static <a href="../../../com/kamontat/server/GithubToken.html" title="class in com.kamontat.server">GithubToken</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#loadCache-java.lang.String-">loadCache</a></span>(java.lang.String&nbsp;password)</code>
-<div class="block">load github token from cache file by using p that create when save cache</div>
+<td class="colFirst"><code>static <a href="../../../com/kamontat/com.kamontat.server/GithubToken.html" title="class in com.kamontat.com.kamontat.server">GithubToken</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#loadCache-java.lang.String-">loadCache</a></span>(java.lang.String&nbsp;password)</code>
+<div class="block">load github token from com.kamontat.cache file by using p that create when save com.kamontat.cache</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#removeCache--">removeCache</a></span>()</code>
-<div class="block">delete token cache if it exist</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#removeCache--">removeCache</a></span>()</code>
+<div class="block">delete token com.kamontat.cache if it exist</div>
 </td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#resetToken--">resetToken</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#resetToken--">resetToken</a></span>()</code>
 <div class="block">reset token to empty</div>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#saveCache--">saveCache</a></span>()</code>
-<div class="block">save current github token into cache file with option <code>not use password</code></div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#saveCache--">saveCache</a></span>()</code>
+<div class="block">save current github token into com.kamontat.cache file with option <code>not use password</code></div>
 </td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#saveCache-java.lang.String-">saveCache</a></span>(java.lang.String&nbsp;password)</code>
-<div class="block">save current github token into cache file</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#saveCache-java.lang.String-">saveCache</a></span>(java.lang.String&nbsp;password)</code>
+<div class="block">save current github token into com.kamontat.cache file</div>
 </td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/server/GithubToken.html#toString--">toString</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../com/kamontat/com.kamontat.server/GithubToken.html#toString--">toString</a></span>()</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -332,7 +332,7 @@ implements java.io.Serializable</pre>
 <li class="blockList">
 <h4>saveCache</h4>
 <pre>public&nbsp;boolean&nbsp;saveCache(java.lang.String&nbsp;password)</pre>
-<div class="block">save current github token into cache file</div>
+<div class="block">save current github token into com.kamontat.cache file</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>password</code> - p that need to decryption later</dd>
@@ -348,7 +348,7 @@ implements java.io.Serializable</pre>
 <li class="blockList">
 <h4>saveCache</h4>
 <pre>public&nbsp;boolean&nbsp;saveCache()</pre>
-<div class="block">save current github token into cache file with option <code>not use password</code></div>
+<div class="block">save current github token into com.kamontat.cache file with option <code>not use password</code></div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if save successfully; false otherwise</dd>
@@ -361,8 +361,8 @@ implements java.io.Serializable</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>loadCache</h4>
-<pre>public static&nbsp;<a href="../../../com/kamontat/server/GithubToken.html" title="class in com.kamontat.server">GithubToken</a>&nbsp;loadCache(java.lang.String&nbsp;password)</pre>
-<div class="block">load github token from cache file by using p that create when save cache</div>
+<pre>public static&nbsp;<a href="../../../com/kamontat/com.kamontat.server/GithubToken.html" title="class in com.kamontat.com.kamontat.server">GithubToken</a>&nbsp;loadCache(java.lang.String&nbsp;password)</pre>
+<div class="block">load github token from com.kamontat.cache file by using p that create when save com.kamontat.cache</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>password</code> - decryption p</dd>
@@ -377,11 +377,11 @@ implements java.io.Serializable</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>loadCache</h4>
-<pre>public static&nbsp;<a href="../../../com/kamontat/server/GithubToken.html" title="class in com.kamontat.server">GithubToken</a>&nbsp;loadCache()</pre>
-<div class="block">load github token from cache file by that must save with option <code>not use password</code></div>
+<pre>public static&nbsp;<a href="../../../com/kamontat/com.kamontat.server/GithubToken.html" title="class in com.kamontat.com.kamontat.server">GithubToken</a>&nbsp;loadCache()</pre>
+<div class="block">load github token from com.kamontat.cache file by that must save with option <code>not use password</code></div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>real token if and only if cache save with option <code>not use password</code>, otherwise return empty token</dd>
+<dd>real token if and only if com.kamontat.cache save with option <code>not use password</code>, otherwise return empty token</dd>
 </dl>
 </li>
 </ul>
@@ -392,7 +392,7 @@ implements java.io.Serializable</pre>
 <li class="blockList">
 <h4>removeCache</h4>
 <pre>public static&nbsp;void&nbsp;removeCache()</pre>
-<div class="block">delete token cache if it exist</div>
+<div class="block">delete token com.kamontat.cache if it exist</div>
 </li>
 </ul>
 <a name="isEmptyToken--">
@@ -416,10 +416,10 @@ implements java.io.Serializable</pre>
 <li class="blockList">
 <h4>haveCache</h4>
 <pre>public static&nbsp;boolean&nbsp;haveCache()</pre>
-<div class="block">check is have token cache or not</div>
+<div class="block">check is have token com.kamontat.cache or not</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>true if have cache, false in otherwise</dd>
+<dd>true if have com.kamontat.cache, false in otherwise</dd>
 </dl>
 </li>
 </ul>
@@ -477,11 +477,11 @@ implements java.io.Serializable</pre>
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../com/kamontat/server/GithubLoader.Type.html" title="enum in com.kamontat.server"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../com/kamontat/server/Update.html" title="class in com.kamontat.server"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../com/kamontat/com.kamontat.server/GithubLoader.Type.html" title="enum in com.kamontat.com.kamontat.server"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../com/kamontat/com.kamontat.server/Update.html" title="class in com.kamontat.com.kamontat.server"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?com/kamontat/server/GithubToken.html" target="_top">Frames</a></li>
+<li><a href="../../../index.html?com/kamontat/com.kamontat.server/GithubToken.html" target="_top">Frames</a></li>
 <li><a href="GithubToken.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_bottom">

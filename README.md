@@ -14,7 +14,7 @@ http://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repos
   - In build commend do a lot of thing;
     1. `clean` - remove old version, to avoid conflicts
     2. `gendocs` - create javadoc in path `docs`
-    3. `genversionclass` - create Version.java inside path `com.kamontat.model.management` that contain version of current program
+    3. `genversionclass` - create Version.java inside path `com.kamontat.com.kamontat.model.management` that contain version of current program
     4. other common commend in build function like `:compileJava`, `:processResources`, `:test` etc.
     5. `info` - to output all information inside this program
     

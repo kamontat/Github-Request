@@ -67,14 +67,16 @@ task gendocs(type: Javadoc) {
 }
 
 // add version class in com.kamontat.model.management call `Version.java`
-task genversionclass {
-    description "add version class in com.kamontat.model.management call `Version.java`"
+task genconfigclass {
+    description "add version class in com.kamontat call `Configuration.java`"
     doFirst {
-        new File("src/main/java/com/kamontat/model/management", "Version.java").write(
-                "package com.kamontat.model.management;\n" +
+        new File("src/main/java/com/kamontat", "Configuration.java").write(
+                "package com.kamontat;\n" +
                         "\n" +
-                        "public class Version {\n" +
-                        "\tpublic static final String VERSION = \"2.2.3\";\n" +
+                        "public class Configuration {\n" +
+                        "\tpublic static final String PROJECT_NAME = \"Github-Request\";\n" +
+                        "\tpublic static final String PROJECT_OWNER = \"kamontat\";\n" +
+                        "\tpublic static final String PROJECT_VERSION = \"2.2.3\";\n" +
                         "}"
         )
     }
@@ -96,7 +98,7 @@ task jarmaker(type: Jar) {
 compileJava.dependsOn clean
 
 build.dependsOn gendocs
-build.dependsOn genversionclass
+build.dependsOn genconfigclass
 jar.finalizedBy jarmaker
 
 build.finalizedBy info
@@ -118,6 +120,8 @@ dependencies {
     compile group: 'com.intellij', name: 'forms_rt', version: '7.0.3'
     // github api
     compile group: 'org.kohsuke', name: 'github-api', version: '1.84'
+    // ok connection
+    compile group: 'com.squareup.okhttp', name: 'okhttp-urlconnection', version: '2.7.5'
     // encryption
     compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
     // google drive api

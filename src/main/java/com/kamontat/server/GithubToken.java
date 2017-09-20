@@ -18,7 +18,7 @@ import java.io.Serializable;
  * <li><code>https://github.com/settings/tokens/new</code> - To generate new token</li>
  * <li><code>https://github.com/settings/tokens</code> - To manage your exist token</li>
  * </ul>
- * and this class also use cache to keep your encrypt token pass using <code>Encryption</code> class
+ * and this class also use com.kamontat.cache to keep your encrypt token pass using <code>Encryption</code> class
  *
  * @author kamontat
  * @version 2.3
@@ -31,7 +31,7 @@ import java.io.Serializable;
 public class GithubToken implements Serializable {
 	// stand for version
 	static final long serialVersionUID = 3L;
-	// default name of cache file
+	// default name of com.kamontat.cache file
 	private static final String FILE_NAME = "Token";
 	// token
 	private String token;
@@ -116,7 +116,7 @@ public class GithubToken implements Serializable {
 	}
 	
 	/**
-	 * save current github token into cache file
+	 * save current github token into com.kamontat.cache file
 	 *
 	 * @param password
 	 * 		p that need to decryption later
@@ -136,7 +136,7 @@ public class GithubToken implements Serializable {
 	}
 	
 	/**
-	 * save current github token into cache file with option <code>not use password</code>
+	 * save current github token into com.kamontat.cache file with option <code>not use password</code>
 	 *
 	 * @return true if save successfully; false otherwise
 	 */
@@ -146,7 +146,7 @@ public class GithubToken implements Serializable {
 	
 	
 	/**
-	 * load github token from cache file by using p that create when save cache
+	 * load github token from com.kamontat.cache file by using p that create when save com.kamontat.cache
 	 *
 	 * @param password
 	 * 		decryption p
@@ -164,16 +164,16 @@ public class GithubToken implements Serializable {
 	}
 	
 	/**
-	 * load github token from cache file by that must save with option <code>not use password</code>
+	 * load github token from com.kamontat.cache file by that must save with option <code>not use password</code>
 	 *
-	 * @return real token if and only if cache save with option <code>not use password</code>, otherwise return empty token
+	 * @return real token if and only if com.kamontat.cache save with option <code>not use password</code>, otherwise return empty token
 	 */
 	public static GithubToken loadCache() {
 		return loadCache("");
 	}
 	
 	/**
-	 * delete token cache if it exist
+	 * delete token com.kamontat.cache if it exist
 	 */
 	public static void removeCache() {
 		if (haveCache()) Cache.loadCache(FILE_NAME).delete();
@@ -189,9 +189,9 @@ public class GithubToken implements Serializable {
 	}
 	
 	/**
-	 * check is have token cache or not
+	 * check is have token com.kamontat.cache or not
 	 *
-	 * @return true if have cache, false in otherwise
+	 * @return true if have com.kamontat.cache, false in otherwise
 	 */
 	public static boolean haveCache() {
 		return Cache.loadCache(FILE_NAME).isExist();

@@ -1,6 +1,7 @@
 package com.kamontat.gui.components;
 
-import javax.swing.*;
+import com.kamontat.model.github.GHAccount;
+
 import java.awt.*;
 
 /**
@@ -8,11 +9,9 @@ import java.awt.*;
  * @version 1.0
  * @since 2/13/2017 AD - 9:21 PM
  */
-public class AccountPanel implements ListCellRenderer {
-	
-	@Override
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-		Panel panel = new Panel();
-		return panel;
+public class AccountPanel extends Panel {
+	public AccountPanel(GHAccount account) {
+		setLayout(new BorderLayout());
+		add(new Label(account.user.getName()), BorderLayout.NORTH);
 	}
 }

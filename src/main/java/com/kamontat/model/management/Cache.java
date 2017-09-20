@@ -7,13 +7,13 @@ import java.io.*;
 /**
  * This class for save the object into file and can restore every time <br>
  * Easy to use and manage <br>
- * 1) call method loadCache(file name) to getLog name of the file cache <br>
+ * 1) call method loadCache(file name) to getLog name of the file com.kamontat.cache <br>
  * 2) and than there have 4 method that you can use it
  * <ol>
  * <li><code>saveToFile(object)</code> - must be sure that <i>object</i> implements <code>Serializable</code>.</li>
  * <li><code>loadFromFile(class)</code> - you can specify return class by pass in parameter.</li>
- * <li><code>isExist()</code> - to check that cache file is exist or not.</li>
- * <li><code>delete()</code> - delete cache file.</li>
+ * <li><code>isExist()</code> - to check that com.kamontat.cache file is exist or not.</li>
+ * <li><code>delete()</code> - delete com.kamontat.cache file.</li>
  * </ol>
  *
  * @author kamontat
@@ -21,19 +21,19 @@ import java.io.*;
  * @since 1/28/2017 AD - 1:04 AM
  */
 public class Cache {
-	// default cache folder
+	// default com.kamontat.cache folder
 	private String path = "caches/";
-	// default cache name
-	private String name = "cache";
-	// cache file
+	// default com.kamontat.cache name
+	private String name = "com.kamontat.cache";
+	// com.kamontat.cache file
 	private File file = new File(path + name);
 	
 	/**
 	 * only this method than can return <code>Cache</code>
-	 * this method will create new cache and name it by parameter
+	 * this method will create new com.kamontat.cache and name it by parameter
 	 *
 	 * @param fileName
-	 * 		cache file name
+	 * 		com.kamontat.cache file name
 	 * @return <code>Cache</code> that you can use later
 	 */
 	public static Cache loadCache(String fileName) {
@@ -88,7 +88,7 @@ public class Cache {
 	 * 		you can getLog class by using <code>.class</code>
 	 * @param <E>
 	 * 		every class in java.
-	 * @return saving object in cache file by from of <code>eClass</code>. <br>
+	 * @return saving object in com.kamontat.cache file by from of <code>eClass</code>. <br>
 	 * or <code>null</code> if
 	 * <ul>
 	 * <li>Class not found.</li>
@@ -113,7 +113,7 @@ public class Cache {
 	}
 	
 	/**
-	 * delete cache file.
+	 * delete com.kamontat.cache file.
 	 *
 	 * @return true if delete completely, otherwise return false.
 	 */
@@ -122,7 +122,7 @@ public class Cache {
 	}
 	
 	/**
-	 * check is cache file exist or not.
+	 * check is com.kamontat.cache file exist or not.
 	 *
 	 * @return true if exist, otherwise return false.
 	 */
@@ -147,14 +147,14 @@ public class Cache {
 		// if don't have folder
 		if (!f.exists()) {
 			if (f.mkdir()) {
-				System.out.println("create folder cache");
+				System.out.println("create folder com.kamontat.cache");
 			}
 		}
 		// if not folder
 		if (!f.isDirectory()) {
 			if (f.delete()) {
 				if (f.mkdir()) {
-					System.out.println("create folder cache");
+					System.out.println("create folder com.kamontat.cache");
 				}
 			}
 		}

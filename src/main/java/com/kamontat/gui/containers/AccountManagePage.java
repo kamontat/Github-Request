@@ -2,9 +2,12 @@ package com.kamontat.gui.containers;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.kamontat.exception.RequestException;
+import com.kamontat.gui.components.AccountPanel;
 import com.kamontat.model.github.GHAccount;
 import com.kamontat.model.management.Location;
 import com.kamontat.model.management.Size;
+import com.kamontat.server.GithubLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,11 +23,14 @@ import static javax.swing.SwingUtilities.invokeLater;
 public class AccountManagePage extends JFrame {
 	private ArrayList<GHAccount> accounts;
 	private JPanel panel1;
-	private JList list;
+	private JScrollPane scrollPane;
 	
 	public AccountManagePage(ArrayList<GHAccount> accounts) {
+		super("Account Manage Page");
 		this.accounts = accounts;
-		
+		for (GHAccount account : accounts) {
+			scrollPane.add(new AccountPanel(account));
+		}
 	}
 	
 	private void compile(Window oldPage) {
@@ -41,6 +47,23 @@ public class AccountManagePage extends JFrame {
 				new AccountManagePage(accounts).compile(old);
 			}
 		});
+	}
+	
+	/**
+	 * testing this gui
+	 *
+	 * @param args
+	 * 		none used
+	 */
+	public static void main(String[] args) {
+		ArrayList<GHAccount> accounts = new ArrayList<>();
+		try {
+			accounts.add(new GHAccount(GithubLoader.getGithubLoader().getUser("kamontat")));
+		} catch (RequestException e) {
+			e.printStackTrace();
+		}
+		
+		AccountManagePage.run(null, accounts);
 	}
 	
 	{
@@ -60,10 +83,8 @@ public class AccountManagePage extends JFrame {
 	private void $$$setupUI$$$() {
 		panel1 = new JPanel();
 		panel1.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-		final JScrollPane scrollPane1 = new JScrollPane();
-		panel1.add(scrollPane1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-		list = new JList();
-		scrollPane1.setViewportView(list);
+		scrollPane = new JScrollPane();
+		panel1.add(scrollPane, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
 	}
 	
 	/**

@@ -63,7 +63,7 @@ public class LoginPage extends JFrame {
 		final JTextArea textArea1 = new JTextArea();
 		textArea1.setEditable(false);
 		textArea1.setLineWrap(true);
-		textArea1.setText("What is Token\n    Normally when you need to login, you need to enter username and password but when this program need to  authentication you to the server, I choose token to recognize you. \nHow to get Token\n    you can get your token by login your github\n    - `https://github.com/settings/tokens/new` To generate new token\n    - `https://github.com/settings/tokens` To manage your exist token");
+		textArea1.setText("What is Token\n    Normally when you need to login, you need to enter username and password but when this program need to  authentication you to the com.kamontat.server, I choose token to recognize you. \nHow to get Token\n    you can get your token by login your github\n    - `https://github.com/settings/tokens/new` To generate new token\n    - `https://github.com/settings/tokens` To manage your exist token");
 		textArea1.setWrapStyleWord(true);
 		scrollPane1.setViewportView(textArea1);
 		final JPanel panel3 = new JPanel();
@@ -122,9 +122,9 @@ public class LoginPage extends JFrame {
 		settingMenu.addMenuUpdateListener(new MenuUpdateListener() {
 			@Override
 			public void updateTitle(MenuEvent e) {
-				// load cache
+				// load com.kamontat.cache
 				if (GithubToken.haveCache() && !settingMenu.isContain(LoadCache.name)) {
-					// loading cache
+					// loading com.kamontat.cache
 					settingMenu.addItem(new LoadCache());
 				}
 			}
@@ -188,7 +188,7 @@ public class LoginPage extends JFrame {
 			if (!t.isEmptyToken()) {
 				GithubLoader.setAuth(t);
 				loginSuccess();
-				// remove cache
+				// remove com.kamontat.cache
 			} else {
 				GithubToken.removeCache();
 				
@@ -199,7 +199,7 @@ public class LoginPage extends JFrame {
 	}
 	
 	/**
-	 * this method will try to loading cache with no password.
+	 * this method will try to loading com.kamontat.cache with no password.
 	 *
 	 * @return true if loading successfully, false in otherwise
 	 */
